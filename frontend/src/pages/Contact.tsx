@@ -109,23 +109,23 @@ const Contact = () => {
                   <div>
                     <h3 className="font-medium text-gray-800">Our Location</h3>
                     <p className="text-gray-600">
-                      123 Branding Street, Suite 456
+                      123 Kocha, Suite 456
                     </p>
-                    <p className="text-gray-600">San Francisco, CA 94103</p>
+                    <p className="text-gray-600">Nairobi,Kenya</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Phone className="text-brand-blue mt-1 mr-3 h-5 w-5" />
                   <div>
                     <h3 className="font-medium text-gray-800">Phone</h3>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                    <p className="text-gray-600">+254 (7) 123-4567</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Mail className="text-brand-blue mt-1 mr-3 h-5 w-5" />
                   <div>
                     <h3 className="font-medium text-gray-800">Email</h3>
-                    <p className="text-gray-600">info@brandifyshop.com</p>
+                    <p className="text-gray-600">info@ausarcreative.com</p>
                   </div>
                 </div>
               </div>

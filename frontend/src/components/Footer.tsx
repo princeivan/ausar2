@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -197,29 +196,29 @@ const Footer = () => {
         <div className="border-t border-gray-700 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              &copy; {new Date().getFullYear()} BrandifyShop. All rights
+              &copy; {new Date().getFullYear()} Ausar Creative. All rights
               reserved.
             </p>
             <div className="mt-4 md:mt-0 flex items-center space-x-4">
               <img
-                src="https://via.placeholder.com/40x25"
+                src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg"
                 alt="Visa"
-                className="h-6"
+                className="h-5"
               />
               <img
-                src="https://via.placeholder.com/40x25"
+                src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
                 alt="Mastercard"
-                className="h-6"
+                className="h-7"
               />
               <img
-                src="https://via.placeholder.com/40x25"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/124px-PayPal.svg.png"
                 alt="PayPal"
-                className="h-6"
+                className="h-5"
               />
               <img
-                src="https://via.placeholder.com/40x25"
+                src="https://upload.wikimedia.org/wikipedia/commons/1/15/M-PESA_LOGO-01.svg"
                 alt="M-Pesa"
-                className="h-6"
+                className="h-9"
               />
             </div>
           </div>

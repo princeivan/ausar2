@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useStore } from "../context/StoreContext";
 import ProductCard from "../components/ProductCard";
 import { Input } from "../components/ui/input";
@@ -7,9 +7,18 @@ import { Slider } from "../components/ui/slider";
 import { Checkbox } from "../components/ui/checkbox";
 import { Button } from "../components/ui/button";
 import { Search, SlidersHorizontal, X } from "lucide-react";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "../components/ui/pagination";
+import { toast } from "sonner";
 
 const Products = () => {
-  const { products, loading } = useStore();
+  const { products, loading, pagination, fetchProducts } = useStore();
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [searchTerm, setSearchTerm] = useState("");
   const [priceRange, setPriceRange] = useState([0, 2000]);
@@ -17,48 +26,79 @@ const Products = () => {
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
 
-  // Get unique categories and brands
-  const categories = [...new Set(products.map((product) => product.category))];
-  const brands = [...new Set(products.map((product) => product.brand))];
+  const categories = [
+    ...new Set(
+      products.map((product) => product.category?.name).filter(Boolean)
+    ),
+  ];
+  const brands = [
+    ...new Set(products.map((product) => product.brand).filter(Boolean)),
+  ];
 
-  // Filter products based on search, price, category, and brand
+  // Apply filters whenever products or filter criteria change
   useEffect(() => {
-    let result = products;
+    let result = [...products];
 
-    // Search filter
     if (searchTerm) {
       result = result.filter(
         (product) =>
-          product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          false ||
           product.description
-            .toLowerCase()
+            ?.toLowerCase()
             .includes(searchTerm.toLowerCase()) ||
-          product.brand.toLowerCase().includes(searchTerm.toLowerCase())
+          false ||
+          product.brand?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          false
       );
     }
 
-    // Price filter
-    result = result.filter(
-      (product) =>
-        product.price >= priceRange[0] && product.price <= priceRange[1]
-    );
+    // Filter by price (convert string price to number)
+    result = result.filter((product) => {
+      const price = parseFloat(product.new_price);
+      return price >= priceRange[0] && price <= priceRange[1];
+    });
 
-    // Category filter
     if (selectedCategories.length > 0) {
-      result = result.filter((product) =>
-        selectedCategories.includes(product.category)
+      result = result.filter(
+        (product) =>
+          product.category && selectedCategories.includes(product.category.name)
       );
     }
 
-    // Brand filter
     if (selectedBrands.length > 0) {
-      result = result.filter((product) =>
-        selectedBrands.includes(product.brand)
+      result = result.filter(
+        (product) => product.brand && selectedBrands.includes(product.brand)
       );
     }
 
     setFilteredProducts(result);
   }, [products, searchTerm, priceRange, selectedCategories, selectedBrands]);
+
+  // Handle pagination
+  const handleNextPage = () => {
+    if (pagination.hasNext) {
+      fetchProducts(pagination.currentPage + 1).catch((err) => {
+        toast.error("Failed to fetch next page", err);
+      });
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (pagination.hasPrevious) {
+      fetchProducts(pagination.currentPage - 1).catch((err) => {
+        toast.error("Failed to fetch previous page", err);
+      });
+    }
+  };
+
+  const handlePageChange = (pageNumber: number) => {
+    if (pageNumber >= 1 && pageNumber <= pagination.totalPages) {
+      fetchProducts(pageNumber).catch((err) => {
+        toast.error("Failed to fetch the page", err);
+      });
+    }
+  };
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategories((prev) =>
@@ -81,7 +121,7 @@ const Products = () => {
     setSelectedBrands([]);
   };
 
-  if (loading) {
+  if (loading && pagination.currentPage === 1) {
     return (
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-6">Products</h1>
@@ -129,7 +169,6 @@ const Products = () => {
       </div>
 
       <div className="flex flex-col md:flex-row gap-6">
-        {/* Filters - Mobile */}
         {showFilters && (
           <div className="md:hidden fixed inset-0 bg-white z-50 overflow-auto p-4">
             <div className="flex justify-between items-center mb-4">
@@ -143,7 +182,6 @@ const Products = () => {
               </Button>
             </div>
             <div className="space-y-6">
-              {/* Price Range */}
               <div>
                 <h3 className="font-medium mb-3">Price Range</h3>
                 <div className="px-2">
@@ -158,12 +196,11 @@ const Products = () => {
                   />
                 </div>
                 <div className="flex justify-between mt-2 text-sm text-gray-500">
-                  <span>${priceRange[0]}</span>
-                  <span>${priceRange[1]}</span>
+                  <span>Ksh {priceRange[0]}</span>
+                  <span>Ksh {priceRange[1]}</span>
                 </div>
               </div>
 
-              {/* Categories */}
               <div>
                 <h3 className="font-medium mb-3">Categories</h3>
                 <div className="space-y-2">
@@ -185,7 +222,6 @@ const Products = () => {
                 </div>
               </div>
 
-              {/* Brands */}
               <div>
                 <h3 className="font-medium mb-3">Brands</h3>
                 <div className="space-y-2">
@@ -222,13 +258,11 @@ const Products = () => {
           </div>
         )}
 
-        {/* Filters - Desktop */}
         <div className="hidden md:block w-64 shrink-0">
           <div className="bg-white rounded-lg border border-gray-200 p-4 sticky top-20">
             <h2 className="text-lg font-semibold mb-4">Filters</h2>
 
             <div className="space-y-6">
-              {/* Price Range */}
               <div>
                 <h3 className="font-medium mb-3">Price Range</h3>
                 <div className="px-2">
@@ -248,7 +282,6 @@ const Products = () => {
                 </div>
               </div>
 
-              {/* Categories */}
               <div>
                 <h3 className="font-medium mb-3">Categories</h3>
                 <div className="space-y-2">
@@ -270,7 +303,6 @@ const Products = () => {
                 </div>
               </div>
 
-              {/* Brands */}
               <div>
                 <h3 className="font-medium mb-3">Brands</h3>
                 <div className="space-y-2 max-h-40 overflow-y-auto">
@@ -303,7 +335,6 @@ const Products = () => {
           </div>
         </div>
 
-        {/* Product Grid */}
         <div className="flex-1">
           {filteredProducts.length === 0 ? (
             <div className="text-center py-12">
@@ -319,10 +350,81 @@ const Products = () => {
                 {filteredProducts.length} products found
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
+                {loading
+                  ? // Show skeleton loading states when fetching more pages
+                    [...Array(9)].map((_, index) => (
+                      <div
+                        key={index}
+                        className="bg-gray-100 rounded-lg p-4 h-80 animate-pulse"
+                      >
+                        <div className="bg-gray-200 h-40 rounded-md mb-4"></div>
+                        <div className="bg-gray-200 h-4 rounded-md mb-2 w-3/4"></div>
+                        <div className="bg-gray-200 h-4 rounded-md mb-4 w-1/2"></div>
+                        <div className="bg-gray-200 h-10 rounded-md w-full mt-auto"></div>
+                      </div>
+                    ))
+                  : filteredProducts.map((product) => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
               </div>
+
+              {pagination.totalPages > 1 && (
+                <Pagination className="mt-8">
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious
+                        onClick={handlePrevPage}
+                        className={
+                          !pagination.hasPrevious
+                            ? "pointer-events-none opacity-50"
+                            : "cursor-pointer"
+                        }
+                      />
+                    </PaginationItem>
+
+                    {Array.from({
+                      length: Math.min(5, pagination.totalPages),
+                    }).map((_, i) => {
+                      // Logic to show current page and adjacent pages
+                      let pageNumber;
+                      if (pagination.totalPages <= 5) {
+                        pageNumber = i + 1;
+                      } else if (pagination.currentPage <= 3) {
+                        pageNumber = i + 1;
+                      } else if (
+                        pagination.currentPage >=
+                        pagination.totalPages - 2
+                      ) {
+                        pageNumber = pagination.totalPages - 4 + i;
+                      } else {
+                        pageNumber = pagination.currentPage - 2 + i;
+                      }
+
+                      return (
+                        <PaginationItem key={i}>
+                          <PaginationLink
+                            isActive={pagination.currentPage === pageNumber}
+                            onClick={() => handlePageChange(pageNumber)}
+                          >
+                            {pageNumber}
+                          </PaginationLink>
+                        </PaginationItem>
+                      );
+                    })}
+
+                    <PaginationItem>
+                      <PaginationNext
+                        onClick={handleNextPage}
+                        className={
+                          !pagination.hasNext
+                            ? "pointer-events-none opacity-50"
+                            : "cursor-pointer"
+                        }
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+              )}
             </>
           )}
         </div>

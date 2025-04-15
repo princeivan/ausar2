@@ -16,6 +16,8 @@ const Account = () => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("profile");
 
+  
+
   const handleLogout = () => {
     toast({
       title: "Logged out",

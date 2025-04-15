@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useStore } from "../context/StoreContext";
 import ProductCard from "./ProductCard";
@@ -13,16 +12,16 @@ const FeaturedProducts = () => {
           <h2 className="text-3xl font-bold mb-2">Featured Products</h2>
           <div className="h-1 w-20 bg-brand-blue mx-auto"></div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[...Array(6)].map((_, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[...Array(8)].map((_, index) => (
             <div
               key={index}
-              className="bg-gray-100 rounded-lg p-4 h-80 animate-pulse"
+              className="bg-gray-100 rounded-lg p-3 h-64 animate-pulse"
             >
-              <div className="bg-gray-200 h-40 rounded-md mb-4"></div>
+              <div className="bg-gray-200 h-32 rounded-md mb-2"></div>
               <div className="bg-gray-200 h-4 rounded-md mb-2 w-3/4"></div>
-              <div className="bg-gray-200 h-4 rounded-md mb-4 w-1/2"></div>
-              <div className="bg-gray-200 h-10 rounded-md w-full mt-auto"></div>
+              <div className="bg-gray-200 h-4 rounded-md mb-2 w-1/2"></div>
+              <div className="bg-gray-200 h-8 rounded-md w-full mt-auto"></div>
             </div>
           ))}
         </div>
@@ -41,16 +40,16 @@ const FeaturedProducts = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {featuredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
 
-      <div className="text-center mt-10">
+      <div className="text-center mt-8">
         <Link
           to="/products"
-          className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-brand-blue hover:bg-brand-darkBlue transition-colors"
+          className="inline-flex items-center justify-center px-5 py-2 border border-transparent text-base font-medium rounded-md text-white bg-brand-blue hover:bg-brand-darkBlue transition-colors"
         >
           View All Products
         </Link>

@@ -1,15 +1,32 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Checkbox } from "../components/ui/checkbox";
 import { toast } from "sonner";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../constants";
+import api from "../../api";
+import { jwtDecode } from "jwt-decode";
 
+interface jwtPayload {
+  is_admin: boolean;
+  user_id: string;
+}
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userInfo = localStorage.getItem("userInfo");
+    if (userInfo) {
+      // Redirect to home page if already logged in
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,20 +38,34 @@ const Login = () => {
 
     setLoading(true);
 
-    // Simulate authentication
-    setTimeout(() => {
-      // For demo purpose, let's use admin@example.com/password for admin access
-      if (email === "admin@example.com" && password === "password") {
+    try {
+      const res = await api.post("/api/token/", { email, password });
+
+      const accessToken = res.data.access;
+      const refreshToken = res.data.refresh;
+      localStorage.setItem(ACCESS_TOKEN, accessToken);
+      localStorage.setItem(REFRESH_TOKEN, refreshToken);
+
+      const decoded = jwtDecode<jwtPayload>(accessToken);
+
+      if (decoded.is_admin) {
+        const userInfo = { email, role: "admin" };
+        localStorage.setItem("userInfo", JSON.stringify(userInfo));
         toast.success("Logged in successfully as admin");
-        window.location.href = "/admin/dashboard";
-      } else if (email === "user@example.com" && password === "password") {
-        toast.success("Logged in successfully");
-        window.location.href = "/";
+        navigate("/");
       } else {
-        toast.error("Invalid credentials");
+        const userInfo = { email, role: "user" };
+        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        toast.success("Logged in successfully");
+        navigate("/");
       }
+    } catch (error) {
+      toast.error(
+        "Failed to login. Please check your credentials and try again."
+      );
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -83,7 +114,7 @@ const Login = () => {
               <Input
                 id="password"
                 type="password"
-                placeholder="••••••••"
+                placeholder="Enter your password"
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -106,7 +137,7 @@ const Login = () => {
             {loading ? "Signing in..." : "Sign in"}
           </Button>
 
-          <div className="text-center text-sm">
+          {/* <div className="text-center text-sm">
             <p className="mt-2 text-gray-600">
               Demo accounts: <br />
               <span className="font-medium">Admin:</span> admin@example.com /
@@ -114,7 +145,7 @@ const Login = () => {
               <span className="font-medium">User:</span> user@example.com /
               password
             </p>
-          </div>
+          </div> */}
         </form>
       </div>
     </div>

@@ -1,19 +1,36 @@
-
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import api from "../../api";
 
 // Define types
-export type Product = {
+export type Category = {
   id: number;
+  name: string;
+};
+
+export type Product = {
+  id: string;
   title: string;
   description: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
+  image: string;
   brand: string;
-  category: string;
-  thumbnail: string;
-  images: string[];
+  category: Category;
+  rating: number;
+  numReviews: number;
+  countInStock: number;
+  new_price: string;
+  old_price: string | null;
+  specs: Record<string, any>;
+  best_seller: boolean;
+  flash_sale: boolean;
+  flash_sale_price: string | null;
+  flash_sale_end: string | null;
+  Date_added: string;
 };
 
 type CartItem = {
@@ -22,68 +39,124 @@ type CartItem = {
   customization?: string;
 };
 
+type PaginatedResponse = {
+  total_items: number;
+  total_pages: number;
+  current_page: number;
+  next: string | null;
+  previous: string | null;
+  data: Product[];
+};
+
 type StoreContextType = {
   products: Product[];
   featuredProducts: Product[];
   cartItems: CartItem[];
   loading: boolean;
   error: string | null;
-  addToCart: (product: Product, quantity: number, customization?: string) => void;
-  removeFromCart: (productId: number) => void;
-  updateCartItemQuantity: (productId: number, quantity: number) => void;
+  pagination: {
+    totalItems: number;
+    totalPages: number;
+    currentPage: number;
+    hasNext: boolean;
+    hasPrevious: boolean;
+  };
+  fetchProducts: (page?: number) => Promise<void>;
+  addToCart: (
+    product: Product,
+    quantity: number,
+    customization?: string
+  ) => void;
+  removeFromCart: (productId: string) => void;
+  updateCartItemQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
-  getProductById: (id: number) => Product | undefined;
-  getProductsByCategory: (category: string) => Product[];
+  getProductById: (id: string) => Product | undefined;
+  getProductsByCategory: (categoryName: string) => Product[];
 };
 
 // Create context
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
 // Context provider component
-export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const StoreProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+  const [category, setCategory] = useState<Category[]>([]);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [pagination, setPagination] = useState({
+    totalItems: 0,
+    totalPages: 1,
+    currentPage: 1,
+    hasNext: false,
+    hasPrevious: false,
+  });
 
   // Fetch products from dummy API
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('https://dummyjson.com/products');
-        if (!response.ok) {
-          throw new Error('Failed to fetch products');
-        }
-        const data = await response.json();
-        setProducts(data.products);
-        
-        // Set first 6 products as featured
-        setFeaturedProducts(data.products.slice(0, 6));
-        setLoading(false);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
-        setLoading(false);
-      }
-    };
-
     fetchProducts();
+    fetchCategories();
   }, []);
 
+  const fetchProducts = async (query: string = "", page: number = 1) => {
+    setLoading(true);
+    api
+      .get(`/api/products/?query=${query}&page=${page}`)
+      .then((res) => res.data)
+      .then((data) => {
+        setProducts(data.data);
+
+        const bestSellers = data.data.filter(
+          (product: Product) => product.best_seller
+        );
+        if (bestSellers.length > 0) {
+          setFeaturedProducts(bestSellers);
+        }
+        setPagination({
+          totalItems: data.total_items,
+          totalPages: data.total_pages,
+          currentPage: data.current_page,
+          hasNext: !!data.next,
+          hasPrevious: !!data.previous,
+        });
+        setLoading(false);
+      })
+      .catch((err) =>
+        setError(err instanceof Error ? err.message : "An error occurred")
+      );
+  };
+  const fetchCategories = async () => {
+    api
+      .get("/api/categories/")
+      .then((res) => res.data)
+      .then((data) => {
+        setCategory(data);
+      });
+  };
+
   // Cart functions
-  const addToCart = (product: Product, quantity: number, customization?: string) => {
-    setCartItems(prevItems => {
+  const addToCart = (
+    product: Product,
+    quantity: number,
+    customization?: string
+  ) => {
+    setCartItems((prevItems) => {
       // Check if item already exists in cart
-      const existingItemIndex = prevItems.findIndex(item => item.product.id === product.id);
-      
+      const existingItemIndex = prevItems.findIndex(
+        (item) => item.product.id === product.id
+      );
+
       if (existingItemIndex !== -1) {
         // Update existing item
         const updatedItems = [...prevItems];
         updatedItems[existingItemIndex] = {
           ...updatedItems[existingItemIndex],
           quantity: updatedItems[existingItemIndex].quantity + quantity,
-          customization: customization || updatedItems[existingItemIndex].customization
+          customization:
+            customization || updatedItems[existingItemIndex].customization,
         };
         return updatedItems;
       } else {
@@ -93,16 +166,16 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     });
   };
 
-  const removeFromCart = (productId: number) => {
-    setCartItems(prevItems => prevItems.filter(item => item.product.id !== productId));
+  const removeFromCart = (productId: string) => {
+    setCartItems((prevItems) =>
+      prevItems.filter((item) => item.product.id !== productId)
+    );
   };
 
-  const updateCartItemQuantity = (productId: number, quantity: number) => {
-    setCartItems(prevItems => 
-      prevItems.map(item => 
-        item.product.id === productId 
-          ? { ...item, quantity } 
-          : item
+  const updateCartItemQuantity = (productId: string, quantity: number) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.product.id === productId ? { ...item, quantity } : item
       )
     );
   };
@@ -112,12 +185,14 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   // Product utility functions
-  const getProductById = (id: number) => {
-    return products.find(product => product.id === id);
+  const getProductById = (id: string) => {
+    return products.find((product) => product.id === id);
   };
 
-  const getProductsByCategory = (category: string) => {
-    return products.filter(product => product.category === category);
+  const getProductsByCategory = (categoryName: string) => {
+    return products.filter(
+      (product) => product.category?.name === categoryName
+    );
   };
 
   // Context value
@@ -127,22 +202,27 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     cartItems,
     loading,
     error,
+    pagination,
+    category,
+    fetchProducts,
     addToCart,
     removeFromCart,
     updateCartItemQuantity,
     clearCart,
     getProductById,
-    getProductsByCategory
+    getProductsByCategory,
   };
 
-  return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
+  return (
+    <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
+  );
 };
 
 // Custom hook to use the store context
 export const useStore = () => {
   const context = useContext(StoreContext);
   if (context === undefined) {
-    throw new Error('useStore must be used within a StoreProvider');
+    throw new Error("useStore must be used within a StoreProvider");
   }
   return context;
 };

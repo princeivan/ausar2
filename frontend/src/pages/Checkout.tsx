@@ -36,11 +36,15 @@ const Checkout = () => {
     specialInstructions: "",
   });
 
+  const [paymentDetails, setPaymentDetails] = useState({
+    mpesaPhone: "",
+    cardNumber: "",
+    cardExpiry: "",
+    cardCvc: "",
+  });
+
   const subtotal = cartItems.reduce((total, item) => {
-    const discountedPrice =
-      item.product.price -
-      (item.product.price * item.product.discountPercentage) / 100;
-    return total + discountedPrice * item.quantity;
+    return total + parseFloat(item.product.new_price) * item.quantity;
   }, 0);
 
   const shippingCost = subtotal > 0 ? 15 : 0;
@@ -57,18 +61,52 @@ const Checkout = () => {
     });
   };
 
-  const handleRadioChange = (value: string) => {
+  const handlePaymentMethodChange = (value: string) => {
     setFormData({
       ...formData,
       paymentMethod: value,
     });
   };
 
+  const handlePaymentDetailChange = (field: string, value: string) => {
+    setPaymentDetails({
+      ...paymentDetails,
+      [field]: value,
+    });
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // In a real app, this would process the order
+    // Validate payment details based on selected payment method
+    if (formData.paymentMethod === "mpesa" && !paymentDetails.mpesaPhone) {
+      toast.error("Please enter your M-Pesa phone number");
+      return;
+    }
+
+    if (formData.paymentMethod === "stripe") {
+      if (
+        !paymentDetails.cardNumber ||
+        !paymentDetails.cardExpiry ||
+        !paymentDetails.cardCvc
+      ) {
+        toast.error("Please complete all card details");
+        return;
+      }
+    }
+
+    // In a real app, this would process the order with the payment details
     toast.success("Order placed successfully!");
+
+    // Show a toast with different messages based on payment method
+    if (formData.paymentMethod === "mpesa") {
+      toast.info(
+        `Check your phone ${paymentDetails.mpesaPhone} for STK push to complete payment`
+      );
+    } else if (formData.paymentMethod === "paypal") {
+      toast.info("Redirecting to PayPal...");
+    }
+
     clearCart();
     navigate("/account", { state: { orderPlaced: true } });
   };
@@ -121,10 +159,7 @@ const Checkout = () => {
                 <div className="space-y-4">
                   {cartItems.map((item) => {
                     const { product, quantity, customization } = item;
-                    const discountedPrice = Math.round(
-                      product.price -
-                        (product.price * product.discountPercentage) / 100
-                    );
+                    const price = parseFloat(product.new_price);
 
                     return (
                       <div
@@ -133,7 +168,7 @@ const Checkout = () => {
                       >
                         <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden mr-4 shrink-0">
                           <img
-                            src={product.thumbnail}
+                            src={product.image}
                             alt={product.title}
                             className="w-full h-full object-cover"
                           />
@@ -142,7 +177,7 @@ const Checkout = () => {
                           <div className="flex justify-between">
                             <h3 className="font-medium">{product.title}</h3>
                             <span className="font-medium">
-                              ${(discountedPrice * quantity).toFixed(2)}
+                              Ksh {(price * quantity).toFixed(2)}
                             </span>
                           </div>
                           <div className="text-sm text-gray-500">
@@ -315,7 +350,9 @@ const Checkout = () => {
 
                 <PaymentMethods
                   selectedMethod={formData.paymentMethod}
-                  onChange={handleRadioChange}
+                  onChange={handlePaymentMethodChange}
+                  paymentDetails={paymentDetails}
+                  onPaymentDetailChange={handlePaymentDetailChange}
                 />
 
                 <div className="mt-6 p-4 bg-gray-50 rounded-lg">
@@ -358,20 +395,20 @@ const Checkout = () => {
             <div className="space-y-3 mb-6">
               <div className="flex justify-between">
                 <span className="text-gray-600">Subtotal</span>
-                <span className="font-medium">${subtotal.toFixed(2)}</span>
+                <span className="font-medium">Ksh {subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Shipping</span>
-                <span className="font-medium">${shippingCost.toFixed(2)}</span>
+                <span className="font-medium">Ksh {shippingCost.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Tax</span>
-                <span className="font-medium">${tax.toFixed(2)}</span>
+                <span className="font-medium">Ksh {tax.toFixed(2)}</span>
               </div>
               <Separator />
               <div className="flex justify-between">
                 <span className="font-bold">Total</span>
-                <span className="font-bold">${total.toFixed(2)}</span>
+                <span className="font-bold">Ksh {total.toFixed(2)}</span>
               </div>
             </div>
 

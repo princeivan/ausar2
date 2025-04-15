@@ -1,5 +1,3 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -13,8 +11,6 @@ import {
   Users,
   Package,
   BarChart3,
-  ShoppingCart,
-  Clock,
   TrendingUp,
 } from "lucide-react";
 import {
@@ -25,12 +21,11 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  BarChart,
-  Bar,
   PieChart,
   Pie,
   Cell,
 } from "recharts";
+import AdminLayout from "../../components/admin/AdminLayout";
 
 // Sample data for charts
 const salesData = [
@@ -101,9 +96,9 @@ const COLORS = [
 
 const Dashboard = () => {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <AdminLayout>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-        <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+        <h1 className="text-3xl font-bold">Dashboard Overview</h1>
         <div className="flex space-x-2 mt-4 md:mt-0">
           <Button>
             <Package className="mr-2 h-4 w-4" /> Add Product
@@ -325,7 +320,7 @@ const Dashboard = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </AdminLayout>
   );
 };
 

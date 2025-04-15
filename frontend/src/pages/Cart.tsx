@@ -10,11 +10,11 @@ const Cart = () => {
   const { cartItems, updateCartItemQuantity, removeFromCart, clearCart } =
     useStore();
   const navigate = useNavigate();
-
+  let discountPercentage = 5;
   const subtotal = cartItems.reduce((total, item) => {
     const discountedPrice =
-      item.product.price -
-      (item.product.price * item.product.discountPercentage) / 100;
+      parseFloat(item.product.new_price) -
+      (parseFloat(item.product.new_price) * discountPercentage) / 100;
     return total + discountedPrice * item.quantity;
   }, 0);
 
@@ -72,8 +72,8 @@ const Cart = () => {
             {cartItems.map((item) => {
               const { product, quantity, customization } = item;
               const discountedPrice = Math.round(
-                product.price -
-                  (product.price * product.discountPercentage) / 100
+                parseFloat(product.new_price) -
+                  (parseFloat(product.new_price) * discountPercentage) / 100
               );
 
               return (
@@ -95,14 +95,14 @@ const Cart = () => {
                     <div className="md:col-span-6 flex items-center">
                       <div className="w-20 h-20 bg-gray-100 rounded-md overflow-hidden mr-4 shrink-0">
                         <img
-                          src={product.thumbnail}
+                          src={product.image}
                           alt={product.title}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-fit"
                         />
                       </div>
                       <div>
                         <Link
-                          to={`/products/${product.id}`}
+                          to={`/products/Ksh {product.id}`}
                           className="font-medium text-gray-900 hover:text-brand-blue transition-colors"
                         >
                           {product.title}
@@ -123,10 +123,10 @@ const Cart = () => {
                       <span className="text-sm text-gray-500 mr-2 md:hidden">
                         Price:
                       </span>
-                      <span className="font-medium">${discountedPrice}</span>
-                      {product.discountPercentage > 0 && (
+                      <span className="font-medium">Ksh {discountedPrice}</span>
+                      {discountPercentage > 0 && (
                         <div className="text-xs text-gray-500 line-through">
-                          ${product.price}
+                          Ksh {product.new_price}
                         </div>
                       )}
                     </div>
@@ -157,7 +157,7 @@ const Cart = () => {
                           onClick={() =>
                             handleUpdateQuantity(product.id, quantity + 1)
                           }
-                          disabled={quantity >= product.stock}
+                          disabled={quantity >= product.countInStock}
                           className="h-8 w-8 rounded-none"
                         >
                           <Plus className="h-3 w-3" />
@@ -171,7 +171,7 @@ const Cart = () => {
                         Subtotal:
                       </span>
                       <span className="font-medium">
-                        ${(discountedPrice * quantity).toFixed(2)}
+                        Ksh {(discountedPrice * quantity).toFixed(2)}
                       </span>
 
                       {/* Desktop Remove Button */}
@@ -213,20 +213,20 @@ const Cart = () => {
             <div className="space-y-3 mb-6">
               <div className="flex justify-between">
                 <span className="text-gray-600">Subtotal</span>
-                <span className="font-medium">${subtotal.toFixed(2)}</span>
+                <span className="font-medium">Ksh {subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Shipping</span>
-                <span className="font-medium">${shippingCost.toFixed(2)}</span>
+                <span className="font-medium">Ksh {shippingCost.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Tax</span>
-                <span className="font-medium">${tax.toFixed(2)}</span>
+                <span className="font-medium">Ksh {tax.toFixed(2)}</span>
               </div>
               <Separator />
               <div className="flex justify-between">
                 <span className="font-bold">Total</span>
-                <span className="font-bold">${total.toFixed(2)}</span>
+                <span className="font-bold">Ksh {total.toFixed(2)}</span>
               </div>
             </div>
 

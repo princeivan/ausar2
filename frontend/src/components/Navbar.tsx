@@ -1,18 +1,46 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { ShoppingCart, User, Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ShoppingCart, User, Menu, X, LogIn, LogOut } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { useStore } from "../context/StoreContext";
-import logo from "../assets/logo.png";
+import { toast } from "sonner";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../constants";
 
 const Navbar = () => {
   const { cartItems } = useStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  // Check login status on component mount
+  useEffect(() => {
+    // Check if user is logged in from localStorage
+    const userInfo = localStorage.getItem("userInfo");
+    if (userInfo) {
+      const user = JSON.parse(userInfo);
+      setIsLoggedIn(true);
+      setUserRole(user.role);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   const totalItems = cartItems.reduce(
     (total, item) => total + item.quantity,
     0
   );
+
+  const handleLogout = () => {
+    // Clear user data from localStorage
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(REFRESH_TOKEN);
+    setIsLoggedIn(false);
+    setUserRole(null);
+    toast.success("Logged out successfully");
+    navigate("/");
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
@@ -51,11 +79,14 @@ const Navbar = () => {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center space-x-4">
-          <Link to="/account">
-            <Button variant="ghost" size="icon" aria-label="Account">
-              <User className="h-5 w-5" />
-            </Button>
-          </Link>
+          {isLoggedIn && (
+            <Link to="/account">
+              <Button variant="ghost" size="icon" aria-label="Account">
+                <User className="h-5 w-5" />
+              </Button>
+            </Link>
+          )}
+
           <Link to="/cart" className="relative">
             <Button variant="ghost" size="icon" aria-label="Cart">
               <ShoppingCart className="h-5 w-5" />
@@ -66,9 +97,27 @@ const Navbar = () => {
               )}
             </Button>
           </Link>
-          <Link to="/login">
-            <Button variant="outline">Login</Button>
-          </Link>
+
+          {isLoggedIn ? (
+            <>
+              {userRole === "admin" && (
+                <Link to="/admin/dashboard">
+                  <Button variant="outline">Admin</Button>
+                </Link>
+              )}
+              <Button variant="outline" onClick={handleLogout}>
+                <LogOut className="mr-2 h-4 w-4" />
+                Logout
+              </Button>
+            </>
+          ) : (
+            <Link to="/login">
+              <Button variant="outline">
+                <LogIn className="mr-2 h-4 w-4" />
+                Login
+              </Button>
+            </Link>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -130,20 +179,48 @@ const Navbar = () => {
             >
               Contact
             </Link>
-            <Link
-              to="/account"
-              className="text-gray-600 hover:text-brand-blue transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Account
-            </Link>
-            <Link
-              to="/login"
-              className="text-gray-600 hover:text-brand-blue transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Login
-            </Link>
+            {isLoggedIn && (
+              <Link
+                to="/account"
+                className="text-gray-600 hover:text-brand-blue transition-colors py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Account
+              </Link>
+            )}
+
+            {isLoggedIn ? (
+              <>
+                {userRole === "admin" && (
+                  <Link
+                    to="/admin/dashboard"
+                    className="text-gray-600 hover:text-brand-blue transition-colors py-2"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Admin Dashboard
+                  </Link>
+                )}
+                <button
+                  className="text-gray-600 hover:text-brand-blue transition-colors py-2 text-left flex items-center"
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="text-gray-600 hover:text-brand-blue transition-colors py-2 flex items-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <LogIn className="mr-2 h-4 w-4" />
+                Login
+              </Link>
+            )}
           </nav>
         </div>
       )}
