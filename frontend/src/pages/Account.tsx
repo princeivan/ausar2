@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Tabs,
   TabsContent,
@@ -15,8 +15,6 @@ import OrderTracking from "../components/account/OrderTracking";
 const Account = () => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("profile");
-
-  
 
   const handleLogout = () => {
     toast({

@@ -39,14 +39,14 @@ type CartItem = {
   customization?: string;
 };
 
-type PaginatedResponse = {
-  total_items: number;
-  total_pages: number;
-  current_page: number;
-  next: string | null;
-  previous: string | null;
-  data: Product[];
-};
+// type PaginatedResponse = {
+//   total_items: number;
+//   total_pages: number;
+//   current_page: number;
+//   next: string | null;
+//   previous: string | null;
+//   data: Product[];
+// };
 
 type StoreContextType = {
   products: Product[];
@@ -61,7 +61,7 @@ type StoreContextType = {
     hasNext: boolean;
     hasPrevious: boolean;
   };
-  fetchProducts: (page?: number) => Promise<void>;
+  fetchProducts: (query?: string, page?: number) => Promise<void>;
   addToCart: (
     product: Product,
     quantity: number,

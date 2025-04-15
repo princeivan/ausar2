@@ -22,13 +22,13 @@ const Cart = () => {
   const tax = subtotal * 0.1; // 10% tax
   const total = subtotal + shippingCost + tax;
 
-  const handleUpdateQuantity = (productId: number, quantity: number) => {
+  const handleUpdateQuantity = (productId: string, quantity: number) => {
     if (quantity >= 1) {
       updateCartItemQuantity(productId, quantity);
     }
   };
 
-  const handleRemoveItem = (productId: number) => {
+  const handleRemoveItem = (productId: string) => {
     removeFromCart(productId);
     toast.success("Item removed from cart");
   };
@@ -217,7 +217,9 @@ const Cart = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Shipping</span>
-                <span className="font-medium">Ksh {shippingCost.toFixed(2)}</span>
+                <span className="font-medium">
+                  Ksh {shippingCost.toFixed(2)}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Tax</span>
