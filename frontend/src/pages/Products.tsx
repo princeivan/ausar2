@@ -78,7 +78,7 @@ const Products = () => {
   // Handle pagination
   const handleNextPage = () => {
     if (pagination.hasNext) {
-      fetchProducts(pagination.currentPage + 1).catch((err) => {
+      fetchProducts("", pagination.currentPage + 1).catch((err) => {
         toast.error("Failed to fetch next page", err);
       });
     }
@@ -86,7 +86,7 @@ const Products = () => {
 
   const handlePrevPage = () => {
     if (pagination.hasPrevious) {
-      fetchProducts(pagination.currentPage - 1).catch((err) => {
+      fetchProducts("", pagination.currentPage - 1).catch((err) => {
         toast.error("Failed to fetch previous page", err);
       });
     }
@@ -94,7 +94,7 @@ const Products = () => {
 
   const handlePageChange = (pageNumber: number) => {
     if (pageNumber >= 1 && pageNumber <= pagination.totalPages) {
-      fetchProducts(pageNumber).catch((err) => {
+      fetchProducts("", pageNumber).catch((err) => {
         toast.error("Failed to fetch the page", err);
       });
     }
