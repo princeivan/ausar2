@@ -25,15 +25,15 @@ const AdminProductsPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | undefined>();
-  const { userRole } = useStore();
+  const { userInfo } = useStore();
 
   useEffect(() => {
-    if (userRole !== "admin") {
+    if (userInfo?.role !== "admin") {
       toast.error("Unauthorized access");
       return;
     }
     fetchProducts();
-  }, [userRole]);
+  }, [userInfo]);
 
   const fetchProducts = async () => {
     try {
@@ -82,7 +82,7 @@ const AdminProductsPage = () => {
     product.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  if (userRole !== "admin") {
+  if (userInfo?.role !== "admin") {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center h-full">
