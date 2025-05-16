@@ -17,7 +17,7 @@ import os
 from corsheaders.defaults import default_headers 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
-
+from decouple import config
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,12 +28,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%h++bsk6+x*5m5%61b*&#li&-t&w&q&wnyhfu77(lg5g*-m4ku'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['139.162.175.68']
 
 AUTH_USER_MODEL = 'api.User'
 
@@ -111,8 +111,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+         'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+         'USER':config('DB_USER'),
+         'PASSWORD':config('DB_PASSWORD'),
+         'HOST':config('DB_HOST'),
+         'PORT':config('DB_PORT'),
     }
 }
 
@@ -166,7 +170,9 @@ if not os.path.exists(LOGS_DIR):
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOW_ALL_ORIGINS=True
+CORS_ALLOWED_ORIGINS=[
+    'http://139.162.175.68/', '139.162.175.68'
+]
 CORS_ALLOW_CREDENTIALS = True
 
 # CORS_ALLOW_HEADERS = list(default_headers) + [

@@ -6,7 +6,7 @@ import { useStore } from "../context/StoreContext";
 import { toast } from "sonner";
 
 const Navbar = () => {
-  const { cartItems, isLoggedIn, userRole, logout } = useStore();
+  const { cartItems, isLoggedIn, userInfo, logout } = useStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -79,7 +79,7 @@ const Navbar = () => {
 
           {isLoggedIn ? (
             <>
-              {userRole === "admin" && (
+              {userInfo?.role === "admin" && (
                 <Link to="/admin/dashboard">
                   <Button variant="outline">Admin</Button>
                 </Link>
@@ -170,7 +170,7 @@ const Navbar = () => {
 
             {isLoggedIn ? (
               <>
-                {userRole === "admin" && (
+                {userInfo?.role === "admin" && (
                   <Link
                     to="/admin/dashboard"
                     className="text-gray-600 hover:text-brand-blue transition-colors py-2"
