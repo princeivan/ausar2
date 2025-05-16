@@ -5,27 +5,42 @@ import { Label } from "../../components/ui/label";
 import { useToast } from "../../hooks/use-toast";
 import api from "../../../api";
 
+interface ShippingAddress {
+  town: string;
+  address: string;
+  postalCode: Number;
+  country: string;
+  shippingPrice: Number;
+}
 interface UserProfile {
   id: string;
   username: string;
+  avatar: string;
   email: string;
   first_name: string;
   last_name: string;
   phone_number?: string;
+  shipping_address_data: ShippingAddress;
 }
-const ProfileSettings = () => {
+interface ProfileSettingsProps {
+  profile: UserProfile | null;
+  setProfile: React.Dispatch<React.SetStateAction<UserProfile | null>>;
+}
+const ProfileSettings: React.FC<ProfileSettingsProps> = ({
+  profile,
+  setProfile,
+}) => {
   const { toast } = useToast();
-  const [profile, setProfile] = useState<UserProfile | null>(null);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
-    address: "00100 Nairobi",
-    city: "Nairobi",
-    state: "Nairobi",
-    zipCode: "00100",
-    country: "Kenya",
+    address: "",
+    avatar: "",
+    town: "",
+    country: "",
+    postalCode: "",
   });
 
   useEffect(() => {
@@ -48,6 +63,11 @@ const ProfileSettings = () => {
         lastName: profile.last_name,
         email: profile.email,
         phone: profile.phone_number || "",
+        avatar: profile.avatar || "",
+        address: profile.shipping_address_data.address,
+        town: profile.shipping_address_data.town,
+        country: profile.shipping_address_data.country,
+        postalCode: profile.shipping_address_data.postalCode?.toString() || "",
       }));
     }
   }, [profile]);
@@ -65,6 +85,12 @@ const ProfileSettings = () => {
       last_name: formData.lastName,
       email: formData.email,
       phone_number: formData.phone,
+      shipping_address_data: {
+        address: formData.address,
+        town: formData.town,
+        postalCode: parseInt(formData.postalCode) || 0,
+        country: formData.country,
+      },
     };
     try {
       const response = await api.put("/api/profile/", updateData);
@@ -148,31 +174,21 @@ const ProfileSettings = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="city">City</Label>
+            <Label htmlFor="city">Town</Label>
             <Input
-              id="city"
-              name="city"
-              value={formData.city}
+              id="town"
+              name="town"
+              value={formData.town}
               onChange={handleChange}
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="state">State/Province</Label>
+            <Label htmlFor="zipCode">Postal Code</Label>
             <Input
-              id="state"
-              name="state"
-              value={formData.state}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="zipCode">ZIP/Postal Code</Label>
-            <Input
-              id="zipCode"
-              name="zipCode"
-              value={formData.zipCode}
+              id="postalCode"
+              name="postalCode"
+              value={formData.postalCode}
               onChange={handleChange}
             />
           </div>

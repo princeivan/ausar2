@@ -7,6 +7,30 @@ import { Checkbox } from "../components/ui/checkbox";
 import { toast } from "sonner";
 import api from "../../api";
 
+// Validation functions
+const validateUsername = (username: string): boolean => {
+  // Username should be 3-20 characters, alphanumeric with underscores
+  const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+  return usernameRegex.test(username);
+};
+
+const validatePhone = (phone: string): boolean => {
+  // Phone number should be 10 digits
+  const phoneRegex = /^\d{10}$/;
+  return phoneRegex.test(phone);
+};
+
+const validateEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+const validatePassword = (password: string): boolean => {
+  // Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  return passwordRegex.test(password);
+};
+
 const Register = () => {
   const [first_name, setFirst_name] = useState("");
   const [last_name, setLast_name] = useState("");
@@ -17,6 +41,7 @@ const Register = () => {
   const [confirm_password, setConfirm_Password] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const navigate = useNavigate();
 
   // Check if user is already logged in
@@ -28,31 +53,62 @@ const Register = () => {
     }
   }, [navigate]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const validateForm = (): boolean => {
+    const newErrors: Record<string, string> = {};
 
-    if (
-      !first_name ||
-      !last_name ||
-      !username ||
-      !phone_number ||
-      !email ||
-      !password ||
-      !confirm_password
-    ) {
-      toast.error("Please fill in all required fields");
-      return;
+    if (!first_name.trim()) {
+      newErrors.first_name = "First name is required";
     }
 
-    if (password !== confirm_password) {
-      toast.error("Passwords do not match");
-      return;
+    if (!last_name.trim()) {
+      newErrors.last_name = "Last name is required";
+    }
+
+    if (!username.trim()) {
+      newErrors.username = "Username is required";
+    } else if (!validateUsername(username)) {
+      newErrors.username = "Username must be 3-20 characters and can only contain letters, numbers, and underscores";
+    }
+
+    if (!phone_number.trim()) {
+      newErrors.phone_number = "Phone number is required";
+    } else if (!validatePhone(phone_number)) {
+      newErrors.phone_number = "Please enter a valid 10-digit phone number";
+    }
+
+    if (!email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!validateEmail(email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    if (!password) {
+      newErrors.password = "Password is required";
+    } else if (!validatePassword(password)) {
+      newErrors.password = "Password must be at least 8 characters long and contain uppercase, lowercase, number and special character";
+    }
+
+    if (!confirm_password) {
+      newErrors.confirm_password = "Please confirm your password";
+    } else if (password !== confirm_password) {
+      newErrors.confirm_password = "Passwords do not match";
     }
 
     if (!acceptTerms) {
-      toast.error("Please accept the terms and conditions");
+      newErrors.terms = "You must accept the terms and conditions";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
       return;
     }
+
     setLoading(true);
     try {
       const res = await api.post("/api/user/register/", {
@@ -69,8 +125,22 @@ const Register = () => {
       localStorage.setItem("userInfo", JSON.stringify(res.data.user));
       toast.success("Account created successfully");
       navigate("/");
-    } catch (error) {
-      toast.error("Registration failed");
+    } catch (error: any) {
+      if (error.response?.data) {
+        // Handle specific error messages from the backend
+        const errorData = error.response.data;
+        if (typeof errorData === 'object') {
+          Object.entries(errorData).forEach(([key, value]) => {
+            toast.error(`${key}: ${value}`);
+          });
+        } else {
+          toast.error(errorData);
+        }
+      } else {
+        toast.error("Registration failed. Please try again.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -95,49 +165,63 @@ const Register = () => {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="FirstName">FirstName</Label>
+              <Label htmlFor="FirstName">First Name</Label>
               <Input
                 id="FirstName"
                 type="text"
                 placeholder="John"
                 value={first_name}
                 onChange={(e) => setFirst_name(e.target.value)}
-                required
+                className={errors.first_name ? "border-red-500" : ""}
               />
+              {errors.first_name && (
+                <p className="text-red-500 text-sm mt-1">{errors.first_name}</p>
+              )}
             </div>
 
             <div>
-              <Label htmlFor="LastName">LastName</Label>
+              <Label htmlFor="LastName">Last Name</Label>
               <Input
                 id="LastName"
                 type="text"
                 placeholder="Doe"
                 value={last_name}
                 onChange={(e) => setLast_name(e.target.value)}
-                required
+                className={errors.last_name ? "border-red-500" : ""}
               />
+              {errors.last_name && (
+                <p className="text-red-500 text-sm mt-1">{errors.last_name}</p>
+              )}
             </div>
+
             <div>
-              <Label htmlFor="Username">UserName</Label>
+              <Label htmlFor="Username">Username</Label>
               <Input
                 id="Username"
                 type="text"
-                placeholder="JohnDOe2"
+                placeholder="JohnDoe2"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                required
+                className={errors.username ? "border-red-500" : ""}
               />
+              {errors.username && (
+                <p className="text-red-500 text-sm mt-1">{errors.username}</p>
+              )}
             </div>
+
             <div>
-              <Label htmlFor="phone">Phone No.</Label>
+              <Label htmlFor="phone">Phone Number</Label>
               <Input
-                id="phoe"
-                type="number"
+                id="phone"
+                type="tel"
                 placeholder="0712345678"
                 value={phone_number}
                 onChange={(e) => setPhone_Number(e.target.value)}
-                required
+                className={errors.phone_number ? "border-red-500" : ""}
               />
+              {errors.phone_number && (
+                <p className="text-red-500 text-sm mt-1">{errors.phone_number}</p>
+              )}
             </div>
 
             <div>
@@ -149,8 +233,11 @@ const Register = () => {
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
+                className={errors.email ? "border-red-500" : ""}
               />
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+              )}
             </div>
 
             <div>
@@ -162,8 +249,11 @@ const Register = () => {
                 autoComplete="new-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
+                className={errors.password ? "border-red-500" : ""}
               />
+              {errors.password && (
+                <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+              )}
             </div>
 
             <div>
@@ -175,8 +265,11 @@ const Register = () => {
                 autoComplete="new-password"
                 value={confirm_password}
                 onChange={(e) => setConfirm_Password(e.target.value)}
-                required
+                className={errors.confirm_password ? "border-red-500" : ""}
               />
+              {errors.confirm_password && (
+                <p className="text-red-500 text-sm mt-1">{errors.confirm_password}</p>
+              )}
             </div>
 
             <div className="flex items-center">
@@ -184,6 +277,7 @@ const Register = () => {
                 id="accept-terms"
                 checked={acceptTerms}
                 onCheckedChange={(checked) => setAcceptTerms(checked === true)}
+                className={errors.terms ? "border-red-500" : ""}
               />
               <Label
                 htmlFor="accept-terms"
@@ -204,6 +298,9 @@ const Register = () => {
                   Privacy Policy
                 </Link>
               </Label>
+              {errors.terms && (
+                <p className="text-red-500 text-sm mt-1">{errors.terms}</p>
+              )}
             </div>
           </div>
 

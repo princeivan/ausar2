@@ -6,47 +6,57 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table";
+// import {
+//   Drawer,
+//   DrawerContent,
+//   DrawerHeader,
+//   DrawerTitle,
+//   DrawerDescription,
+//   DrawerClose,
+// } from "../../components/ui/drawer";
 import { Button } from "../../components/ui/button";
 import { Badge } from "../../components/ui/badge";
 import { Eye } from "lucide-react";
+import { useStore } from "../../context/StoreContext";
+// import { useState } from "react";
 
-const orders = [
-  {
-    id: "ORD-1234",
-    date: "2023-12-15",
-    total: "$245.99",
-    items: 3,
-    status: "Delivered",
-  },
-  {
-    id: "ORD-1235",
-    date: "2023-12-10",
-    total: "$125.50",
-    items: 2,
-    status: "Shipping",
-  },
-  {
-    id: "ORD-1236",
-    date: "2023-12-05",
-    total: "$78.25",
-    items: 1,
-    status: "Processing",
-  },
-  {
-    id: "ORD-1237",
-    date: "2023-11-28",
-    total: "$312.75",
-    items: 4,
-    status: "Delivered",
-  },
-  {
-    id: "ORD-1238",
-    date: "2023-11-20",
-    total: "$145.00",
-    items: 2,
-    status: "Delivered",
-  },
-];
+// const orders = [
+//   {
+//     id: "ORD-1234",
+//     date: "2023-12-15",
+//     total: "$245.99",
+//     items: 3,
+//     status: "Delivered",
+//   },
+//   {
+//     id: "ORD-1235",
+//     date: "2023-12-10",
+//     total: "$125.50",
+//     items: 2,
+//     status: "Shipping",
+//   },
+//   {
+//     id: "ORD-1236",
+//     date: "2023-12-05",
+//     total: "$78.25",
+//     items: 1,
+//     status: "Processing",
+//   },
+//   {
+//     id: "ORD-1237",
+//     date: "2023-11-28",
+//     total: "$312.75",
+//     items: 4,
+//     status: "Delivered",
+//   },
+//   {
+//     id: "ORD-1238",
+//     date: "2023-11-20",
+//     total: "$145.00",
+//     items: 2,
+//     status: "Delivered",
+//   },
+// ];
 
 const getStatusColor = (status: string) => {
   switch (status) {
@@ -62,6 +72,9 @@ const getStatusColor = (status: string) => {
 };
 
 const OrderHistory = () => {
+  const { orders } = useStore();
+  // const [selectedOrder, setSelectedOrder] = useState(null);
+  // const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   return (
     <div>
       <h2 className="text-2xl font-bold mb-6">Order History</h2>
@@ -80,11 +93,19 @@ const OrderHistory = () => {
           </TableHeader>
           <TableBody>
             {orders.map((order) => (
-              <TableRow key={order.id}>
-                <TableCell className="font-medium">{order.id}</TableCell>
-                <TableCell>{order.date}</TableCell>
-                <TableCell>{order.items}</TableCell>
-                <TableCell>{order.total}</TableCell>
+              <TableRow key={order.orderId}>
+                <TableCell className="font-medium">{order.orderId}</TableCell>
+                <TableCell>
+                  {new Date(order.createdAt).toLocaleDateString("en-KE", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </TableCell>
+                <TableCell>
+                  {order.items.reduce((sum, item) => sum + item.quantity, 0)}
+                </TableCell>
+                <TableCell>{order.totalPrice}</TableCell>
                 <TableCell>
                   <Badge
                     variant="outline"

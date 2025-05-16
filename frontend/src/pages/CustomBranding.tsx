@@ -7,6 +7,7 @@ import { BrandingUpload } from "../components/checkout/BrandingUpload";
 import { toast } from "sonner";
 import { Steps } from "../components/checkout/Steps";
 import { ShoppingBag, Upload, CheckCircle, Truck, Package } from "lucide-react";
+import api from "../../api";
 
 const CustomBranding = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -20,6 +21,8 @@ const CustomBranding = () => {
     budget: "",
     timeline: "",
   });
+  const [brandingInstructions, setBrandingInstructions] = useState("");
+  const [brandingFiles, setBrandingFiles] = useState<File[]>([]);
 
   const steps = [
     { id: 1, name: "Project Details" },
@@ -66,9 +69,45 @@ const CustomBranding = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Quote request submitted! We'll contact you shortly.");
+
+    const data = new FormData();
+    data.append("first_name", formData.firstName);
+    data.append("last_name", formData.lastName);
+    data.append("email", formData.email);
+    data.append("phone", formData.phone);
+    data.append("company", formData.company);
+    data.append("project_details", formData.projectDetails);
+    data.append("budget", formData.budget);
+    data.append("timeline", formData.timeline);
+    data.append("branding_instructions", brandingInstructions);
+    brandingFiles.forEach((file) => {
+      data.append(`branding_files`, file);
+    });
+    try {
+      await api.post("/api/submit-branding/", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      toast.success("Quote request submitted! We'll contact you shortly.");
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        company: "",
+        projectDetails: "",
+        budget: "",
+        timeline: "",
+      });
+    } catch (error: any) {
+      console.log(error);
+      toast.error("Something went wrong. Please try again.");
+      console.error("Validation Errors:", error.response?.data);
+    }
   };
 
   const nextStep = () => {
@@ -155,7 +194,12 @@ const CustomBranding = () => {
                   team will review and create digital proofs for your approval.
                 </p>
 
-                <BrandingUpload />
+                <BrandingUpload
+                  files={brandingFiles}
+                  setFiles={setBrandingFiles}
+                  brandingInstructions={brandingInstructions}
+                  setBrandingInstructions={setBrandingInstructions}
+                />
 
                 <div className="flex justify-between mt-6">
                   <Button variant="outline" onClick={prevStep}>

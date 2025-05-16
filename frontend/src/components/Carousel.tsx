@@ -15,10 +15,14 @@ const Carousel: React.FC<CarouselProps> = ({
   showControls = true,
   showIndicators = true,
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(1); // Start at 1 due to the prepended clone
+  const [isTransitioning, setIsTransitioning] = useState(true);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Handle auto-play functionality
+  const totalItems = items.length;
+  const extendedItems = [items[totalItems - 1], ...items, items[0]];
+
+  // AutoPlay Effect
   useEffect(() => {
     if (autoPlay) {
       timeoutRef.current = setTimeout(() => {
@@ -32,38 +36,55 @@ const Carousel: React.FC<CarouselProps> = ({
     };
   }, [currentIndex, autoPlay, interval]);
 
+  // Infinite loop reset
+  useEffect(() => {
+    if (currentIndex === 0) {
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(totalItems);
+      }, 500);
+    } else if (currentIndex === totalItems + 1) {
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(1);
+      }, 500);
+    } else {
+      setIsTransitioning(true);
+    }
+  }, [currentIndex]);
+
   const goToPrevious = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? items.length - 1 : prevIndex - 1
-    );
+    setCurrentIndex((prev) => prev - 1);
   };
 
   const goToNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === items.length - 1 ? 0 : prevIndex + 1
-    );
+    setCurrentIndex((prev) => prev + 1);
   };
 
   const goToIndex = (index: number) => {
-    setCurrentIndex(index);
+    setCurrentIndex(index + 1);
   };
 
   return (
     <div className="relative overflow-hidden w-full">
-      {/* Carousel Items */}
       <div
-        className="flex transition-transform duration-500 ease-in-out"
+        className={`flex ${
+          isTransitioning ? "transition-transform duration-500 ease-in-out" : ""
+        }`}
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
-        {items.map((item, index) => (
+        {extendedItems.map((item, index) => (
           <div
             key={index}
             className="w-full flex-shrink-0"
             aria-hidden={index !== currentIndex}
             role="group"
-            aria-label={`Slide ${index + 1} of ${items.length}`}
+            aria-label={`Slide ${index} of ${totalItems}`}
           >
-            {item}
+            {/* Ensures images inside item scale properly */}
+            <div className="w-full h-full aspect-video flex items-center justify-center bg-black/5 overflow-hidden">
+              <div className="w-full h-full object-cover">{item}</div>
+            </div>
           </div>
         ))}
       </div>
@@ -95,7 +116,7 @@ const Carousel: React.FC<CarouselProps> = ({
             <button
               key={index}
               className={`h-3 w-3 rounded-full transition-colors ${
-                index === currentIndex ? "bg-white" : "bg-white/50"
+                index + 1 === currentIndex ? "bg-white" : "bg-white/50"
               }`}
               onClick={() => goToIndex(index)}
               aria-label={`Go to slide ${index + 1}`}

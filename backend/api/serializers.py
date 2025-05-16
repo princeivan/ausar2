@@ -1,9 +1,10 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from  .models import Categories, Product, Order, OrderItem, ShippingAddress, SliderData,User 
+from  .models import Categories, Product, Order, OrderItem, ShippingAddress, SliderData,User,Testimonials, BrandingRequest, BrandingFile
 import requests
 from django.core.files.base import ContentFile
+import re
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -25,51 +26,103 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         
 class UserSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True)
+    
     class Meta:
         model = User 
-        fields = ["id", "username","first_name","last_name","email","phone_number","password", "confirm_password"]
-        extra_kwargs = {"password":{"write_only":True}}
+        fields = ["id", "username", "first_name", "last_name", "avatar", "email", "phone_number", "password", "confirm_password"]
+        extra_kwargs = {
+            "password": {"write_only": True},
+            "username": {"required": True},
+            "email": {"required": True},
+            "phone_number": {"required": True},
+            "first_name": {"required": True},
+            "last_name": {"required": True}
+        }
+
+    def validate_username(self, value):
+        # Username should be 3-20 characters, alphanumeric with underscores
+        if not re.match(r'^[a-zA-Z0-9_]{3,20}$', value):
+            raise serializers.ValidationError(
+                "Username must be 3-20 characters and can only contain letters, numbers, and underscores"
+            )
         
+        # Check if username already exists
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError("Username already exists")
         
+        return value
+
+    def validate_phone_number(self, value):
+        # Phone number should be 10 digits
+        if not re.match(r'^\d{10}$', value):
+            raise serializers.ValidationError("Please enter a valid 10-digit phone number")
+        
+        # Check if phone number already exists
+        if User.objects.filter(phone_number=value).exists():
+            raise serializers.ValidationError("Phone number already registered")
+        
+        return value
+
+    def validate_email(self, value):
+        # Email format validation
+        if not re.match(r'^[^\s@]+@[^\s@]+\.[^\s@]+$', value):
+            raise serializers.ValidationError("Please enter a valid email address")
+        
+        # Check if email already exists
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("Email already registered")
+        
+        return value
+
+    def validate_password(self, value):
+        # Password validation
+        if not re.match(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$', value):
+            raise serializers.ValidationError(
+                "Password must be at least 8 characters long and contain uppercase, lowercase, number and special character"
+            )
+        return value
+
     def validate(self, data):
-            if data['password'] != data['confirm_password']:
-                raise serializers.ValidationError({"password":"Password do not match"})
-            return data
-        
+        if data['password'] != data['confirm_password']:
+            raise serializers.ValidationError({"password": "Passwords do not match"})
+        return data
+
     def create(self, validated_data):
-            validated_data.pop("confirm_password")
-            user = User.objects.create_user(**validated_data)
-            return user
+        validated_data.pop("confirm_password")
+        user = User.objects.create_user(**validated_data)
+        return user
         
 class ShippingAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShippingAddress
-        fields = ['town', 'address','postalcode','country','shippingPrice']
+        fields = ['town', 'address','postalCode','country','shippingPrice']
         
 class UserProfileSerializer(serializers.ModelSerializer):
     shipping_address = ShippingAddressSerializer(required=False)
     shipping_address_data = serializers.SerializerMethodField(read_only=True)
+    full_name = serializers.SerializerMethodField()
     class Meta:
         model = User 
-        fields = ["id", "username", "first_name", "last_name", 
-                 "email", "phone_number","shipping_address","shipping_address_data"]
+        fields = ["id", "username", "full_name", "first_name", "last_name", 
+                 "email", "phone_number","avatar","shipping_address","shipping_address_data"]
         read_only_fields = ["email","username"]   
+        
+    def get_full_name(self, obj):
+        return f"{obj.first_name} {obj.last_name}".strip()
     
     def get_shipping_address_data(self, obj):
-        shipping_address = obj.shippingaddress_set.first()
+        shipping_address = obj.shipping_addresses.first()
         if shipping_address:
             return ShippingAddressSerializer(shipping_address).data
         return None
     def update(self, instance, validated_data):
-        # Remove nested shipping address data if present.
         shipping_data = validated_data.pop('shipping_address', None)
-        # Update user instance normally.
         instance = super().update(instance, validated_data)
 
         # Handle shipping address update.
         if shipping_data:
             # Check if user already has a shipping address.
-            shipping_address = instance.shippingaddress_set.first()
+            shipping_address = instance.shippingaddress.first()
             if shipping_address:
                 # Update existing shipping address.
                 for key, value in shipping_data.items():
@@ -130,20 +183,41 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
         
 class OrderSerializer(serializers.ModelSerializer):
-    
+    # shipping_address_data = serializers.SerializerMethodField(read_only=True)
     items =  OrderItemSerializer(many=True)
     class Meta:
         model = Order 
-        fields = ['id', 'paymentmethod', 'taxPrice', 'shippingPrice', 'totalPrice', 'isPaid', 'paidAt', 'status', 'isDelivered', 'deleveredAt', 'createdAt', 'items']
-        extra_kwargs = {"user":{"read-only":True}}
+        fields = ['id','orderId', 'paymentmethod', 'taxPrice', 'shippingPrice', 'totalPrice', 'isPaid', 'paidAt', 'status', 'isDelivered', 'deliveredAt', 'createdAt', 'items']
+        extra_kwargs = {"user":{"read_only":True}}
         
     def create(self, validated_data):
         items_data = validated_data.pop('items')
-        order = Order.objects.create(**validated_data)
+        user = self.context['request'].user
+        order = Order.objects.create(user=user,shippingAddress=user.shipping_addresses.first(),**validated_data)
         for item_data in items_data:
             OrderItem.objects.create(order=order, **item_data)
+            
+        # shipping_address = user.shipping_addresses.first()
+        # if shipping_address:
+        #     shipping_address.order = order 
+        #     shipping_address.save()
         return order
-
+    # def get_shipping_address_data(self, obj):
+    #     shipping_address = obj.shippingaddress_set.first()
+    #     if shipping_address:
+    #         return ShippingAddressSerializer(shipping_address).data
+        
+    #     user = obj.user
+    #     shipping_address = user.shipping_addresses.first()
+    #     if shipping_address:
+    #         return ShippingAddressSerializer(shipping_address).data
+    #     return None
+    
+class TestimonialsSerializer(serializers.ModelSerializer):
+    user = UserProfileSerializer(read_only=True)
+    class Meta:
+        model = Testimonials
+        fields = "__all__"
         
 class SliderDataSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
@@ -168,6 +242,15 @@ class SliderDataSerializer(serializers.ModelSerializer):
         if obj.image and hasattr(obj.image, 'url'):
             return request.build_absolute_uri(obj.image.url)
         return None
+    
+class BrandingFileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BrandingFile
+        fields = ['file']  
+class BrandingRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BrandingRequest 
+        fields = '__all__'
     
         
 

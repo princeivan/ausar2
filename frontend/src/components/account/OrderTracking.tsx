@@ -7,6 +7,7 @@ import { Package, Truck, CheckCircle, ArrowDown, Home } from "lucide-react";
 
 const OrderTracking = () => {
   const { toast } = useToast();
+
   const [orderId, setOrderId] = useState("");
   const [trackingResult, setTrackingResult] = useState<null | {
     orderId: string;

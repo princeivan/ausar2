@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../context/StoreContext";
 import { Button } from "../components/ui/button";
@@ -10,9 +10,28 @@ import { ShoppingCart, Check } from "lucide-react";
 import { toast } from "sonner";
 import { Steps } from "../components/checkout/Steps";
 import { PaymentMethods } from "../components/checkout/PaymentMethods";
+import api from "../../api";
 
+interface ShippingAddress {
+  town: string;
+  address: string;
+  postalCode: number;
+  country: string;
+  shippingPrice: number;
+}
+interface UserProfile {
+  id: string;
+  username: string;
+  avatar: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  phone_number?: string;
+  shipping_address_data: ShippingAddress;
+}
 const Checkout = () => {
   const { cartItems, clearCart } = useStore();
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   const navigate = useNavigate();
 
   const steps = [
@@ -28,13 +47,62 @@ const Checkout = () => {
     email: "",
     phone: "",
     address: "",
-    city: "",
-    state: "",
-    zip: "",
-    country: "Kenya",
+    avatar: "",
+    town: "",
+    country: "",
+    postalCode: "",
     paymentMethod: "mpesa",
     specialInstructions: "",
+    paymentmethod: "",
+    taxPrice: 0,
+    shippingPrice: 0,
+    totalPrice: 0,
+    isPaid: false,
+    status: "Pending",
+    isDelivered: false,
   });
+  // const [order, setOrder] = useState({
+  //   paymentmethod: "",
+  //   taxPrice: 0,
+  //   shippingPrice: 0,
+  //   totalPrice: 0,
+  //   isPaid: false,
+  //   status: "Pending",
+  //   isDelivered: false,
+  //   deliveredAt: new Date().toISOString(),
+  //   paidAt: new Date().toISOString(),
+  //   createdAt: new Date().toISOString(),
+  // });
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await api.get("/api/profile/");
+        setProfile(response.data);
+        console.log(profile);
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      }
+    };
+    fetchProfile();
+  }, []);
+
+  useEffect(() => {
+    if (profile) {
+      setFormData((prev) => ({
+        ...prev,
+        firstName: profile.first_name,
+        lastName: profile.last_name,
+        email: profile.email,
+        phone: profile.phone_number || "",
+        avatar: profile.avatar || "",
+        address: profile.shipping_address_data.address,
+        town: profile.shipping_address_data.town,
+        country: profile.shipping_address_data.country,
+        postalCode: profile.shipping_address_data.postalCode?.toString() || "",
+      }));
+    }
+  }, [profile]);
 
   const [paymentDetails, setPaymentDetails] = useState({
     mpesaPhone: "",
@@ -48,9 +116,11 @@ const Checkout = () => {
   }, 0);
 
   const shippingCost = subtotal > 0 ? 15 : 0;
-  const tax = subtotal * 0.1; // 10% tax
-  const total = subtotal + shippingCost + tax;
+  const taxPrice = subtotal * 0.1; // 10% tax
+  const totalAmount = subtotal + shippingCost + taxPrice;
 
+  const tax = parseFloat(taxPrice.toFixed(2));
+  const roundedTotalPrice = parseFloat(totalAmount.toFixed(2));
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -75,7 +145,7 @@ const Checkout = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validate payment details based on selected payment method
@@ -94,9 +164,44 @@ const Checkout = () => {
         return;
       }
     }
+    const orderItems = cartItems.map((item) => ({
+      product: item.product.id,
+      quantity: item.quantity,
+      price: item.product.new_price,
+    }));
 
+    const orderData = {
+      paymentmethod: formData.paymentMethod,
+      taxPrice: tax,
+      shippingPrice: shippingCost,
+      totalPrice: roundedTotalPrice,
+      isPaid: formData.isPaid,
+      status: formData.status,
+      isDelivered: formData.isDelivered,
+      deliveredAt: new Date().toISOString(),
+      paidAt: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
+      items: orderItems,
+      shippingAddress: {
+        address: formData.address,
+        town: formData.town,
+        postalCode: parseInt(formData.postalCode) || 0,
+        country: formData.country,
+      },
+    };
+
+    try {
+      const response = await api.post("/api/orders/", orderData);
+      if (response.data && response.data.orderId) {
+        toast.success("Order placed successfully!");
+      } else {
+        toast.error("Order ID not returned from the server.");
+      }
+    } catch (error: any) {
+      toast.error("Error placing order.");
+      console.log("Order Error", error);
+    }
     // In a real app, this would process the order with the payment details
-    toast.success("Order placed successfully!");
 
     // Show a toast with different messages based on payment method
     if (formData.paymentMethod === "mpesa") {
@@ -187,7 +292,7 @@ const Checkout = () => {
                             <div className="text-sm text-gray-500 mt-1">
                               <span className="font-medium">
                                 Customization:
-                              </span>{" "}
+                              </span>
                               {customization}
                             </div>
                           )}
@@ -276,31 +381,22 @@ const Checkout = () => {
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                   <div className="col-span-2">
-                    <Label htmlFor="city">City</Label>
+                    <Label htmlFor="city">Town</Label>
                     <Input
-                      id="city"
-                      name="city"
-                      value={formData.city}
+                      id="town"
+                      name="town"
+                      value={formData.town}
                       onChange={handleInputChange}
                       required
                     />
                   </div>
-                  <div>
-                    <Label htmlFor="state">State/Province</Label>
-                    <Input
-                      id="state"
-                      name="state"
-                      value={formData.state}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
+
                   <div>
                     <Label htmlFor="zip">Zip/Postal Code</Label>
                     <Input
-                      id="zip"
-                      name="zip"
-                      value={formData.zip}
+                      id="postalcode"
+                      name="postalcode"
+                      value={formData.postalCode}
                       onChange={handleInputChange}
                       required
                     />
@@ -399,7 +495,9 @@ const Checkout = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Shipping</span>
-                <span className="font-medium">Ksh {shippingCost.toFixed(2)}</span>
+                <span className="font-medium">
+                  Ksh {shippingCost.toFixed(2)}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Tax</span>
@@ -408,7 +506,9 @@ const Checkout = () => {
               <Separator />
               <div className="flex justify-between">
                 <span className="font-bold">Total</span>
-                <span className="font-bold">Ksh {total.toFixed(2)}</span>
+                <span className="font-bold">
+                  Ksh {roundedTotalPrice.toFixed(2)}
+                </span>
               </div>
             </div>
 

@@ -6,13 +6,32 @@ import React, {
   ReactNode,
 } from "react";
 import api from "../../api";
-
+import { jwtDecode } from "jwt-decode";
 // Define types
 export type Category = {
   id: number;
   name: string;
 };
 
+export type User = {
+  id: string;
+  username: string;
+  full_name: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+  avatar: string;
+  shipping_address_data: any | null;
+};
+
+export type Testimonials = {
+  id: string;
+  user: User;
+  position: string;
+  rating: number;
+  comment: string;
+};
 export type Product = {
   id: string;
   title: string;
@@ -38,6 +57,34 @@ type CartItem = {
   quantity: number;
   customization?: string;
 };
+type OrderItem = {
+  order: string;
+  product: string;
+  quantity: number;
+  price: number;
+};
+type Order = {
+  user: User;
+  orderId: string;
+  paymentmethod: string;
+  taxPrice: number;
+  shippingPrice: number;
+  totalPrice: number;
+  isPaid: boolean;
+  status: string;
+  isDelivered: string;
+  deliveredAt: string;
+  paidAt: string;
+  createdAt: string;
+  items: OrderItem[];
+  shippingAddress: any | null;
+};
+
+type UserInfo = {
+  email: string;
+  userId: string;
+  role: string;
+};
 
 // type PaginatedResponse = {
 //   total_items: number;
@@ -61,6 +108,8 @@ type StoreContextType = {
     hasNext: boolean;
     hasPrevious: boolean;
   };
+  testimonials: Testimonials[];
+  orders: Order[];
   fetchProducts: (query?: string, page?: number) => Promise<void>;
   addToCart: (
     product: Product,
@@ -72,6 +121,10 @@ type StoreContextType = {
   clearCart: () => void;
   getProductById: (id: string) => Product | undefined;
   getProductsByCategory: (categoryName: string) => Product[];
+  isLoggedIn: boolean;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+  userInfo: UserInfo | null;
 };
 
 // Create context
@@ -85,6 +138,9 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [category, setCategory] = useState<Category[]>([]);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [testimonials, setTestimonials] = useState<Testimonials[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [pagination, setPagination] = useState({
@@ -94,12 +150,70 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
     hasNext: false,
     hasPrevious: false,
   });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
-  // Fetch products from dummy API
   useEffect(() => {
     fetchProducts();
     fetchCategories();
+    fetchTestimonials();
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchOrders();
+    }
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await api.get("/api/token", {
+          withCredentials: true,
+        });
+        const decoded = jwtDecode<any>(res.data.access);
+        setIsLoggedIn(true);
+        setUserInfo({
+          email: decoded.email,
+          userId: decoded.user_id,
+          role: decoded.is_admin ? "admin" : "user",
+        });
+      } catch {
+        setIsLoggedIn(false);
+        setUserInfo(null);
+      }
+    };
+    checkAuth();
+  }, []);
+  const login = async (email: string, password: string) => {
+    const res = await api.post(
+      "/api/token/",
+      { email, password },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest",
+        },
+        withCredentials: true,
+      }
+    );
+    const decoded = jwtDecode<any>(res.data.access);
+    const user = {
+      email,
+      role: decoded.is_admin ? "admin" : "user",
+      userId: decoded.user_id,
+    };
+    setIsLoggedIn(true);
+    setUserInfo(user);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
+    setIsLoggedIn(false);
+    setUserInfo(null);
+  };
 
   const fetchProducts = async (query: string = "", page: number = 1) => {
     setLoading(true);
@@ -134,6 +248,31 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
       .then((res) => res.data)
       .then((data) => {
         setCategory(data);
+      });
+  };
+
+  const fetchOrders = async () => {
+    api
+      .get("/api/orders/")
+      .then((res) => res.data)
+      .then((data) => {
+        setOrders(data);
+      })
+      .catch((error) => {
+        setError(
+          error instanceof Error
+            ? error.message
+            : "An error occurred while fetching orders"
+        );
+      });
+  };
+
+  const fetchTestimonials = async () => {
+    api
+      .get("/api/testimonials/")
+      .then((res) => res.data)
+      .then((data) => {
+        setTestimonials(data);
       });
   };
 
@@ -211,6 +350,14 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
     clearCart,
     getProductById,
     getProductsByCategory,
+    isLoggedIn,
+    login,
+    logout,
+    testimonials,
+    orders,
+    selectedOrder,
+    setSelectedOrder,
+    userInfo,
   };
 
   return (

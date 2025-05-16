@@ -1,28 +1,7 @@
-const testimonials = [
-  {
-    quote:
-      "Working with Ausar Creative was a game-changer for our company. Their branded products helped us leave a lasting impression on clients and at trade shows.",
-    name: "Sarah Johnson",
-    title: "Marketing Director, TechSolutions Inc.",
-    avatar: "https://randomuser.me/api/portraits/women/1.jpg",
-  },
-  {
-    quote:
-      "The quality of the custom branded products exceeded our expectations. Our team loves their new gear, and our clients have been impressed with the promotional items.",
-    name: "Michael Chen",
-    title: "CEO, Innovative Startup",
-    avatar: "https://randomuser.me/api/portraits/men/2.jpg",
-  },
-  {
-    quote:
-      "The attention to detail on our branded merchandise was impressive. The colors matched our brand perfectly, and the products have held up well over time.",
-    name: "Jessica Miller",
-    title: "Brand Manager, Retail Giant",
-    avatar: "https://randomuser.me/api/portraits/women/3.jpg",
-  },
-];
+import { useStore } from "../context/StoreContext";
 
 const Testimonials = () => {
+  const { testimonials } = useStore();
   return (
     <div className="bg-white py-16">
       <div className="container mx-auto px-4">
@@ -50,17 +29,23 @@ const Testimonials = () => {
                 ))}
               </div>
 
-              <p className="text-gray-600 italic mb-6">"{testimonial.quote}"</p>
+              <p className="text-gray-600 italic mb-6">
+                "{testimonial.comment}"
+              </p>
 
               <div className="flex items-center">
                 <img
-                  src={testimonial.avatar}
-                  alt={testimonial.name}
+                  src={testimonial.user.avatar}
+                  alt={testimonial.user.full_name}
                   className="w-12 h-12 rounded-full mr-4 object-cover"
                 />
                 <div>
-                  <h4 className="font-semibold">{testimonial.name}</h4>
-                  <p className="text-sm text-gray-500">{testimonial.title}</p>
+                  <h4 className="font-semibold">
+                    {testimonial.user.full_name}
+                  </h4>
+                  <p className="text-sm text-gray-500">
+                    {testimonial.position}
+                  </p>
                 </div>
               </div>
             </div>

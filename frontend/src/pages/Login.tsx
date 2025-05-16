@@ -1,68 +1,73 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Checkbox } from "../components/ui/checkbox";
 import { toast } from "sonner";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../constants";
-import api from "../../api";
-import { jwtDecode } from "jwt-decode";
+import { useStore } from "../context/StoreContext";
 
-interface jwtPayload {
-  is_admin: boolean;
-  user_id: string;
-}
+// Input validation functions
+const validateEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+// const validatePassword = (password: string): boolean => {
+//   // Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character
+//   const passwordRegex =
+//     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+//   return passwordRegex.test(password);
+// };
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [loginAttempts, setLoginAttempts] = useState(0);
+  const { login, userInfo } = useStore();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const userInfo = localStorage.getItem("userInfo");
-    if (userInfo) {
-      // Redirect to home page if already logged in
-      navigate("/");
-    }
-  }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Input validation
     if (!email || !password) {
       toast.error("Please enter both email and password");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    // Rate limiting
+    if (loginAttempts >= 5) {
+      toast.error("Too many login attempts. Please try again later.");
       return;
     }
 
     setLoading(true);
 
     try {
-      const res = await api.post("/api/token/", { email, password });
+      // Sanitize inputs
+      const sanitizedEmail = email.trim().toLowerCase();
+      await login(sanitizedEmail, password);
 
-      const accessToken = res.data.access;
-      const refreshToken = res.data.refresh;
-      localStorage.setItem(ACCESS_TOKEN, accessToken);
-      localStorage.setItem(REFRESH_TOKEN, refreshToken);
+      toast.success(`Logged in successfully as ${userInfo?.role}`);
+      navigate("/");
 
-      const decoded = jwtDecode<jwtPayload>(accessToken);
+      // Reset login attempts on successful login
+      setLoginAttempts(0);
+    } catch (error: any) {
+      setLoginAttempts((prev) => prev + 1);
 
-      if (decoded.is_admin) {
-        const userInfo = { email, role: "admin" };
-        localStorage.setItem("userInfo", JSON.stringify(userInfo));
-        toast.success("Logged in successfully as admin");
-        navigate("/");
-      } else {
-        const userInfo = { email, role: "user" };
-        localStorage.setItem("userInfo", JSON.stringify(userInfo));
-        toast.success("Logged in successfully");
-        navigate("/");
-      }
-    } catch (error) {
-      toast.error(
-        "Failed to login. Please check your credentials and try again."
-      );
+      // Generic error message to prevent information disclosure
+      toast.error("Invalid credentials or server error. Please try again.");
+
+      // Log the actual error for debugging (in production, this should go to a logging service)
+      console.error("Login error:", error);
     } finally {
       setLoading(false);
     }
@@ -136,16 +141,6 @@ const Login = () => {
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Signing in..." : "Sign in"}
           </Button>
-
-          {/* <div className="text-center text-sm">
-            <p className="mt-2 text-gray-600">
-              Demo accounts: <br />
-              <span className="font-medium">Admin:</span> admin@example.com /
-              password <br />
-              <span className="font-medium">User:</span> user@example.com /
-              password
-            </p>
-          </div> */}
         </form>
       </div>
     </div>

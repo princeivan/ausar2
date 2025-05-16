@@ -1,30 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart, User, Menu, X, LogIn, LogOut } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { useStore } from "../context/StoreContext";
 import { toast } from "sonner";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../constants";
 
 const Navbar = () => {
-  const { cartItems } = useStore();
+  const { cartItems, isLoggedIn, userRole, logout } = useStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState<string | null>(null);
   const navigate = useNavigate();
-
-  // Check login status on component mount
-  useEffect(() => {
-    // Check if user is logged in from localStorage
-    const userInfo = localStorage.getItem("userInfo");
-    if (userInfo) {
-      const user = JSON.parse(userInfo);
-      setIsLoggedIn(true);
-      setUserRole(user.role);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, []);
 
   const totalItems = cartItems.reduce(
     (total, item) => total + item.quantity,
@@ -32,12 +16,7 @@ const Navbar = () => {
   );
 
   const handleLogout = () => {
-    // Clear user data from localStorage
-    localStorage.removeItem("userInfo");
-    localStorage.removeItem(ACCESS_TOKEN);
-    localStorage.removeItem(REFRESH_TOKEN);
-    setIsLoggedIn(false);
-    setUserRole(null);
+    logout();
     toast.success("Logged out successfully");
     navigate("/");
   };

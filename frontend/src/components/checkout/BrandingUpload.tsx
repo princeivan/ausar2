@@ -6,9 +6,21 @@ import { Upload, Image as ImageIcon, X } from "lucide-react";
 import { Card, CardContent } from "../../components/ui/card";
 import { toast } from "sonner";
 
-export const BrandingUpload = () => {
-  const [files, setFiles] = useState<File[]>([]);
-  const [brandingInstructions, setBrandingInstructions] = useState("");
+type BrandingUploadProps = {
+  files: File[];
+  setFiles: (files: File[]) => void;
+  brandingInstructions: string;
+  setBrandingInstructions: (text: string) => void;
+};
+
+export const BrandingUpload: React.FC<BrandingUploadProps> = ({
+  files,
+  setFiles,
+  brandingInstructions,
+  setBrandingInstructions,
+}) => {
+  // const [files, setFiles] = useState<File[]>([]);
+  // const [brandingInstructions, setBrandingInstructions] = useState("");
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

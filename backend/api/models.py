@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+import random
 from django.contrib.auth.models import  AbstractUser
 from django_resized import ResizedImageField
 # Create your models here.
@@ -66,37 +67,54 @@ class Review(models.Model):
     
     def __str__(self):
         return str(self.rating)
+    
+class Testimonials(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL,null=True)
+    position = models.CharField(max_length=200, null=True, blank=True)
+    rating = models.IntegerField(null=True, blank=True, default=1)
+    comment=models.TextField(null=True, blank=True)
+    
+    def __str__(self):
+        return str(self.user)
+    
 class ShippingAddress(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='shipping_addresses')
     town = models.CharField(max_length=200, null=True, blank=True)
     address =models.CharField(max_length=200, null=True, blank=True)
-    postalCode = models.CharField(max_length=200, null=True, blank=True)
+    postalCode = models.IntegerField(null=True, blank=True, default=1)
     country = models.CharField(max_length=200, null=True, blank=True)
     shippingPrice = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
     
     def __str__(self):
-        return self.address   
+        return f"{self.address }, {self.town}"
+    
 class Order(models.Model):
     user= models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="orders")
+    orderId = models.CharField(max_length=200,null=True, unique=True, blank=True)
     paymentmethod = models.CharField(max_length=200, null=True, blank=True)
     taxPrice = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
     shippingPrice = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
     totalPrice = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
     isPaid = models.BooleanField(default=False)
     paidAt= models.DateTimeField(auto_now_add=False, null=True, blank=True)
-    shippingAddress = models.ForeignKey(ShippingAddress, on_delete=models.SET_NULL, null=True, related_name="addresses" )
+    shippingAddress = models.ForeignKey("ShippingAddress", on_delete=models.SET_NULL, null=True, related_name="orders" )
     status = models.CharField(max_length=200, null=True, blank=True)
     isDelivered = models.BooleanField(default=False)
-    deleveredAt = models.DateTimeField(auto_now_add=False, null=True, blank=True)
+    deliveredAt = models.DateTimeField(auto_now_add=False, null=True, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
     
     
+    def save(self, *args, **kwargs):
+        if not self.orderId:
+            last_order = Order.objects.all().count()+ 1
+            self.orderId = f"ORD-{last_order:04d}"
+        super().save(*args, **kwargs)
     def __str__(self):
-        return str(self.createdAt)
+        return str(self.orderId)
     
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE, null = True)
@@ -118,5 +136,26 @@ class SliderData(models.Model):
                           primary_key=True, editable=False)
     
     def __str__(self):
-        return self.title 
+        return self.title
     
+class BrandingRequest(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    company = models.CharField(max_length=255, blank=True)
+    project_details = models.TextField()
+    budget = models.CharField(max_length=100, blank=True)
+    timeline = models.CharField(max_length=100, blank=True)
+    branding_instructions = models.TextField(blank=True)
+    submitted_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} - {self.company}"
+
+class BrandingFile(models.Model):
+    branding_request = models.ForeignKey(BrandingRequest, on_delete=models.CASCADE, related_name="files")
+    file = models.FileField(upload_to='branding_uploads/')
+    
+    def __str__(self):
+        return str(self.branding_request) 
