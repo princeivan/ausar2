@@ -33,7 +33,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['139.162.175.68']
+ALLOWED_HOSTS = ['139.162.175.68','ausacreative.co.ke']
 
 AUTH_USER_MODEL = 'api.User'
 
@@ -171,7 +171,7 @@ if not os.path.exists(LOGS_DIR):
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS=[
-    'http://139.162.175.68',
+    'http://139.162.175.68','http://ausacreative.co.ke'
 ]
 CORS_ALLOW_CREDENTIALS = True
 
