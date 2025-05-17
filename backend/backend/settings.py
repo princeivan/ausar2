@@ -171,7 +171,7 @@ if not os.path.exists(LOGS_DIR):
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS=[
-    'http://139.162.175.68','http://ausacreative.co.ke'
+    'http://139.162.175.68','https://ausacreative.co.ke'
 ]
 CORS_ALLOW_CREDENTIALS = True
 
