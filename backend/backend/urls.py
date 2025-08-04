@@ -21,9 +21,10 @@ from django.conf.urls.static import static
 from django.views.static import serve
 from api.views import CreateUserView, CustomTokenObtainPair
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
+from django.http import JsonResponse
 
 urlpatterns = [
+    path('', lambda request: JsonResponse({"status": "API running"})),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path("api/user/register/", CreateUserView.as_view(), name="register"),
