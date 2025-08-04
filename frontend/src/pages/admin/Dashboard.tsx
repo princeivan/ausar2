@@ -26,64 +26,42 @@ import {
   Cell,
 } from "recharts";
 import AdminLayout from "../../components/admin/AdminLayout";
+import api from "../../../api";
+import { useEffect, useState } from "react";
 
-// Sample data for charts
-const salesData = [
-  { name: "Jan", total: 1200 },
-  { name: "Feb", total: 1900 },
-  { name: "Mar", total: 3000 },
-  { name: "Apr", total: 2780 },
-  { name: "May", total: 4890 },
-  { name: "Jun", total: 3390 },
-  { name: "Jul", total: 4490 },
-];
+export interface DashboardData {
+  categoryData: CategoryData[];
+  recentOrders: RecentOrder[];
+  salesData: SalesDataPoint[];
+  stats: DashboardStats;
+}
 
-const productCategoryData = [
-  { name: "Smartphones", value: 35 },
-  { name: "Laptops", value: 25 },
-  { name: "Fragrances", value: 15 },
-  { name: "Skincare", value: 10 },
-  { name: "Groceries", value: 8 },
-  { name: "Others", value: 7 },
-];
-
-const recentOrders = [
-  {
-    id: "ORD-001",
-    customer: "John Doe",
-    date: "2023-08-15",
-    status: "Delivered",
-    total: 125.99,
-  },
-  {
-    id: "ORD-002",
-    customer: "Jane Smith",
-    date: "2023-08-14",
-    status: "Processing",
-    total: 89.5,
-  },
-  {
-    id: "ORD-003",
-    customer: "Mike Johnson",
-    date: "2023-08-14",
-    status: "Shipped",
-    total: 456.75,
-  },
-  {
-    id: "ORD-004",
-    customer: "Sarah Williams",
-    date: "2023-08-13",
-    status: "Delivered",
-    total: 67.25,
-  },
-  {
-    id: "ORD-005",
-    customer: "Robert Brown",
-    date: "2023-08-12",
-    status: "Processing",
-    total: 214.3,
-  },
-];
+export interface CategoryData {
+  name: string;
+  value: number;
+}
+export interface RecentOrder {
+  id: string;
+  orderId: string;
+  user: string;
+  createdAt: string;
+  status: string;
+  totalPrice: string | number;
+}
+export interface SalesDataPoint {
+  name: string;
+  total: string | number;
+}
+export interface DashboardStats {
+  total_revenue: string | number;
+  revenue_change: number;
+  total_orders: number;
+  orders_change: number;
+  total_products: number;
+  products_change: number;
+  total_customers: number;
+  customers_change: number;
+}
 
 const COLORS = [
   "#0088FE",
@@ -95,6 +73,48 @@ const COLORS = [
 ];
 
 const Dashboard = () => {
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(
+    null
+  );
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await api.get("/api/admin/dashboard/", {
+        withCredentials: true,
+      });
+      const data = response.data;
+
+      console.log(data);
+
+      setDashboardData({
+        stats: data.stats,
+        salesData: data.sales_data || [],
+        categoryData: data.category_data || [],
+        recentOrders: data.recent_orders || [],
+      });
+      // setLastUpdated(new Date());
+    } catch (err: any) {
+      console.error("Error fetching dashboard data:", err);
+      setError(
+        err.response?.data?.error ||
+          err.message ||
+          "Failed to load dashboard data"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+  if (!dashboardData) return <div>Loading ....</div>;
+
+  const { stats, salesData, categoryData, recentOrders } = dashboardData;
   return (
     <AdminLayout>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
@@ -118,10 +138,10 @@ const Dashboard = () => {
                 <p className="text-sm font-medium text-gray-500">
                   Total Revenue
                 </p>
-                <p className="text-2xl font-bold">$24,780</p>
+                <p className="text-2xl font-bold">Ksh {stats?.total_revenue}</p>
                 <p className="text-xs text-green-500 flex items-center mt-1">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  +12.5% from last month
+                  {stats?.revenue_change}% from last month
                 </p>
               </div>
               <div className="bg-green-100 p-3 rounded-full">
@@ -136,10 +156,10 @@ const Dashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-500">Orders</p>
-                <p className="text-2xl font-bold">437</p>
+                <p className="text-2xl font-bold">{stats?.total_orders}</p>
                 <p className="text-xs text-green-500 flex items-center mt-1">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  +8.2% from last month
+                  {stats?.orders_change}% from last month
                 </p>
               </div>
               <div className="bg-blue-100 p-3 rounded-full">
@@ -154,10 +174,10 @@ const Dashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-500">Products</p>
-                <p className="text-2xl font-bold">126</p>
+                <p className="text-2xl font-bold">{stats?.total_products}</p>
                 <p className="text-xs text-green-500 flex items-center mt-1">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  +3.1% from last month
+                  {stats?.products_change}% from last month
                 </p>
               </div>
               <div className="bg-purple-100 p-3 rounded-full">
@@ -172,10 +192,10 @@ const Dashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-500">Customers</p>
-                <p className="text-2xl font-bold">892</p>
+                <p className="text-2xl font-bold">{stats?.total_customers}</p>
                 <p className="text-xs text-green-500 flex items-center mt-1">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  +14.3% from last month
+                  {stats?.customers_change}% from last month
                 </p>
               </div>
               <div className="bg-orange-100 p-3 rounded-full">
@@ -231,7 +251,7 @@ const Dashboard = () => {
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
-                    data={productCategoryData}
+                    data={categoryData}
                     cx="50%"
                     cy="50%"
                     labelLine={false}
@@ -242,7 +262,7 @@ const Dashboard = () => {
                     fill="#8884d8"
                     dataKey="value"
                   >
-                    {productCategoryData.map((_, index) => (
+                    {categoryData.map((_, index) => (
                       <Cell
                         key={`cell-${index}`}
                         fill={COLORS[index % COLORS.length]}
@@ -282,15 +302,19 @@ const Dashboard = () => {
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {recentOrders.map((order) => (
-                  <tr key={order.id}>
+                  <tr key={order.orderId}>
                     <td className="px-4 py-3 text-sm font-medium text-gray-900">
-                      {order.id}
+                      {order.orderId}
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-500">
-                      {order.customer}
+                      {order.user}
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-500">
-                      {order.date}
+                      {new Date(order.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
                     </td>
                     <td className="px-4 py-3 text-sm">
                       <span
@@ -302,11 +326,14 @@ const Dashboard = () => {
                             : "bg-blue-100 text-blue-800"
                         }`}
                       >
-                        {order.status}
+                        {order?.status}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-sm font-medium text-gray-900">
-                      ${order.total.toFixed(2)}
+                      Ksh{" "}
+                      {Number(order.totalPrice).toLocaleString("en-KE", {
+                        minimumFractionDigits: 2,
+                      })}
                     </td>
                     <td className="px-4 py-3 text-sm">
                       <Button variant="ghost" size="sm">

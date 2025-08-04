@@ -6,7 +6,6 @@ import React, {
   ReactNode,
 } from "react";
 import api from "../../api";
-import { jwtDecode } from "jwt-decode";
 // Define types
 export type Category = {
   id: number;
@@ -79,11 +78,23 @@ type Order = {
   items: OrderItem[];
   shippingAddress: any | null;
 };
-
+type ShippingAddress = {
+  town: string;
+  address: string;
+  postalCode: number;
+  country: string;
+  shippingPrice: number;
+};
 type UserInfo = {
+  id: string;
+  username: string;
+  avatar: string;
   email: string;
-  userId: string;
+  first_name: string;
+  last_name: string;
+  phone_number?: string;
   role: string;
+  shipping_address_data: ShippingAddress;
 };
 
 // type PaginatedResponse = {
@@ -110,6 +121,7 @@ type StoreContextType = {
   };
   testimonials: Testimonials[];
   orders: Order[];
+  category: Category[];
   fetchProducts: (query?: string, page?: number) => Promise<void>;
   addToCart: (
     product: Product,
@@ -119,12 +131,15 @@ type StoreContextType = {
   removeFromCart: (productId: string) => void;
   updateCartItemQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
+  setError: (error: string | null) => void;
+  clearError: () => void;
   getProductById: (id: string) => Product | undefined;
   getProductsByCategory: (categoryName: string) => Product[];
   isLoggedIn: boolean;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   userInfo: UserInfo | null;
+  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo | null>>;
 };
 
 // Create context
@@ -163,54 +178,49 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
     if (isLoggedIn) {
       fetchOrders();
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, orders]);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const res = await api.get("/api/token", {
-          withCredentials: true,
-        });
-        const decoded = jwtDecode<any>(res.data.access);
-        setIsLoggedIn(true);
-        setUserInfo({
-          email: decoded.email,
-          userId: decoded.user_id,
-          role: decoded.is_admin ? "admin" : "user",
-        });
-      } catch {
-        setIsLoggedIn(false);
-        setUserInfo(null);
-      }
-    };
-    checkAuth();
-  }, []);
-  const login = async (email: string, password: string) => {
-    const res = await api.post(
-      "/api/token/",
-      { email, password },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "X-Requested-With": "XMLHttpRequest",
-        },
-        withCredentials: true,
-      }
-    );
-    const decoded = jwtDecode<any>(res.data.access);
-    const user = {
-      email,
-      role: decoded.is_admin ? "admin" : "user",
-      userId: decoded.user_id,
-    };
-    setIsLoggedIn(true);
-    setUserInfo(user);
+  // Error handling utility
+  const handleError = (err: any, defaultMessage: string) => {
+    console.error("Full error", err);
+    const errorMessage =
+      err.response?.data?.message ||
+      JSON.stringify(err.response?.data) ||
+      err.message ||
+      defaultMessage;
+    setError(errorMessage);
   };
 
-  const logout = () => {
-    localStorage.removeItem("userInfo");
-    localStorage.removeItem("access");
-    localStorage.removeItem("refresh");
+  // Clear error
+  const clearError = () => setError(null);
+
+  const login = async (email: string, password: string) => {
+    try {
+      await api.post(
+        "/api/login/",
+        { email, password },
+        {
+          withCredentials: true,
+        }
+      );
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      const profile = await api.get("/api/profile/", {
+        withCredentials: true,
+      });
+      console.log("profile data", profile);
+
+      setIsLoggedIn(true);
+      setUserInfo(profile?.data);
+    } catch (error: any) {
+      console.error("Login failed:", error?.response?.data || error.message);
+      throw error;
+    }
+  };
+
+  const logout = async () => {
+    await api.post("/api/logout/");
     setIsLoggedIn(false);
     setUserInfo(null);
   };
@@ -252,8 +262,13 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   const fetchOrders = async () => {
+    const access = localStorage.getItem("access");
     api
-      .get("/api/orders/")
+      .get("/api/orders/", {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      })
       .then((res) => res.data)
       .then((data) => {
         setOrders(data);
@@ -355,9 +370,13 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
     logout,
     testimonials,
     orders,
+    handleError,
+    setError,
+    clearError,
     selectedOrder,
     setSelectedOrder,
     userInfo,
+    setUserInfo,
   };
 
   return (

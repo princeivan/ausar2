@@ -1,10 +1,15 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from  .models import Categories, Product, Order, OrderItem, ShippingAddress, SliderData,User,Testimonials, BrandingRequest, BrandingFile
+from  .models import Categories, Payment, Product, Order, OrderItem, ShippingAddress, SliderData,User,Testimonials, BrandingRequest, BrandingFile
 import requests
 from django.core.files.base import ContentFile
 import re
+from django.db.models import Sum, Count, Q
+from django.utils import timezone
+from datetime import datetime, timedelta
+from collections import defaultdict
+import calendar
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -26,10 +31,11 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         
 class UserSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True)
+    permissions =serializers.SerializerMethodField(read_only=True)
     
     class Meta:
         model = User 
-        fields = ["id", "username", "first_name", "last_name", "avatar", "email", "phone_number", "password", "confirm_password"]
+        fields = ["id", "username", "first_name", "last_name", "avatar", "email", "phone_number", "password", "confirm_password", "role","permissions"]
         extra_kwargs = {
             "password": {"write_only": True},
             "username": {"required": True},
@@ -38,7 +44,9 @@ class UserSerializer(serializers.ModelSerializer):
             "first_name": {"required": True},
             "last_name": {"required": True}
         }
-
+    def get_permissios(self, obj):
+        return obj.get_permissions()
+    
     def validate_username(self, value):
         # Username should be 3-20 characters, alphanumeric with underscores
         if not re.match(r'^[a-zA-Z0-9_]{3,20}$', value):
@@ -101,11 +109,15 @@ class UserProfileSerializer(serializers.ModelSerializer):
     shipping_address = ShippingAddressSerializer(required=False)
     shipping_address_data = serializers.SerializerMethodField(read_only=True)
     full_name = serializers.SerializerMethodField()
+    permissions = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = User 
         fields = ["id", "username", "full_name", "first_name", "last_name", 
-                 "email", "phone_number","avatar","shipping_address","shipping_address_data"]
-        read_only_fields = ["email","username"]   
+                 "email", "phone_number","role", "permissions","avatar","shipping_address","shipping_address_data"]
+        read_only_fields = ["email","username"]  
+        
+    def get_permissions(self, obj):
+        return obj.get_permissions() 
         
     def get_full_name(self, obj):
         return f"{obj.first_name} {obj.last_name}".strip()
@@ -251,6 +263,91 @@ class BrandingRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = BrandingRequest 
         fields = '__all__'
+        
+class DashboardStatsSerializer(serializers.Serializer):
+    total_revenue = serializers.DecimalField(max_digits=10, decimal_places=2)
+    revenue_change = serializers.FloatField()
+    total_orders = serializers.IntegerField()
+    orders_change = serializers.FloatField()
+    total_products = serializers.IntegerField()
+    products_change = serializers.FloatField()
+    total_customers = serializers.IntegerField()
+    customers_change = serializers.FloatField()
+
+class SalesDataSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    total = serializers.DecimalField(max_digits=10, decimal_places=2)
+
+class CategoryDataSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    value = serializers.IntegerField()
+
+class RecentOrderSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(source='user.get_full_name', read_only=True)
+    
+    class Meta:
+        model = Order
+        fields = ['id', 'orderId', 'user', 'createdAt', 'status', 'totalPrice']
+        
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment 
+        fields = [
+            'id', 'amount', 'currency', 'payment_method', 'status',
+            'description', 'reference_number', 'created_at', 'updated_at',
+            'completed_at', 'card_last_four', 'card_brand'
+        ]
+        read_only_fields = [
+            'id', 'status', 'reference_number', 'created_at', 
+            'updated_at', 'completed_at', 'card_last_four', 'card_brand'
+        ]
+        
+class MPesaPaymentSerializer(serializers.Serializer):
+    amount = serializers.DecimalField(max_digits=10, decimal_places=2, min_value=1)
+    phone_number = serializers.CharField(max_length=15)
+    description = serializers.CharField(max_length=255, required=False, default="Payment")
+    
+    def validate_phone_number(self, value):
+        """Validate phone number format"""
+        # Remove any non-digit characters for validation
+        phone = ''.join(filter(str.isdigit, value))
+        
+        # Check if it's a valid Kenyan phone number
+        if len(phone) == 9:  # 7XXXXXXXX
+            return value
+        elif len(phone) == 10 and phone.startswith('0'):  # 07XXXXXXXX
+            return value
+        elif len(phone) == 12 and phone.startswith('254'):  # 254XXXXXXXXX
+            return value
+        elif len(phone) == 13 and phone.startswith('+254'):  # +254XXXXXXXXX
+            return value
+        else:
+            raise serializers.ValidationError("Invalid phone number format")
+        
+        return value
+    
+class StripePaymentSerializer(serializers.Serializer):
+    amount = serializers.DecimalField(max_digits=10, decimal_places=2, min_value=1)
+    currency = serializers.CharField(max_length=3, default='usd')
+    description = serializers.CharField(max_length=255, required=False, default="Payment")
+    customer_email = serializers.EmailField(required=False)
+    
+    def validate_currency(self, value):
+        """Validate currency code"""
+        supported_currencies = ['usd', 'kes', 'eur', 'gbp']
+        if value.lower() not in supported_currencies:
+            raise serializers.ValidationError(
+                f"Unsupported currency. Supported: {', '.join(supported_currencies)}"
+            )
+        return value.lower()
+
+class PaymentStatusSerializer(serializers.ModelSerializer):
+    """Serializer for payment status updates"""
+    class Meta:
+        model = Payment
+        fields = ['id', 'status', 'reference_number', 'amount', 'payment_method', 'created_at']
+        read_only_fields = ['id', 'reference_number', 'amount', 'payment_method', 'created_at']
+        
     
         
 

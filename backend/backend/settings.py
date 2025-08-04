@@ -33,13 +33,14 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['139.162.175.68','ausacreative.co.ke']
+ALLOWED_HOSTS = ['139.162.175.68','ausacreative.co.ke','127.0.0.1',
+    'localhost',]
 
 AUTH_USER_MODEL = 'api.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'api.authentication.CustomJWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -50,7 +51,12 @@ REST_FRAMEWORK = {
 }
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "AUTH_COOKIE": "access",
+    "AUTH_COOKIE_REFRESH": "refresh",
+    "AUTH_COOKIE_HTTP_ONLY": True,
+    "AUTH_COOKIE_SECURE":False,
+    "AUTH_COOKIE_SAMESITE": "Lax",
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
  }
 
@@ -171,10 +177,14 @@ if not os.path.exists(LOGS_DIR):
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS=[
-    'http://139.162.175.68/','https://ausacreative.co.ke'
+    'http://139.162.175.68','https://ausacreative.co.ke','http://localhost:5173',
 ]
 CORS_ALLOW_CREDENTIALS = True
-
+CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
+SESSION_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SECURE = False  # True in production
+SESSION_COOKIE_SECURE = False  # True in production
 # CORS_ALLOW_HEADERS = list(default_headers) + [
 #     'authorization',
 # ]
@@ -188,15 +198,40 @@ sentry_sdk.init(
     environment=os.getenv('ENVIRONMENT', 'production'),
 )
 
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_HSTS_SECONDS = 31536000
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
-X_FRAME_OPTIONS = "DENY"
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_HSTS_SECONDS = 31536000
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# X_FRAME_OPTIONS = "DENY"
+
+MPESA_CONFIG = {
+    
+'MPESA_CONSUMER_KEY' :config("MPESA_CONSUMER_KEY"),
+'MPESA_CONSUMER_SECRET' :config("MPESA_CONSUMER_SECRET"),
+'MPESA_SHORTCODE' : config("MPESA_SHORTCODE"),
+'MPESA_PASSKEY' :config("MPESA_PASSKEY"),
+'MPESA_CALLBACK_URL' : config("MPESA_CALLBACK_URL"),
+'SANDBOX_URL': 'https://sandbox.safaricom.co.ke',
+'PRODUCTION_URL': 'https://api.safaricom.co.ke',
+'ENVIRONMENT': 'sandbox',
+}
+STRIPE_CONFIG = {
+    'PUBLISHABLE_KEY': config('PUBLISHABLE_KEY'),
+    'STRIPE_SECRET_KEY': config('STRIPE_SECRET_KEY'),
+    'WEBHOOK_SECRET': config('WEBHOOK_SECRET'),
+}
+
+PAYMENT_SETTINGS = {
+    'MIN_AMOUNT': 1.00,
+    'MAX_AMOUNT': 100000.00,
+    'DEFAULT_CURRENCY': 'KES',
+    'SUPPORTED_CURRENCIES': ['KES', 'USD'],
+}
+
 
 # Logging Configuration
 LOGGING = {

@@ -8,9 +8,9 @@ import api from "../../../api";
 interface ShippingAddress {
   town: string;
   address: string;
-  postalCode: Number;
+  postalCode: number;
   country: string;
-  shippingPrice: Number;
+  shippingPrice: number;
 }
 interface UserProfile {
   id: string;
@@ -43,31 +43,31 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({
     postalCode: "",
   });
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await api.get("/api/profile/");
-        setProfile(response.data);
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-      }
-    };
-    fetchProfile();
-  }, []);
+  // useEffect(() => {
+  //   const fetchProfile = async () => {
+  //     try {
+  //       const response = await api.get("/api/profile/");
+  //       setProfile(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching profile:", error);
+  //     }
+  //   };
+  //   fetchProfile();
+  // }, []);
 
   useEffect(() => {
     if (profile) {
       setFormData((prev) => ({
         ...prev,
-        firstName: profile.first_name,
-        lastName: profile.last_name,
-        email: profile.email,
+        firstName: profile.first_name || "",
+        lastName: profile.last_name || "",
+        email: profile.email || "",
         phone: profile.phone_number || "",
         avatar: profile.avatar || "",
-        address: profile.shipping_address_data.address,
-        town: profile.shipping_address_data.town,
-        country: profile.shipping_address_data.country,
-        postalCode: profile.shipping_address_data.postalCode?.toString() || "",
+        address: profile.shipping_address_data?.address || "",
+        town: profile.shipping_address_data?.town || "",
+        country: profile.shipping_address_data?.country || "",
+        postalCode: profile.shipping_address_data?.postalCode?.toString() || "",
       }));
     }
   }, [profile]);
@@ -86,8 +86,8 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({
       email: formData.email,
       phone_number: formData.phone,
       shipping_address_data: {
-        address: formData.address,
-        town: formData.town,
+        address: formData?.address,
+        town: formData?.town,
         postalCode: parseInt(formData.postalCode) || 0,
         country: formData.country,
       },

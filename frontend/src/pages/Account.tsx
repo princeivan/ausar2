@@ -11,41 +11,14 @@ import { useToast } from "../hooks/use-toast";
 import ProfileSettings from "../components/account/ProfileSettings";
 import OrderHistory from "../components/account/OrderHistory";
 import OrderTracking from "../components/account/OrderTracking";
-import api from "../../api";
+import { useStore } from "../context/StoreContext";
 
-interface ShippingAddress {
-  town: string;
-  address: string;
-  postalCode: Number;
-  country: string;
-  shippingPrice: Number;
-}
-interface UserProfile {
-  id: string;
-  username: string;
-  avatar: string;
-  email: string;
-  first_name: string;
-  last_name: string;
-  phone_number?: string;
-  shipping_address_data: ShippingAddress;
-}
 const Account = () => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("profile");
-  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const { userInfo, setUserInfo } = useStore();
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await api.get("/api/profile/");
-        setProfile(response?.data);
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-      }
-    };
-    fetchProfile();
-  }, []);
+  useEffect(() => {}, []);
 
   const handleLogout = () => {
     toast({
@@ -69,7 +42,7 @@ const Account = () => {
                 <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mb-4">
                   <div className="relative h-24 w-24 group">
                     <img
-                      src={profile?.avatar}
+                      src={userInfo?.avatar}
                       alt="User"
                       className="h-full w-full object-cover rounded-full"
                     />
@@ -85,8 +58,10 @@ const Account = () => {
                     </div>
                   </div>
                 </div>
-                <h2 className="text-xl font-semibold">{profile?.first_name}</h2>
-                <p className="text-gray-500">{profile?.email}</p>
+                <h2 className="text-xl font-semibold">
+                  {userInfo?.first_name}
+                </h2>
+                <p className="text-gray-500">{userInfo?.email}</p>
               </div>
 
               <Button
@@ -137,7 +112,10 @@ const Account = () => {
                 </TabsList>
 
                 <TabsContent value="profile">
-                  <ProfileSettings profile={profile} setProfile={setProfile} />
+                  <ProfileSettings
+                    profile={userInfo}
+                    setProfile={setUserInfo}
+                  />
                 </TabsContent>
 
                 <TabsContent value="orders">

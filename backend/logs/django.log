@@ -402,3 +402,2116 @@ ERROR 2025-05-06 15:57:01,791 basehttp 7760 17312 You're accessing the developme
 ERROR 2025-05-06 15:57:01,793 basehttp 7760 8692 You're accessing the development server over HTTPS, but it only supports HTTP.
 ERROR 2025-05-06 15:57:01,794 basehttp 7760 11824 You're accessing the development server over HTTPS, but it only supports HTTP.
 ERROR 2025-05-06 15:57:01,797 basehttp 7760 15132 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:41:12,142 exception 13712 5144 Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\middleware.py", line 177, in __call__
+    return f(*args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\security.py", line 28, in process_request
+    host = self.redirect_host or request.get_host()
+                                 ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+ERROR 2025-06-07 10:41:12,144 exception 13712 6588 Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\middleware.py", line 177, in __call__
+    return f(*args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\security.py", line 28, in process_request
+    host = self.redirect_host or request.get_host()
+                                 ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+ERROR 2025-06-07 10:41:12,147 exception 13712 12584 Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\middleware.py", line 177, in __call__
+    return f(*args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\security.py", line 28, in process_request
+    host = self.redirect_host or request.get_host()
+                                 ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+ERROR 2025-06-07 10:41:12,150 exception 13712 12300 Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\middleware.py", line 177, in __call__
+    return f(*args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\security.py", line 28, in process_request
+    host = self.redirect_host or request.get_host()
+                                 ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+ERROR 2025-06-07 10:41:21,080 exception 13712 5152 Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\middleware.py", line 177, in __call__
+    return f(*args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\security.py", line 28, in process_request
+    host = self.redirect_host or request.get_host()
+                                 ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+ERROR 2025-06-07 10:41:21,090 exception 13712 10912 Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\middleware.py", line 177, in __call__
+    return f(*args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\security.py", line 28, in process_request
+    host = self.redirect_host or request.get_host()
+                                 ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+ERROR 2025-06-07 10:41:21,103 exception 13712 17324 Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\middleware.py", line 177, in __call__
+    return f(*args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\security.py", line 28, in process_request
+    host = self.redirect_host or request.get_host()
+                                 ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+ERROR 2025-06-07 10:41:21,121 exception 13712 14524 Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\middleware.py", line 177, in __call__
+    return f(*args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\security.py", line 28, in process_request
+    host = self.redirect_host or request.get_host()
+                                 ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+ERROR 2025-06-07 10:45:14,182 basehttp 5144 17524 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:14,186 basehttp 5144 13032 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:14,188 basehttp 5144 17220 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:14,221 basehttp 5144 13936 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:14,222 basehttp 5144 508 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:14,237 basehttp 5144 4236 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:14,242 basehttp 5144 18064 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:14,251 basehttp 5144 17276 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:14,255 basehttp 5144 10584 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:14,255 basehttp 5144 2916 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:14,258 basehttp 5144 17376 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:14,260 basehttp 5144 6532 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:14,474 basehttp 5144 8716 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:14,477 basehttp 5144 18116 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:14,491 basehttp 5144 15632 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:14,495 basehttp 5144 16840 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:56,851 basehttp 2176 5016 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:56,870 basehttp 2176 8292 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:56,897 basehttp 2176 6844 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:56,938 basehttp 2176 15912 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:56,943 basehttp 2176 12128 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:56,991 basehttp 2176 12672 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:57,001 basehttp 2176 14512 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:57,024 basehttp 2176 15100 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:57,038 basehttp 2176 6056 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:57,040 basehttp 2176 9956 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:57,042 basehttp 2176 16908 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:57,045 basehttp 2176 17004 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:57,056 basehttp 2176 10572 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:57,059 basehttp 2176 12260 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:57,063 basehttp 2176 11536 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 10:45:57,067 basehttp 2176 3916 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,289 basehttp 14684 11716 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,348 basehttp 14684 15568 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,372 basehttp 14684 13776 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,435 basehttp 14684 5420 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,438 basehttp 14684 7340 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,447 basehttp 14684 16808 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,454 basehttp 14684 1688 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,484 basehttp 14684 13132 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,488 basehttp 14684 13248 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,506 basehttp 14684 17328 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,520 basehttp 14684 5904 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,532 basehttp 14684 16416 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,556 basehttp 14684 17520 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,568 basehttp 14684 2212 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,572 basehttp 14684 7908 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:00:05,580 basehttp 14684 10452 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,108 basehttp 17844 18336 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,109 basehttp 17844 17096 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,110 basehttp 17844 4776 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,119 basehttp 17844 17732 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,125 basehttp 17844 13480 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,129 basehttp 17844 10508 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,143 basehttp 17844 18216 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,174 basehttp 17844 13120 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,191 basehttp 17844 17632 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,209 basehttp 17844 16552 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,262 basehttp 17844 11816 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,277 basehttp 17844 14936 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,290 basehttp 17844 17968 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,307 basehttp 17844 1372 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,324 basehttp 17844 3908 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:03:52,340 basehttp 17844 11420 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,230 basehttp 17844 7504 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,244 basehttp 17844 14200 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,247 basehttp 17844 17944 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,250 basehttp 17844 5172 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,253 basehttp 17844 15324 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,259 basehttp 17844 16260 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,264 basehttp 17844 5880 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,271 basehttp 17844 1112 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,276 basehttp 17844 17816 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,278 basehttp 17844 14308 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,281 basehttp 17844 5328 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,286 basehttp 17844 14472 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,289 basehttp 17844 17144 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,294 basehttp 17844 15796 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,296 basehttp 17844 18344 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:09:21,300 basehttp 17844 13976 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,467 basehttp 17844 5980 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,468 basehttp 17844 16952 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,471 basehttp 17844 14036 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,473 basehttp 17844 14876 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,479 basehttp 17844 9352 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,485 basehttp 17844 10812 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,489 basehttp 17844 11960 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,491 basehttp 17844 3812 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,495 basehttp 17844 6788 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,498 basehttp 17844 16484 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,500 basehttp 17844 18024 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,503 basehttp 17844 6668 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,516 basehttp 17844 6920 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,522 basehttp 17844 9908 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,522 basehttp 17844 4324 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:10:02,528 basehttp 17844 15396 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,382 basehttp 17844 14084 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,392 basehttp 17844 15876 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,402 basehttp 17844 17520 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,408 basehttp 17844 8072 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,416 basehttp 17844 17272 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,422 basehttp 17844 11996 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,443 basehttp 17844 13316 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,449 basehttp 17844 1820 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,454 basehttp 17844 2892 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,456 basehttp 17844 8304 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,458 basehttp 17844 8016 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,460 basehttp 17844 15496 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,462 basehttp 17844 11420 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,464 basehttp 17844 17312 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,466 basehttp 17844 18080 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:12:23,473 basehttp 17844 18324 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,336 basehttp 17844 4036 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,343 basehttp 17844 18312 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,348 basehttp 17844 11448 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,352 basehttp 17844 16716 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,357 basehttp 17844 11588 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,361 basehttp 17844 12448 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,368 basehttp 17844 1628 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,370 basehttp 17844 9152 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,375 basehttp 17844 4544 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,377 basehttp 17844 13264 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,382 basehttp 17844 10736 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,385 basehttp 17844 14056 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,403 basehttp 17844 17248 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,405 basehttp 17844 16712 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,412 basehttp 17844 16448 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:13:44,414 basehttp 17844 17600 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,153 basehttp 17844 11164 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,158 basehttp 17844 16992 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,161 basehttp 17844 10284 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,164 basehttp 17844 14964 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,165 basehttp 17844 11120 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,167 basehttp 17844 10776 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,183 basehttp 17844 17228 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,185 basehttp 17844 10740 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,194 basehttp 17844 16168 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,198 basehttp 17844 17344 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,202 basehttp 17844 7572 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,213 basehttp 17844 9956 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,303 basehttp 17844 17888 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,304 basehttp 17844 16364 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,308 basehttp 17844 7348 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:46,309 basehttp 17844 1948 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,034 basehttp 17844 12452 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,036 basehttp 17844 16868 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,043 basehttp 17844 17364 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,044 basehttp 17844 10272 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,046 basehttp 17844 16660 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,047 basehttp 17844 8444 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,052 basehttp 17844 10808 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,054 basehttp 17844 17852 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,060 basehttp 17844 6876 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,063 basehttp 17844 18364 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,064 basehttp 17844 16136 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,066 basehttp 17844 12268 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,067 basehttp 17844 984 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,070 basehttp 17844 14440 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,073 basehttp 17844 17260 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:16:57,076 basehttp 17844 17256 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,027 basehttp 17844 1316 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,053 basehttp 17844 8340 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,104 basehttp 17844 10204 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,128 basehttp 17844 18116 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,210 basehttp 17844 8460 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,234 basehttp 17844 18260 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,244 basehttp 17844 11740 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,250 basehttp 17844 16984 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,254 basehttp 17844 11232 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,264 basehttp 17844 17504 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,266 basehttp 17844 17748 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,274 basehttp 17844 12548 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,277 basehttp 17844 16816 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,280 basehttp 17844 16480 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,281 basehttp 17844 16600 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:17:27,284 basehttp 17844 8160 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,069 basehttp 17844 10720 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,074 basehttp 17844 11720 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,077 basehttp 17844 432 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,082 basehttp 17844 16464 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,084 basehttp 17844 14576 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,087 basehttp 17844 13288 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,089 basehttp 17844 14192 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,092 basehttp 17844 13216 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,096 basehttp 17844 4304 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,098 basehttp 17844 13904 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,100 basehttp 17844 10732 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,102 basehttp 17844 1108 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,103 basehttp 17844 12728 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,105 basehttp 17844 736 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,107 basehttp 17844 3728 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:19:57,109 basehttp 17844 14920 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,158 basehttp 17844 13328 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,165 basehttp 17844 1048 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,173 basehttp 17844 8840 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,181 basehttp 17844 6760 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,187 basehttp 17844 11436 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,193 basehttp 17844 15168 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,195 basehttp 17844 13236 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,200 basehttp 17844 2504 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,204 basehttp 17844 7908 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,209 basehttp 17844 6028 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,211 basehttp 17844 17876 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,212 basehttp 17844 9484 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,214 basehttp 17844 1536 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,221 basehttp 17844 11036 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,225 basehttp 17844 8616 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-07 11:22:37,230 basehttp 17844 12572 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-07-28 15:08:45,516 log 5344 16992 Internal Server Error: /api/payments/pay-for-order/ORD-0005/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+TypeError: pay_for_order() got an unexpected keyword argument 'order_code'. Did you mean 'order_id'?
+ERROR 2025-07-28 15:08:45,657 basehttp 5344 16992 "POST /api/payments/pay-for-order/ORD-0005/ HTTP/1.1" 500 145
+ERROR 2025-07-28 15:09:46,400 log 2640 8540 Internal Server Error: /api/payments/pay-for-order/ORD-0006/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2761, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 317, in pay_for_order
+    order = Order.objects.get(id=order_id, user=request.user)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2745, in get_prep_value
+    return self.to_python(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2763, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“ORD-0006” is not a valid UUID.']
+ERROR 2025-07-28 15:09:46,481 basehttp 2640 8540 "POST /api/payments/pay-for-order/ORD-0006/ HTTP/1.1" 500 145
+ERROR 2025-07-28 15:10:05,783 log 2640 8540 Internal Server Error: /api/payments/pay-for-order/ORD-0007/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2761, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 317, in pay_for_order
+    order = Order.objects.get(id=order_id, user=request.user)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2745, in get_prep_value
+    return self.to_python(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2763, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“ORD-0007” is not a valid UUID.']
+ERROR 2025-07-28 15:10:05,938 basehttp 2640 8540 "POST /api/payments/pay-for-order/ORD-0007/ HTTP/1.1" 500 145
+ERROR 2025-07-28 15:15:14,574 log 8500 16520 Internal Server Error: /api/payments/pay-for-order/ORD-0008/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 344, in pay_for_order
+    result = payment_service.create_order_payment(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PaymentService' object has no attribute 'create_order_payment'. Did you mean: 'create_mpesa_payment'?
+ERROR 2025-07-28 15:15:14,635 basehttp 8500 16520 "POST /api/payments/pay-for-order/ORD-0008/ HTTP/1.1" 500 145
+ERROR 2025-07-28 15:16:13,366 log 912 11572 Internal Server Error: /api/payments/pay-for-order/ORD-0009/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 344, in pay_for_order
+    result = payment_service.create_mpesa_payment(
+        order_id=order_id,
+        payment_method=payment_method,
+        phone_number=phone_number
+    )
+TypeError: PaymentService.create_mpesa_payment() got an unexpected keyword argument 'order_id'
+ERROR 2025-07-28 15:16:13,400 basehttp 912 11572 "POST /api/payments/pay-for-order/ORD-0009/ HTTP/1.1" 500 145
+ERROR 2025-07-28 15:17:06,348 log 10096 13728 Internal Server Error: /api/payments/pay-for-order/ORD-0010/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 344, in pay_for_order
+    result = payment_service.create_order_payment(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PaymentService' object has no attribute 'create_order_payment'. Did you mean: 'create_mpesa_payment'?
+ERROR 2025-07-28 15:17:06,403 basehttp 10096 13728 "POST /api/payments/pay-for-order/ORD-0010/ HTTP/1.1" 500 145
+ERROR 2025-07-30 11:43:01,189 log 6460 15544 Internal Server Error: /api/payments/pay-for-order/ORD-0018/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 344, in pay_for_order
+    result = payment_service.create_order_payment(
+        order_id=order_id,
+        payment_method=payment_method,
+        phone_number=phone_number
+    )
+  File "C:\Users\princ\projects\ausar2\backend\api\services.py", line 159, in create_order_payment
+    return self.create_stripe_payment(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        user=order.user,
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        description=f"Payment for order {order.orderId}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+TypeError: PaymentService.create_stripe_payment() got an unexpected keyword argument 'phone_number'
+ERROR 2025-07-30 11:43:01,457 basehttp 6460 15544 "POST /api/payments/pay-for-order/ORD-0018/ HTTP/1.1" 500 145
+ERROR 2025-07-30 12:48:49,158 log 10812 16552 Internal Server Error: /api/payments/order-payment-status/ORD-0023/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2761, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 424, in order_payment_status
+    order = Order.objects.get(id=order_id, user=request.user)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2745, in get_prep_value
+    return self.to_python(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2763, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“ORD-0023” is not a valid UUID.']
+ERROR 2025-07-30 12:48:49,349 basehttp 10812 16552 "GET /api/payments/order-payment-status/ORD-0023/ HTTP/1.1" 500 145
+ERROR 2025-07-30 12:48:51,588 log 10812 16552 Internal Server Error: /api/payments/order-payment-status/ORD-0023/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2761, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 424, in order_payment_status
+    order = Order.objects.get(id=order_id, user=request.user)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2745, in get_prep_value
+    return self.to_python(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2763, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“ORD-0023” is not a valid UUID.']
+ERROR 2025-07-30 12:48:51,703 basehttp 10812 16552 "GET /api/payments/order-payment-status/ORD-0023/ HTTP/1.1" 500 145
+ERROR 2025-07-30 12:48:53,907 log 10812 16552 Internal Server Error: /api/payments/order-payment-status/ORD-0023/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2761, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 424, in order_payment_status
+    order = Order.objects.get(id=order_id, user=request.user)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2745, in get_prep_value
+    return self.to_python(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2763, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“ORD-0023” is not a valid UUID.']
+ERROR 2025-07-30 12:48:53,950 basehttp 10812 16552 "GET /api/payments/order-payment-status/ORD-0023/ HTTP/1.1" 500 145
+ERROR 2025-07-30 12:48:56,160 log 10812 16552 Internal Server Error: /api/payments/order-payment-status/ORD-0023/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2761, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 424, in order_payment_status
+    order = Order.objects.get(id=order_id, user=request.user)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2745, in get_prep_value
+    return self.to_python(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2763, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“ORD-0023” is not a valid UUID.']
+ERROR 2025-07-30 12:48:56,251 basehttp 10812 16552 "GET /api/payments/order-payment-status/ORD-0023/ HTTP/1.1" 500 145
+ERROR 2025-07-30 12:48:58,506 log 10812 16552 Internal Server Error: /api/payments/order-payment-status/ORD-0023/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2761, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 424, in order_payment_status
+    order = Order.objects.get(id=order_id, user=request.user)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2745, in get_prep_value
+    return self.to_python(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2763, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“ORD-0023” is not a valid UUID.']
+ERROR 2025-07-30 12:48:58,623 basehttp 10812 16552 "GET /api/payments/order-payment-status/ORD-0023/ HTTP/1.1" 500 145
+ERROR 2025-07-30 12:49:00,877 log 10812 16552 Internal Server Error: /api/payments/order-payment-status/ORD-0023/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2761, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 424, in order_payment_status
+    order = Order.objects.get(id=order_id, user=request.user)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2745, in get_prep_value
+    return self.to_python(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2763, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“ORD-0023” is not a valid UUID.']
+ERROR 2025-07-30 12:49:01,041 basehttp 10812 16552 "GET /api/payments/order-payment-status/ORD-0023/ HTTP/1.1" 500 145
+ERROR 2025-07-30 12:49:03,381 log 10812 16552 Internal Server Error: /api/payments/order-payment-status/ORD-0023/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2761, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 424, in order_payment_status
+    order = Order.objects.get(id=order_id, user=request.user)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2745, in get_prep_value
+    return self.to_python(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2763, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“ORD-0023” is not a valid UUID.']
+ERROR 2025-07-30 12:49:03,463 basehttp 10812 16552 "GET /api/payments/order-payment-status/ORD-0023/ HTTP/1.1" 500 145
+ERROR 2025-07-30 12:49:05,696 log 10812 16552 Internal Server Error: /api/payments/order-payment-status/ORD-0023/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2761, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 424, in order_payment_status
+    order = Order.objects.get(id=order_id, user=request.user)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2745, in get_prep_value
+    return self.to_python(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2763, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“ORD-0023” is not a valid UUID.']
+ERROR 2025-07-30 12:49:05,773 basehttp 10812 16552 "GET /api/payments/order-payment-status/ORD-0023/ HTTP/1.1" 500 145
+ERROR 2025-07-30 12:49:07,992 log 10812 16552 Internal Server Error: /api/payments/order-payment-status/ORD-0023/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2761, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 424, in order_payment_status
+    order = Order.objects.get(id=order_id, user=request.user)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2745, in get_prep_value
+    return self.to_python(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2763, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“ORD-0023” is not a valid UUID.']
+ERROR 2025-07-30 12:49:08,103 basehttp 10812 16552 "GET /api/payments/order-payment-status/ORD-0023/ HTTP/1.1" 500 145
+ERROR 2025-07-30 12:49:10,321 log 10812 16552 Internal Server Error: /api/payments/order-payment-status/ORD-0023/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2761, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 424, in order_payment_status
+    order = Order.objects.get(id=order_id, user=request.user)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2745, in get_prep_value
+    return self.to_python(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2763, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“ORD-0023” is not a valid UUID.']
+ERROR 2025-07-30 12:49:10,402 basehttp 10812 16552 "GET /api/payments/order-payment-status/ORD-0023/ HTTP/1.1" 500 145
+ERROR 2025-07-30 12:49:12,642 log 10812 16552 Internal Server Error: /api/payments/order-payment-status/ORD-0023/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2761, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 424, in order_payment_status
+    order = Order.objects.get(id=order_id, user=request.user)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2745, in get_prep_value
+    return self.to_python(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2763, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“ORD-0023” is not a valid UUID.']
+ERROR 2025-07-30 12:49:12,705 basehttp 10812 16552 "GET /api/payments/order-payment-status/ORD-0023/ HTTP/1.1" 500 145
+ERROR 2025-07-31 20:21:40,679 log 4964 16344 Internal Server Error: /api/products/profile/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2761, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 142, in getProduct
+    product = Product.objects.get(id=pk)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2745, in get_prep_value
+    return self.to_python(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2763, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“profile” is not a valid UUID.']
+ERROR 2025-07-31 20:21:40,823 basehttp 4964 16344 "GET /api/products/profile/ HTTP/1.1" 500 145
+ERROR 2025-07-31 20:26:24,588 log 15572 9344 Internal Server Error: /api/profile/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\generics.py", line 256, in get
+    return self.retrieve(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\mixins.py", line 56, in retrieve
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 571, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+                 ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 538, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+                            ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\fields.py", line 1870, in to_representation
+    return method(value)
+  File "C:\Users\princ\projects\ausar2\backend\api\serializers.py", line 111, in get_full_name
+    return f"{obj.first_name} {obj.last_name}".strip()
+              ^^^^^^^^^^^^^^
+AttributeError: 'AnonymousUser' object has no attribute 'first_name'
+ERROR 2025-07-31 20:26:24,622 basehttp 15572 9344 "GET /api/profile/ HTTP/1.1" 500 145
+ERROR 2025-07-31 20:26:29,905 log 15572 9344 Internal Server Error: /api/profile/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\generics.py", line 256, in get
+    return self.retrieve(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\mixins.py", line 56, in retrieve
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 571, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+                 ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 538, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+                            ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\fields.py", line 1870, in to_representation
+    return method(value)
+  File "C:\Users\princ\projects\ausar2\backend\api\serializers.py", line 111, in get_full_name
+    return f"{obj.first_name} {obj.last_name}".strip()
+              ^^^^^^^^^^^^^^
+AttributeError: 'AnonymousUser' object has no attribute 'first_name'
+ERROR 2025-07-31 20:26:29,931 basehttp 15572 9344 "GET /api/profile/ HTTP/1.1" 500 145
+ERROR 2025-08-01 12:01:34,128 log 16052 16940 Internal Server Error: /api/token/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 96, in post
+    refresh = RefreshToken.for_user(user)
+              ^^^^^^^^^^^^
+NameError: name 'RefreshToken' is not defined
+ERROR 2025-08-01 12:01:34,216 basehttp 16052 16940 "POST /api/token/ HTTP/1.1" 500 145
+ERROR 2025-08-01 13:17:54,384 log 16052 7452 Internal Server Error: /api/token/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 96, in post
+    refresh = RefreshToken.for_user(user)
+              ^^^^^^^^^^^^
+NameError: name 'RefreshToken' is not defined
+ERROR 2025-08-01 13:17:54,450 basehttp 16052 7452 "POST /api/token/ HTTP/1.1" 500 145
+ERROR 2025-08-01 13:21:51,904 log 10464 15832 Internal Server Error: /api/token/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 102, in post
+    value=str(refresh.access_token),
+              ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'access_token'
+ERROR 2025-08-01 13:21:51,925 basehttp 10464 15832 "POST /api/token/ HTTP/1.1" 500 145
+ERROR 2025-08-01 13:28:49,455 log 11772 11444 Internal Server Error: /api/token/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 96, in post
+    refresh = RefreshToken.for_user(user)
+              ^^^^^^^^^^^^
+NameError: name 'RefreshToken' is not defined
+ERROR 2025-08-01 13:28:49,486 basehttp 11772 11444 "POST /api/token/ HTTP/1.1" 500 145
+ERROR 2025-08-01 21:40:26,130 log 1512 13940 Internal Server Error: /api/login/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 166, in login_view
+    max_age=settings.SIMPLE_JWT["AUTH_TOKEN_LIFETIME"].total_seconds()
+            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'AUTH_TOKEN_LIFETIME'
+ERROR 2025-08-01 21:40:26,162 basehttp 1512 13940 "POST /api/login/ HTTP/1.1" 500 145
+ERROR 2025-08-01 21:55:19,655 log 3148 10404 Internal Server Error: /api/login/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\princ\projects\ausar2\backend\api\views.py", line 161, in login_view
+    key=settings.SIMPLE_JWT["AUTH_COOKIE", "access"],
+        ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: ('AUTH_COOKIE', 'access')
+ERROR 2025-08-01 21:55:19,677 basehttp 3148 10404 "POST /api/login/ HTTP/1.1" 500 145
+ERROR 2025-08-02 09:28:49,245 log 19152 8260 Internal Server Error: /api/profile/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\generics.py", line 256, in get
+    return self.retrieve(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\mixins.py", line 56, in retrieve
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 571, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+                 ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 523, in to_representation
+    for field in fields:
+                 ^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+                      ~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 1079, in get_fields
+    field_names = self.get_field_names(declared_fields, info)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 1175, in get_field_names
+    assert field_name in fields, (
+           ^^^^^^^^^^^^^^^^^^^^
+AssertionError: The field 'permisions' was declared on serializer UserProfileSerializer, but has not been included in the 'fields' option.
+ERROR 2025-08-02 09:28:49,341 basehttp 19152 8260 "GET /api/profile/ HTTP/1.1" 500 145
+ERROR 2025-08-02 10:52:55,611 log 15980 10172 Internal Server Error: /api/admin/dashboard/
+ERROR 2025-08-02 10:52:55,613 basehttp 15980 10172 "GET /api/admin/dashboard/ HTTP/1.1" 500 308
+ERROR 2025-08-02 10:52:55,748 log 15980 10172 Internal Server Error: /api/admin/dashboard/
+ERROR 2025-08-02 10:52:55,751 basehttp 15980 10172 "GET /api/admin/dashboard/ HTTP/1.1" 500 308
+ERROR 2025-08-02 11:18:31,610 log 15980 228 Internal Server Error: /api/admin/dashboard/
+ERROR 2025-08-02 11:18:31,616 basehttp 15980 228 "GET /api/admin/dashboard/ HTTP/1.1" 500 308
+ERROR 2025-08-02 11:18:31,786 log 15980 16340 Internal Server Error: /api/admin/dashboard/
+ERROR 2025-08-02 11:18:31,813 basehttp 15980 16340 "GET /api/admin/dashboard/ HTTP/1.1" 500 308
+ERROR 2025-08-02 11:19:39,244 log 15980 16928 Internal Server Error: /api/admin/dashboard/
+ERROR 2025-08-02 11:19:39,249 basehttp 15980 16928 "GET /api/admin/dashboard/ HTTP/1.1" 500 308
+ERROR 2025-08-02 11:20:09,689 log 15980 9304 Internal Server Error: /api/admin/dashboard/
+ERROR 2025-08-02 11:20:09,694 basehttp 15980 9304 "GET /api/admin/dashboard/ HTTP/1.1" 500 308
+ERROR 2025-08-02 11:20:09,958 log 15980 9304 Internal Server Error: /api/admin/dashboard/
+ERROR 2025-08-02 11:20:10,012 basehttp 15980 9304 "GET /api/admin/dashboard/ HTTP/1.1" 500 308
+ERROR 2025-08-02 12:21:22,023 log 10636 18448 Internal Server Error: /api/admin/dashboard/
+ERROR 2025-08-02 12:21:22,046 basehttp 10636 18448 "GET /api/admin/dashboard/ HTTP/1.1" 500 5767
+ERROR 2025-08-02 12:23:07,747 log 18116 12600 Internal Server Error: /api/admin/dashboard/
+ERROR 2025-08-02 12:23:07,750 basehttp 18116 12600 "GET /api/admin/dashboard/ HTTP/1.1" 500 5767
+ERROR 2025-08-02 12:25:09,079 log 16900 12248 Internal Server Error: /api/admin/dashboard/
+ERROR 2025-08-02 12:25:09,083 basehttp 16900 12248 "GET /api/admin/dashboard/ HTTP/1.1" 500 5767
+ERROR 2025-08-02 12:27:42,648 log 19060 14256 Internal Server Error: /api/admin/dashboard/
+ERROR 2025-08-02 12:27:42,650 basehttp 19060 14256 "GET /api/admin/dashboard/ HTTP/1.1" 500 5800
+ERROR 2025-08-02 12:30:50,105 log 14848 13076 Internal Server Error: /api/admin/dashboard/
+ERROR 2025-08-02 12:30:50,108 basehttp 14848 13076 "GET /api/admin/dashboard/ HTTP/1.1" 500 5592
+ERROR 2025-08-02 12:34:01,397 log 8204 18672 Internal Server Error: /api/admin/dashboard/
+ERROR 2025-08-02 12:34:01,400 basehttp 8204 18672 "GET /api/admin/dashboard/ HTTP/1.1" 500 5603
+ERROR 2025-08-02 12:39:35,893 log 10308 1968 Internal Server Error: /api/admin/dashboard/
+ERROR 2025-08-02 12:39:35,901 basehttp 10308 1968 "GET /api/admin/dashboard/ HTTP/1.1" 500 5721
+ERROR 2025-08-02 12:41:55,826 log 19392 2692 Internal Server Error: /api/profile/
+Traceback (most recent call last):
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\sentry_sdk\integrations\django\views.py", line 94, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\generics.py", line 256, in get
+    return self.retrieve(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\mixins.py", line 56, in retrieve
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 571, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+                 ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 523, in to_representation
+    for field in fields:
+                 ^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+                      ~~~~~~~~~~~~~~~^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ~~~~~~~~~~~~~~~~^
+        source, info, model, depth
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\princ\AppData\Local\Programs\Python\Python313\Lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+    ...<2 lines>...
+    )
+django.core.exceptions.ImproperlyConfigured: Field name `createdAt` is not valid for model `User` in `api.serializers.UserProfileSerializer`.
+ERROR 2025-08-02 12:41:55,891 basehttp 19392 2692 "GET /api/profile/ HTTP/1.1" 500 145
+ERROR 2025-08-02 16:08:59,750 log 12580 1316 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:08:59,795 basehttp 12580 1316 "GET /api/admin/products/?search=&category=all&stock=all HTTP/1.1" 500 315
+ERROR 2025-08-02 16:08:59,960 log 12580 1316 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:08:59,992 basehttp 12580 1316 "GET /api/admin/products/?search=&category=all&stock=all HTTP/1.1" 500 315
+ERROR 2025-08-02 16:11:49,250 log 12580 1316 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:11:49,259 basehttp 12580 1316 "GET /api/admin/products/?search=&category=all&stock=all HTTP/1.1" 500 315
+ERROR 2025-08-02 16:13:04,800 log 12580 1316 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:13:04,813 basehttp 12580 1316 "GET /api/admin/products/?search=&category=all&stock=all HTTP/1.1" 500 315
+ERROR 2025-08-02 16:13:52,764 log 12580 1316 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:13:52,794 basehttp 12580 1316 "GET /api/admin/products/?search=&category=all&stock=all HTTP/1.1" 500 315
+ERROR 2025-08-02 16:14:08,516 log 12580 1316 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:14:08,521 basehttp 12580 1316 "GET /api/admin/products/?search=&category=all&stock=all HTTP/1.1" 500 315
+ERROR 2025-08-02 16:14:27,533 log 12580 1316 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:14:27,541 basehttp 12580 1316 "GET /api/admin/products/?search=&category=all&stock=all HTTP/1.1" 500 315
+ERROR 2025-08-02 16:15:31,671 log 12580 1316 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:15:31,674 basehttp 12580 1316 "GET /api/admin/products/?search=&category=all&stock=low HTTP/1.1" 500 315
+ERROR 2025-08-02 16:15:34,887 log 12580 1316 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:15:34,889 basehttp 12580 1316 "GET /api/admin/products/?search=&category=all&stock=medium HTTP/1.1" 500 315
+ERROR 2025-08-02 16:19:25,184 log 12580 1316 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:19:25,185 basehttp 12580 1316 "GET /api/admin/products/?search=&category=all&stock=all HTTP/1.1" 500 315
+ERROR 2025-08-02 16:19:25,370 log 12580 1316 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:19:25,372 basehttp 12580 1316 "GET /api/admin/products/?search=&category=all&stock=all HTTP/1.1" 500 315
+ERROR 2025-08-02 16:20:03,659 log 12580 5012 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:20:03,668 basehttp 12580 5012 "GET /api/admin/products/?search=&category=all&stock=all HTTP/1.1" 500 315
+ERROR 2025-08-02 16:20:03,912 log 12580 5012 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:20:03,913 basehttp 12580 5012 "GET /api/admin/products/?search=&category=all&stock=all HTTP/1.1" 500 315
+ERROR 2025-08-02 16:20:22,182 log 12580 5012 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:20:22,246 basehttp 12580 5012 "GET /api/admin/products/?search=&category=Electronics&stock=all HTTP/1.1" 500 315
+ERROR 2025-08-02 16:21:42,743 log 17136 9828 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:21:42,745 basehttp 17136 9828 "GET /api/admin/products/?search=&category=all&stock=all HTTP/1.1" 500 315
+ERROR 2025-08-02 16:21:42,954 log 17136 9828 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:21:42,955 basehttp 17136 9828 "GET /api/admin/products/?search=&category=all&stock=all HTTP/1.1" 500 315
+ERROR 2025-08-02 16:23:05,797 log 19280 19368 Internal Server Error: /api/admin/products/
+ERROR 2025-08-02 16:23:05,800 basehttp 19280 19368 "GET /api/admin/products/ HTTP/1.1" 500 7308

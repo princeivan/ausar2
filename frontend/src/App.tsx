@@ -34,9 +34,28 @@ import AdminProductsPage from "./pages/admin/AdminProductsPage";
 import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
 import AdminCategoryPage from "./pages/admin/AdminCategoryPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { useEffect } from "react";
+import { ACCESS_TOKEN } from "../constants";
+
 const queryClient = new QueryClient();
 
+// Initialize Stripe outside of component to avoid recreating on every render
+const stripePromise = loadStripe(
+  "pk_test_51Rq7ji2MCOw9NQwtBLMVqsZesZVPKD6giCxRhZfoz2E0sboHZ8RulcwYFN0GyB41VRINjR142vCQMQFEquADlgW000TbjKNKWz"
+);
+
 function App() {
+  useEffect(() => {
+    const token = localStorage.getItem(ACCESS_TOKEN);
+    if (token) {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      if (payload.exp * 1000 < Date.now()) {
+        localStorage.clear();
+      }
+    }
+  }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <StoreProvider>
@@ -47,7 +66,6 @@ function App() {
             <div className="flex flex-col min-h-screen">
               <Routes>
                 {/* Admin Routes */}
-
                 <Route
                   path="/admin/dashboard"
                   element={
@@ -86,7 +104,9 @@ function App() {
                             path="/checkout"
                             element={
                               <ProtectedRoute>
-                                <Checkout />
+                                <Elements stripe={stripePromise}>
+                                  <Checkout />
+                                </Elements>
                               </ProtectedRoute>
                             }
                           />

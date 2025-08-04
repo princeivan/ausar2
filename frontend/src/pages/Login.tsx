@@ -13,13 +13,6 @@ const validateEmail = (email: string): boolean => {
   return emailRegex.test(email);
 };
 
-// const validatePassword = (password: string): boolean => {
-//   // Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character
-//   const passwordRegex =
-//     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-//   return passwordRegex.test(password);
-// };
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,7 +48,7 @@ const Login = () => {
       const sanitizedEmail = email.trim().toLowerCase();
       await login(sanitizedEmail, password);
 
-      toast.success(`Logged in successfully as ${userInfo?.role}`);
+      toast.success(`Logged in successfully as ${userInfo?.username}`);
       navigate("/");
 
       // Reset login attempts on successful login
@@ -81,7 +74,7 @@ const Login = () => {
             Sign in to your account
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Or{" "}
+            Or
             <Link
               to="/register"
               className="font-medium text-brand-blue hover:text-brand-darkBlue"
