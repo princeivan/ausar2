@@ -34,7 +34,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = ['139.162.175.68','ausacreative.co.ke','127.0.0.1',
-    'localhost',]
+    'localhost','ausar2.onrender.com']
 
 AUTH_USER_MODEL = 'api.User'
 
@@ -177,7 +177,7 @@ if not os.path.exists(LOGS_DIR):
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS=[
-    'http://139.162.175.68','https://ausacreative.co.ke','http://localhost:5173',
+    'http://139.162.175.68','https://ausacreative.co.ke','http://localhost:5173','ausar2.onrender.com'
 ]
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
