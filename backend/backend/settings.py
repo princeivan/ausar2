@@ -34,8 +34,16 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['139.162.175.68','ausacreative.co.ke','127.0.0.1',
-    'localhost','ausar2.onrender.com','ausar2-git-main-ivan-ronos-projects.vercel.app','ausar2-no08urpln-ivan-ronos-projects.vercel.app']
+ALLOWED_HOSTS = [
+    '139.162.175.68',
+    'ausacreative.co.ke',
+    'www.ausacreative.co.ke',
+    '127.0.0.1',
+    'localhost',
+    'ausar2.onrender.com',
+    'ausar2-git-main-ivan-ronos-projects.vercel.app',
+    'ausar2-no08urpln-ivan-ronos-projects.vercel.app',
+    ]
 
 AUTH_USER_MODEL = 'api.User'
 
@@ -190,6 +198,7 @@ CORS_ALLOWED_ORIGINS=[
     'http://localhost:5173',
     'https://ausar2-git-main-ivan-ronos-projects.vercel.app',
     'https://ausar2-no08urpln-ivan-ronos-projects.vercel.app',
+    "https://www.ausacreative.co.ke/"
 ]
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
@@ -197,6 +206,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://ausacreative.co.ke",
     "https://ausar2-git-main-ivan-ronos-projects.vercel.app",
     "https://ausar2-no08urpln-ivan-ronos-projects.vercel.app",
+    "https://www.ausacreative.co.ke/"
 ]
 SESSION_COOKIE_SAMESITE = "None"
 CSRF_COOKIE_SAMESITE = "None"
