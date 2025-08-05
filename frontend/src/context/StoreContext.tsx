@@ -97,6 +97,7 @@ type UserInfo = {
   shipping_address_data: ShippingAddress;
 };
 
+export type UserProfile = UserInfo;
 // type PaginatedResponse = {
 //   total_items: number;
 //   total_pages: number;
@@ -131,6 +132,7 @@ type StoreContextType = {
   removeFromCart: (productId: string) => void;
   updateCartItemQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
+  handleError: (err: any, defaultMessage: string) => void;
   setError: (error: string | null) => void;
   clearError: () => void;
   getProductById: (id: string) => Product | undefined;

@@ -1,27 +1,29 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "../ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import ProductForm from "./ProductForm";
 import { Product } from "../../context/StoreContext";
 
+type FormDataType = {
+  title: string;
+  description: string;
+  image: string;
+  brand: string;
+  category: string;
+  new_price: string;
+  old_price: string;
+  countInStock: string;
+};
 interface ProductModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   product?: Product;
-  onSuccess: () => void;
+  formData: FormDataType;
+  setFormData: React.Dispatch<React.SetStateAction<FormDataType>>;
+  onSubmit: (e: React.FormEvent) => void;
+  isLoading: boolean;
 }
 
-const ProductModal = ({
-  open,
-  onOpenChange,
-  product,
-  onSuccess,
-}: ProductModalProps) => {
+const ProductModal = ({ open, onOpenChange, product }: ProductModalProps) => {
   const handleSuccess = () => {
-    onSuccess();
     onOpenChange(false);
   };
 
@@ -43,4 +45,4 @@ const ProductModal = ({
   );
 };
 
-export default ProductModal; 
+export default ProductModal;

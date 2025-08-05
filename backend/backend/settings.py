@@ -18,6 +18,7 @@ from corsheaders.defaults import default_headers
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from decouple import config
+import dj_database_url
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -115,16 +116,23 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#          'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('DB_NAME'),
+#          'USER':config('DB_USER'),
+#          'PASSWORD':config('DB_PASSWORD'),
+#          'HOST':config('DB_HOST'),
+#          'PORT':config('DB_PORT'),
+#     }
+# }
+
 DATABASES = {
-    'default': {
-         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-         'USER':config('DB_USER'),
-         'PASSWORD':config('DB_PASSWORD'),
-         'HOST':config('DB_HOST'),
-         'PORT':config('DB_PORT'),
-    }
+    'default': dj_database_url.config(
+        default='postgresql://postgres1:zvodU9cEKeCZGvPl3yom2nGgMTDz3Dld@dpg-d289e3ogjchc73939img-a.oregon-postgres.render.com/ausar_creative'
+    )
 }
+
 
 
 # Password validation

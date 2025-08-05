@@ -19,6 +19,7 @@ interface UserProfile {
   email: string;
   first_name: string;
   last_name: string;
+  role: string;
   phone_number?: string;
   shipping_address_data: ShippingAddress;
 }

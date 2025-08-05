@@ -181,7 +181,7 @@ const AdminProductsPage = () => {
     }
   };
 
-  const updateProduct = async (id: number, formData: any): Promise<boolean> => {
+  const updateProduct = async (id: string, formData: any): Promise<boolean> => {
     setIsLoading(true);
     clearError();
     try {

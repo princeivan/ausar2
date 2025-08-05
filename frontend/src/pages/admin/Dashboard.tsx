@@ -76,17 +76,12 @@ const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(
     null
   );
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchDashboardData();
   }, []);
   const fetchDashboardData = async () => {
     try {
-      setLoading(true);
-      setError(null);
-
       const response = await api.get("/api/admin/dashboard/", {
         withCredentials: true,
       });
@@ -103,13 +98,6 @@ const Dashboard = () => {
       // setLastUpdated(new Date());
     } catch (err: any) {
       console.error("Error fetching dashboard data:", err);
-      setError(
-        err.response?.data?.error ||
-          err.message ||
-          "Failed to load dashboard data"
-      );
-    } finally {
-      setLoading(false);
     }
   };
   if (!dashboardData) return <div>Loading ....</div>;
