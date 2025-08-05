@@ -157,23 +157,33 @@ def login_view(request):
     if user is not None:
         refresh = RefreshToken.for_user(user)
         access_token = str(refresh.access_token)
+        refresh_token = str(refresh)
         
         response = Response({
             'message': 'Login successful',
             'user_id': str(user.id),
         }, status=status.HTTP_200_OK)
         
-        # THIS IS THE KEY PART - make sure you're using the right cookie name
-        cookie_name = settings.SIMPLE_JWT.get("AUTH_COOKIE", "access")
-        
+        # Set access token cookie
         response.set_cookie(
-            key=cookie_name,  # Should be "access" based on your settings
+            key=settings.SIMPLE_JWT.get("AUTH_COOKIE", "access"),
             value=access_token,
-            httponly=settings.SIMPLE_JWT.get("AUTH_COOKIE_HTTP_ONLY", True),
-            secure=settings.SIMPLE_JWT.get("AUTH_COOKIE_SECURE", False),  # False for localhost
-            samesite=settings.SIMPLE_JWT.get("AUTH_COOKIE_SAMESITE", "Lax"),
-            max_age=int(settings.SIMPLE_JWT.get("ACCESS_TOKEN_LIFETIME").total_seconds()),
-            path='/',  # Make sure cookie is available for all paths
+            httponly=True,
+            secure=True,
+            samesite="None",
+            max_age=int(settings.SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].total_seconds()),
+            path='/',
+        )
+
+        # Set refresh token cookie
+        response.set_cookie(
+            key=settings.SIMPLE_JWT.get("AUTH_COOKIE_REFRESH", "refresh"),
+            value=refresh_token,
+            httponly=True,
+            secure=True,
+            samesite="None",
+            max_age=int(settings.SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"].total_seconds()),
+            path='/',
         )
         
         return response 

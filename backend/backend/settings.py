@@ -56,7 +56,7 @@ SIMPLE_JWT = {
     "AUTH_COOKIE_REFRESH": "refresh",
     "AUTH_COOKIE_HTTP_ONLY": True,
     "AUTH_COOKIE_SECURE":True,
-    "AUTH_COOKIE_SAMESITE": None,
+    "AUTH_COOKIE_SAMESITE": "None",
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
  }
@@ -185,14 +185,21 @@ if not os.path.exists(LOGS_DIR):
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS=[
-    'http://139.162.175.68','https://ausacreative.co.ke','http://localhost:5173',
-    'ausar2-git-main-ivan-ronos-projects.vercel.app','ausar2-no08urpln-ivan-ronos-projects.vercel.app',
-    'https://ausar2-git-main-ivan-ronos-projects.vercel.app'
+    'http://139.162.175.68',
+    'https://ausacreative.co.ke',
+    'http://localhost:5173',
+    'https://ausar2-git-main-ivan-ronos-projects.vercel.app',
+    'https://ausar2-no08urpln-ivan-ronos-projects.vercel.app',
 ]
 CORS_ALLOW_CREDENTIALS = True
-CSRF_TRUSTED_ORIGINS = ["http://localhost:5173",'https://ausar2-git-main-ivan-ronos-projects.vercel.app']
-SESSION_COOKIE_SAMESITE = "Lax"
-CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+    "https://ausacreative.co.ke",
+    "https://ausar2-git-main-ivan-ronos-projects.vercel.app",
+    "https://ausar2-no08urpln-ivan-ronos-projects.vercel.app",
+]
+SESSION_COOKIE_SAMESITE = "None"
+CSRF_COOKIE_SAMESITE = "None"
 CSRF_COOKIE_SECURE = True  # True in production
 SESSION_COOKIE_SECURE = True  # True in production
 # CORS_ALLOW_HEADERS = list(default_headers) + [
