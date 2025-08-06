@@ -4,6 +4,7 @@ import random
 from django.contrib.auth.models import  AbstractUser
 from django_resized import ResizedImageField
 from decimal import Decimal
+from django.utils import timezone
 # Create your models here.
 
 
@@ -261,12 +262,29 @@ class Payment(models.Model):
     
     class Meta:
         ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['reference_number']),
+            models.Index(fields=['mpesa_transaction_id']),
+            models.Index(fields=['mpesa_checkout_request_id']),
+            models.Index(fields=['status']),
+        ]
+            
+    def is_paid(self):
+        return self.status == 'completed'
+    
+    def mark_as_paid(self, metadata):
+        self.status = 'completed'
+        self.completed_at = timezone.now()
+        self.mpesa_transaction_id = metadata.get("MpesaReceiptNumber")
+        self.mpesa_phone_number = metadata.get("PhoneNumber")
+        self.callback_data = metadata
+        self.save()
         
     def __str__(self):
         return f"{self.payment_method.upper()} - {self.amount} {self.currency} - {self.status}"
     
 class PaymentWebhook(models.Model):
-    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, related_name='webhooks')
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, related_name='webhooks', null=True, blank=True)
     webhook_type = models.CharField(max_length=50)  # 'mpesa_callback', 'stripe_webhook'
     raw_data = models.JSONField()
     processed = models.BooleanField(default=False)

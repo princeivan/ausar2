@@ -749,13 +749,14 @@ def user_orders_with_payments(request):
 def mpesa_callback(request):
     """Handle M-Pesa callback"""
     try:
-        callback_data = json.loads(request.body.decode('utf-8'))
         
+        callback_data = json.loads(request.body.decode('utf-8'))
+               
         # Log the callback for debugging
         PaymentWebhook.objects.create(
             webhook_type='mpesa_callback',
             raw_data=callback_data,
-            payment=None  # We'll update this when we find the payment
+            payment=None  
         )
         
         # Process the callback

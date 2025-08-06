@@ -19,6 +19,7 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from decouple import config
 import dj_database_url
+from decimal import Decimal
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,6 +44,7 @@ ALLOWED_HOSTS = [
     'ausar2.onrender.com',
     'ausar2-git-main-ivan-ronos-projects.vercel.app',
     'ausar2-no08urpln-ivan-ronos-projects.vercel.app',
+    '4898858b914e.ngrok-free.app'
     ]
 
 AUTH_USER_MODEL = 'api.User'
@@ -198,7 +200,7 @@ CORS_ALLOWED_ORIGINS=[
     'http://localhost:5173',
     'https://ausar2-git-main-ivan-ronos-projects.vercel.app',
     'https://ausar2-no08urpln-ivan-ronos-projects.vercel.app',
-    "https://www.ausacreative.co.ke/"
+    "https://www.ausacreative.co.ke"
 ]
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
@@ -206,7 +208,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://ausacreative.co.ke",
     "https://ausar2-git-main-ivan-ronos-projects.vercel.app",
     "https://ausar2-no08urpln-ivan-ronos-projects.vercel.app",
-    "https://www.ausacreative.co.ke/"
+    "https://www.ausacreative.co.ke"
 ]
 SESSION_COOKIE_SAMESITE = "None"
 CSRF_COOKIE_SAMESITE = "None"
@@ -253,8 +255,8 @@ STRIPE_CONFIG = {
 }
 
 PAYMENT_SETTINGS = {
-    'MIN_AMOUNT': 1.00,
-    'MAX_AMOUNT': 100000.00,
+    'MIN_AMOUNT': Decimal('1.00'),
+    'MAX_AMOUNT': Decimal('100000.00'),
     'DEFAULT_CURRENCY': 'KES',
     'SUPPORTED_CURRENCIES': ['KES', 'USD'],
 }

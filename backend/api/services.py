@@ -11,6 +11,7 @@ from .models import Payment, User, Order, Categories, Product
 from django.db.models import Sum, Count, Q, F
 from collections import defaultdict
 import calendar
+from rest_framework.response import Response 
 
 class MPesaService:
     def __init__(self):
@@ -56,6 +57,8 @@ class MPesaService:
     def initiate_stk_push(self, phone_number, amount, account_reference, transaction_desc):
         """Initiate STK Push for M-Pesa payment"""
         access_token = self.get_access_token()
+        print("access_token", access_token)
+        
         password, timestamp = self.generate_password()
         
         api_url = f"{self.base_url}/mpesa/stkpush/v1/processrequest"
@@ -69,20 +72,17 @@ class MPesaService:
             'BusinessShortCode': self.business_short_code,
             'Password': password,
             'Timestamp': timestamp,
-            'TransactionType': 'CustomerPayBillOnline',
+            'TransactionType': 'CustomerBuyGoodsOnline',
             'Amount': int(float(amount)),
             'PartyA': phone_number,
-            'PartyB': self.business_short_code,
+            'PartyB': 6694920,
             'PhoneNumber': phone_number,
             'CallBackURL': self.callback_url,
             'AccountReference': account_reference,
             'TransactionDesc': transaction_desc
-        }
-        print("M-Pesa Payload:", payload)
-       
+        }      
         try:
             response = requests.post(api_url, json=payload, headers=headers)
-            print("Safaricom Response:", response.status_code, response.text)
             response.raise_for_status()
             return response.json()
            
@@ -315,8 +315,11 @@ class PaymentService:
             return True
             
         except Exception as e:
-            print(f"Error processing M-Pesa callback: {str(e)}")
-            return False
+            print("M-PESA CALLBACK ERROR:", str(e))
+            return Response({
+                    "ResultCode": 1,
+                    "ResultDesc": f"Callback Error: {str(e)}"
+                }, status=500)
     
     def process_stripe_webhook(self, webhook_data, payment_intent_id):
         """Process Stripe webhook data"""

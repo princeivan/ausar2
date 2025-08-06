@@ -521,19 +521,16 @@ const Checkout = () => {
       error?: string;
     }> => {
       try {
-        const access = localStorage.getItem("access");
         const response = await api.get(
           `/api/payments/order-payment-status/${orderId}/`,
           {
-            headers: {
-              Authorization: `Bearer ${access}`,
-            },
+            withCredentials: true,
           }
         );
 
-        const { is_paid, payment } = response.data;
+        const { payment } = response.data;
 
-        if (is_paid && payment?.status === "completed") {
+        if (payment?.status === "completed") {
           return { success: true, paid: true };
         } else if (payment?.status === "failed") {
           return { success: false, error: "Payment failed" };
