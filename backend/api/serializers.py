@@ -44,7 +44,7 @@ class UserSerializer(serializers.ModelSerializer):
             "first_name": {"required": True},
             "last_name": {"required": True}
         }
-    def get_permissios(self, obj):
+    def get_permissions(self, obj):
         return obj.get_permissions()
     
     def validate_username(self, value):
