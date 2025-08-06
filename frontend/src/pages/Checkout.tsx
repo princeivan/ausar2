@@ -92,8 +92,8 @@ const Checkout = () => {
     return total + parseFloat(item.product.new_price) * item.quantity;
   }, 0);
 
-  const shippingCost = subtotal > 0 ? 15 : 0;
-  const taxPrice = subtotal * 0.1; // 10% tax
+  const shippingCost = 0;
+  const taxPrice = 0; // 10% tax
   const totalAmount = subtotal + shippingCost + taxPrice;
 
   const tax = parseFloat(taxPrice.toFixed(2));
@@ -152,11 +152,8 @@ const Checkout = () => {
     };
 
     try {
-      const access = localStorage.getItem("access");
       const response = await api.post("/api/orders/", orderData, {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
+        withCredentials: true,
       });
 
       if (response.data && response.data.orderId) {
@@ -172,9 +169,22 @@ const Checkout = () => {
 
   // Process M-Pesa payment with popup
   const processMpesaPayment = async (orderId: string) => {
-    const phoneNumber = paymentDetails.mpesaPhone || formData.phone;
+    const rawPhone = paymentDetails.mpesaPhone || formData.phone;
+    const cleanedPhone = rawPhone.replace(/\D/g, "");
 
-    if (!phoneNumber) {
+    let formattedPhone = "";
+    if (cleanedPhone.startsWith("0")) {
+      formattedPhone = "254" + cleanedPhone.substring(1);
+    } else if (cleanedPhone.startsWith("254") && cleanedPhone.length === 12) {
+      formattedPhone = cleanedPhone;
+    } else if (cleanedPhone.startsWith("7") && cleanedPhone.length == 9) {
+      formattedPhone = "254" + cleanedPhone;
+    } else {
+      toast.error("Invalid phone number format");
+      return;
+    }
+
+    if (!formattedPhone) {
       throw new Error("Phone number is required for M-Pesa payment");
     }
 
@@ -183,29 +193,25 @@ const Checkout = () => {
     setMpesaStatus({
       step: "initiating",
       message: "Initiating M-Pesa payment...",
-      phoneNumber: phoneNumber,
+      phoneNumber: formattedPhone,
     });
 
     try {
-      const access = localStorage.getItem("access");
-
       // Update status to waiting
       setMpesaStatus({
         step: "waiting",
         message: "Check your phone for STK push",
-        phoneNumber: phoneNumber,
+        phoneNumber: formattedPhone,
       });
 
       const response = await api.post(
         `/api/payments/pay-for-order/${orderId}/`,
         {
           payment_method: "mpesa",
-          phone_number: phoneNumber,
+          phone_number: formattedPhone,
         },
         {
-          headers: {
-            Authorization: `Bearer ${access}`,
-          },
+          withCredentials: true,
         }
       );
 
@@ -214,7 +220,7 @@ const Checkout = () => {
         setMpesaStatus({
           step: "processing",
           message: "Processing your payment...",
-          phoneNumber: phoneNumber,
+          phoneNumber: formattedPhone,
         });
 
         // Start polling for payment status
@@ -224,7 +230,7 @@ const Checkout = () => {
           setMpesaStatus({
             step: "success",
             message: "Payment successful!",
-            phoneNumber: phoneNumber,
+            phoneNumber: formattedPhone,
           });
 
           // Wait a moment to show success, then close popup
@@ -238,14 +244,14 @@ const Checkout = () => {
           setMpesaStatus({
             step: "failed",
             message: statusResult.error || "Payment verification failed",
-            phoneNumber: phoneNumber,
+            phoneNumber: formattedPhone,
           });
         }
       } else {
         setMpesaStatus({
           step: "failed",
           message: response.data.message || "Failed to initiate M-Pesa payment",
-          phoneNumber: phoneNumber,
+          phoneNumber: formattedPhone,
         });
       }
     } catch (error: any) {
@@ -254,7 +260,7 @@ const Checkout = () => {
         step: "failed",
         message:
           error.response?.data?.error || error.message || "Payment failed",
-        phoneNumber: phoneNumber,
+        phoneNumber: formattedPhone,
       });
     }
   };
@@ -266,8 +272,6 @@ const Checkout = () => {
     }
 
     try {
-      const access = localStorage.getItem("access");
-
       // First, create payment intent on your backend
       const response = await api.post(
         `/api/payments/pay-for-order/${orderId}/`,
@@ -275,9 +279,7 @@ const Checkout = () => {
           payment_method: "visa",
         },
         {
-          headers: {
-            Authorization: `Bearer ${access}`,
-          },
+          withCredentials: true,
         }
       );
 
@@ -323,7 +325,7 @@ const Checkout = () => {
         const confirmResponse = await api.post(
           "/api/payments/confirm-stripe-payment/",
           { payment_intent_id: paymentIntent.id },
-          { headers: { Authorization: `Bearer ${access}` } }
+          { withCredentials: true }
         );
         console.log("Confirm payment result:", confirmResponse.data);
 

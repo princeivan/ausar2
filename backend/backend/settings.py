@@ -244,7 +244,7 @@ MPESA_CONFIG = {
 'MPESA_CALLBACK_URL' : config("MPESA_CALLBACK_URL"),
 'SANDBOX_URL': 'https://sandbox.safaricom.co.ke',
 'PRODUCTION_URL': 'https://api.safaricom.co.ke',
-'ENVIRONMENT': 'sandbox',
+'ENVIRONMENT': 'production',
 }
 STRIPE_CONFIG = {
     'PUBLISHABLE_KEY': config('PUBLISHABLE_KEY'),
