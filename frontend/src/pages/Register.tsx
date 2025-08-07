@@ -26,8 +26,8 @@ const validateEmail = (email: string): boolean => {
 };
 
 const validatePassword = (password: string): boolean => {
-  // Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   return passwordRegex.test(password);
 };
 
@@ -67,7 +67,8 @@ const Register = () => {
     if (!username.trim()) {
       newErrors.username = "Username is required";
     } else if (!validateUsername(username)) {
-      newErrors.username = "Username must be 3-20 characters and can only contain letters, numbers, and underscores";
+      newErrors.username =
+        "Username must be 3-20 characters and can only contain letters, numbers, and underscores";
     }
 
     if (!phone_number.trim()) {
@@ -85,7 +86,8 @@ const Register = () => {
     if (!password) {
       newErrors.password = "Password is required";
     } else if (!validatePassword(password)) {
-      newErrors.password = "Password must be at least 8 characters long and contain uppercase, lowercase, number and special character";
+      newErrors.password =
+        "Password must be at least 8 characters long and contain uppercase, lowercase, number and special character";
     }
 
     if (!confirm_password) {
@@ -129,7 +131,7 @@ const Register = () => {
       if (error.response?.data) {
         // Handle specific error messages from the backend
         const errorData = error.response.data;
-        if (typeof errorData === 'object') {
+        if (typeof errorData === "object") {
           Object.entries(errorData).forEach(([key, value]) => {
             toast.error(`${key}: ${value}`);
           });
@@ -220,7 +222,9 @@ const Register = () => {
                 className={errors.phone_number ? "border-red-500" : ""}
               />
               {errors.phone_number && (
-                <p className="text-red-500 text-sm mt-1">{errors.phone_number}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.phone_number}
+                </p>
               )}
             </div>
 
@@ -268,7 +272,9 @@ const Register = () => {
                 className={errors.confirm_password ? "border-red-500" : ""}
               />
               {errors.confirm_password && (
-                <p className="text-red-500 text-sm mt-1">{errors.confirm_password}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.confirm_password}
+                </p>
               )}
             </div>
 

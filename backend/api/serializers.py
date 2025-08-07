@@ -32,6 +32,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 class UserSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True)
     permissions =serializers.SerializerMethodField(read_only=True)
+    avatar = serializers.ImageField(required=False)
     
     class Meta:
         model = User 
@@ -164,6 +165,7 @@ class ProductSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
     image_url = serializers.URLField(write_only=True, required=False)
     category= CategorySerializer()
+    image = serializers.ImageField(required=False)
     
     class Meta:
         model =Product 

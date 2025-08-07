@@ -17,7 +17,7 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=500, null=True)
     email = models.EmailField(unique=True, null=True)
     phone_number = models.CharField(max_length=20, null=False, blank=False) 
-    avatar = ResizedImageField(size=[300,300], default='avatar.png')
+    avatar = ResizedImageField(size=[300,300], default='avatar.png', upload_to='avatar/')
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
@@ -70,7 +70,7 @@ class Categories(models.Model):
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='users')
     title = models.CharField(max_length=250)
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField(null=True, blank=True, upload_to='products/')
     brand = models.CharField(max_length=200, null=True, blank=True)
     category = models.ForeignKey(Categories, on_delete=models.SET_NULL, null=True, related_name="products")
     description = models.TextField(null=True, blank=True)
@@ -96,7 +96,7 @@ class Product(models.Model):
         ordering =['-Date_added']
         
     def get_image_url(self):
-        return self.image.url if self.image else '/path/to/default/noavatar.png'
+         return self.image.url if self.image else 'https://res.cloudinary.com/ivano/image/upload/v1/default/noavatar.png'
         
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
@@ -185,7 +185,7 @@ class OrderItem(models.Model):
  
 class SliderData(models.Model):
     title = models.CharField(max_length=200, null=True, blank=True)
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField(null=True, blank=True, upload_to='sliderdata/')
     description = models.TextField(null=True, blank=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
