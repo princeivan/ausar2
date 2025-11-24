@@ -142,7 +142,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres1:zvodU9cEKeCZGvPl3yom2nGgMTDz3Dld@dpg-d289e3ogjchc73939img-a.oregon-postgres.render.com/ausar_creative'
+        default='postgresql://ausar_creative_14os_user:FwLPkEjAHthFmr1KXuPIbrlORPX362FW@dpg-d4i2v38gjchc73dk1920-a.oregon-postgres.render.com/ausar_creative_14os'
     )
 }
 
@@ -229,6 +229,13 @@ sentry_sdk.init(
     send_default_pii=True,
     environment=os.getenv('ENVIRONMENT', 'production'),
 )
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "apikey"
+EMAIL_HOST_PASSWORD = os.environ.get("SENDGRID_API_KEY")
+DEFAULT_FROM_EMAIL = "Ausar Creative <noreply@ausarcreative.com>"
 
 # SECURE_SSL_REDIRECT = True
 # SESSION_COOKIE_SECURE = True

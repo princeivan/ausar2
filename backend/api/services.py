@@ -305,6 +305,11 @@ class PaymentService:
                 
                 payment.status = 'completed'
                 payment.completed_at = timezone.now()
+                if payment.order:
+                    payment.order.isPaid = True
+                    payment.order.paidAt = timezone.now()
+                    payment.order.status = 'processing'
+                    payment.order.save()
             else:
                 # Payment failed
                 payment.status = 'failed'

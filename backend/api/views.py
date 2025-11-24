@@ -3,7 +3,6 @@ import requests
 from datetime import datetime
 from django.conf import settings
 import json
-from stripe.error import InvalidRequestError
 from rest_framework import status
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.utils.dateparse import parse_datetime
@@ -25,6 +24,7 @@ from django.views import View
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate
 import stripe
+from api.utils.email_service import send_via_sendgrid
 from django.db.models import Sum, Count, Q, F
 from rest_framework_simplejwt.tokens import RefreshToken
 from api.pagination import CustomPagination
@@ -54,7 +54,7 @@ from .services import (
     DashboardAnalyticsService,
 )
 
-stripe.default_http_client = stripe.http_client.RequestsClient(verify_ssl_certs=False)
+# stripe.default_http_client = stripe.http_client.RequestsClient(verify_ssl_certs=False)
 
 class CustomRateThrottle(UserRateThrottle):
     rate = '5/minute'  # 5 requests per minute
@@ -189,6 +189,8 @@ def login_view(request):
         return response 
     else:
         return Response({'error': 'Invalid email or password'}, status=status.HTTP_401_UNAUTHORIZED)
+    
+    
 @api_view(['GET', 'POST'])
 @permission_classes([AllowAny])
 
@@ -209,21 +211,8 @@ def getProducts(request):
         serializer = ProductSerializer(paginated_products, many=True, context={'request': request})
         
         return paginator.get_paginated_response(serializer.data)
-    
-    if request.method == 'POST':
-        if not request.user.is_staff:
-            return Response(
-                {'error': 'Only staff members can create products'},
-                status=status.HTTP_403_FORBIDDEN
-            )
-            
-        serializer = ProductSerializer(data=request.data, context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET','PUT', 'DELETE'])
+@api_view(['GET'])
 @permission_classes([AllowAny])
 def getProduct(request, pk):
     try:
@@ -235,22 +224,6 @@ def getProduct(request, pk):
         serializer = ProductSerializer(product, many=False, context={'request': request})
         return Response(serializer.data)
     
-    elif request.method in ['PUT', 'DELETE']:
-        if not request.user.is_staff:
-            return Response(
-                {'error': 'Only staff members can modify products'},
-                status=status.HTTP_403_FORBIDDEN
-            )
-            
-        if request.method == 'PUT':
-            serializer = ProductSerializer(product, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        else:  # DELETE
-            product.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 def getFlashSales(request):
@@ -323,6 +296,18 @@ def create_order(request):
         serializer = OrderSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             order = serializer.save()
+            
+            #send Sengrid Email Here
+            html_content = f"""
+            <h2>Hello {request.user.first_name},</h2>
+            <p>Thank you for your order #{order.orderId}!</p>
+            <p>We will notify you when it ships.</p>
+            """
+
+            send_via_sendgrid(
+                "Order Confirmation - Ausar Creative",
+                            html_content
+            )
             return Response({'orderId': order.id, **serializer.data}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -535,26 +520,18 @@ def adminProductDetail(request, pk):
         )
 
     if request.method == 'GET':
-        serializer = ProductSerializer(product)
+        serializer = ProductSerializer(product, context={'request': request})
         return Response(serializer.data)
 
     elif request.method == 'PUT':
+        serializer = ProductSerializer(product, data=request.data, partial=True, context={'request': request})
         try:
-            serializer = ProductSerializer(product, data=request.data, partial=True)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
         except ValidationError as e:
-            return Response(
-                {'error': str(e)},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        except Exception as e:
-            return Response(
-                {'error': str(e)},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
 
     elif request.method == 'DELETE':
         try:
@@ -604,6 +581,17 @@ def pay_for_order(request, order_id):
         )
         
         if result['success']:
+            # Send payment confirmation email
+            html_content = f"""
+            <h2>Hello {request.user.first_name},</h2>
+            <p>We’ve received your payment for Order #{order.orderId}.</p>
+            <p>We will notify you once your order is shipped.</p>
+            """
+            send_via_sendgrid(
+                "Payment Confirmation - Ausar Creative",
+                 #change to request.user.email
+                html_content
+            )
             return Response(result, status=status.HTTP_201_CREATED)
         else:
             return Response(result, status=status.HTTP_400_BAD_REQUEST)
@@ -772,6 +760,7 @@ def mpesa_callback(request):
                 "ResultCode": 1,
                 "ResultDesc": "Failed to process callback"
             }, status=400)
+                
             
     except Exception as e:
         return Response({
@@ -886,7 +875,7 @@ def confirm_stripe_payment(request):
     except Payment.DoesNotExist:
         return Response({'error': 'Payment not found'}, status=404)
 
-    except InvalidRequestError as e:
+    except stripe.error.InvalidRequestError:
         return Response({'error': f'Stripe error: {str(e)}'}, status=400)
 
     except Exception as e:

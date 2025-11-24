@@ -163,8 +163,8 @@ class CategorySerializer(ModelSerializer):
     
 class ProductSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
-    image_url = serializers.URLField(write_only=True, required=False)
-    category= CategorySerializer()
+    upload_image_url = serializers.URLField(write_only=True, required=False) 
+    category = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.all())
     image = serializers.ImageField(required=False)
     
     class Meta:
@@ -172,18 +172,18 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
     def create(self, validated_data):
-        image_url = validated_data.pop("image_url", None)
+        upload_image_url = validated_data.pop("upload_image_url", None)
         instance = super().create(validated_data)
         
-        if image_url:
-            response = requests.get(image_url)
+        if upload_image_url:
+            response = requests.get(upload_image_url)
             if response.status_code == 200:
                 instance.image.save("image.jpg", ContentFile(response.content), save=True)
              
         return instance 
     
     def get_image_url(self, obj):
-        request = self.Context.get('request')
+        request = self.context.get('request')
         if obj.image and hasattr(obj.image, 'url'):
             return request.build_absolute_uri(obj.image.url)
         return None 
@@ -198,16 +198,22 @@ class OrderItemSerializer(serializers.ModelSerializer):
         
 class OrderSerializer(serializers.ModelSerializer):
     # shipping_address_data = serializers.SerializerMethodField(read_only=True)
+    shippingAddress = ShippingAddressSerializer()
     items =  OrderItemSerializer(many=True)
     class Meta:
         model = Order 
-        fields = ['id','orderId', 'paymentmethod', 'taxPrice', 'shippingPrice', 'totalPrice', 'isPaid', 'paidAt', 'status', 'isDelivered', 'deliveredAt', 'createdAt', 'items']
+        fields = ['id','orderId', 'paymentmethod', 'taxPrice', 'shippingAddress', 'totalPrice', 'isPaid', 'paidAt', 'status', 'isDelivered', 'deliveredAt', 'createdAt', 'items']
         extra_kwargs = {"user":{"read_only":True}}
         
     def create(self, validated_data):
+        
+        shipping_data = validated_data.pop('shippingAddress')
         items_data = validated_data.pop('items')
+        
         user = self.context['request'].user
-        order = Order.objects.create(user=user,shippingAddress=user.shipping_addresses.first(),**validated_data)
+        
+        shipping_address = ShippingAddress.objects.create(user=user, **shipping_data)
+        order = Order.objects.create(user=user,shippingAddress=shipping_address, **validated_data)
         for item_data in items_data:
             OrderItem.objects.create(order=order, **item_data)
             
