@@ -129,22 +129,17 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#          'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': config('DB_NAME'),
-#          'USER':config('DB_USER'),
-#          'PASSWORD':config('DB_PASSWORD'),
-#          'HOST':config('DB_HOST'),
-#          'PORT':config('DB_PORT'),
-#     }
-# }
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://ausar_creative_14os_user:FwLPkEjAHthFmr1KXuPIbrlORPX362FW@dpg-d4i2v38gjchc73dk1920-a.oregon-postgres.render.com/ausar_creative_14os'
-    )
+    'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+         'USER':config('DB_USER'),
+         'PASSWORD':config('DB_PASSWORD'),
+         'HOST':config('DB_HOST'),
+         'PORT':config('DB_PORT'),
+    }
 }
+
 
 
 

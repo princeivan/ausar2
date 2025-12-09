@@ -1,17 +1,8 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import ProductForm from "./ProductForm";
 import { Product } from "../../context/StoreContext";
+import { FormDataType } from "../../pages/admin/AdminProductsPage";
 
-type FormDataType = {
-  title: string;
-  description: string;
-  image: string;
-  brand: string;
-  category: string;
-  new_price: string;
-  old_price: string;
-  countInStock: string;
-};
 interface ProductModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -29,7 +20,7 @@ const ProductModal = ({ open, onOpenChange, product }: ProductModalProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl p-4 overflow-y-auto max-h-[90vh]">
         <DialogHeader>
           <DialogTitle>
             {product ? "Edit Product" : "Add New Product"}

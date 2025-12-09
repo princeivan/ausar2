@@ -39,6 +39,25 @@ import {
   SelectValue,
 } from "../../components/ui/select";
 
+export interface FormDataType {
+  title: string;
+  description: string;
+  image: File | null;
+  brand: string;
+  category: string;
+  new_price: string;
+  old_price: string;
+  countInStock: string;
+  is_active: boolean;
+  rating: number;
+  numReviews: number;
+  specs: string;
+  best_seller: boolean;
+  flash_sale: boolean;
+  flash_sale_price: string;
+  flash_sale_end: string;
+}
+
 const AdminProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [analytics, setAnalytics] = useState<any>(null);
@@ -50,17 +69,24 @@ const AdminProductsPage = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | undefined>();
   const { userInfo, category, handleError, clearError } = useStore();
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataType>({
     title: "",
     description: "",
-    image: "",
+    image: null,
     brand: "",
     category: "",
     new_price: "",
     old_price: "",
     countInStock: "",
+    is_active: false,
+    rating: 0,
+    numReviews: 0,
+    specs: "",
+    best_seller: false,
+    flash_sale: false,
+    flash_sale_price: "",
+    flash_sale_end: "",
   });
-
   useEffect(() => {
     if (userInfo?.role !== "admin") {
       toast.error("Unauthorized access");
@@ -95,12 +121,22 @@ const AdminProductsPage = () => {
       setFormData({
         title: selectedProduct.title || "",
         description: selectedProduct.description || "",
-        image: selectedProduct.image || "",
+        image: null,
         brand: selectedProduct.brand || "",
         category: selectedProduct.category?.name || "",
         new_price: selectedProduct.new_price || "",
         old_price: selectedProduct.old_price || "",
-        countInStock: selectedProduct.countInStock?.toString() || "",
+        countInStock: selectedProduct.countInStock?.toString() || ")",
+        is_active: selectedProduct.is_active ?? true,
+        rating: selectedProduct.rating ?? 0,
+        numReviews: selectedProduct.numReviews ?? 0,
+        specs: selectedProduct.specs
+          ? JSON.stringify(selectedProduct.specs)
+          : "",
+        best_seller: selectedProduct.best_seller ?? false,
+        flash_sale: selectedProduct.flash_sale ?? false,
+        flash_sale_price: selectedProduct.flash_sale_price ?? "",
+        flash_sale_end: selectedProduct.flash_sale_end || "",
       });
     } else {
       resetFormData();
@@ -126,12 +162,20 @@ const AdminProductsPage = () => {
     setFormData({
       title: "",
       description: "",
-      image: "",
+      image: null,
       brand: "",
       category: "",
       new_price: "",
       old_price: "",
       countInStock: "",
+      is_active: false,
+      rating: 0,
+      numReviews: 0,
+      specs: "",
+      best_seller: false,
+      flash_sale: false,
+      flash_sale_price: "",
+      flash_sale_end: "",
     });
   };
 
@@ -158,19 +202,28 @@ const AdminProductsPage = () => {
     }
   };
 
-  const createProduct = async (formData: any): Promise<boolean> => {
+  const createProduct = async (formData: FormDataType): Promise<boolean> => {
     setIsLoading(true);
     clearError();
     try {
       const payload = new FormData();
       Object.entries(formData).forEach(([key, value]) => {
         if (value !== null && value !== undefined) {
-          payload.append(key, value.toString());
+          if (value instanceof File) {
+            payload.append(key, value);
+          } else if (key !== "image") {
+            payload.append(key, String(value));
+          } else {
+            payload.append(key, String(value));
+          }
         }
       });
+
       await api.post("/api/products/", payload, {
+        withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       });
+
       await fetchProducts();
       return true;
     } catch (err) {
@@ -181,19 +234,31 @@ const AdminProductsPage = () => {
     }
   };
 
-  const updateProduct = async (id: string, formData: any): Promise<boolean> => {
+  const updateProduct = async (
+    id: string,
+    formData: FormDataType
+  ): Promise<boolean> => {
     setIsLoading(true);
     clearError();
     try {
       const payload = new FormData();
       Object.entries(formData).forEach(([key, value]) => {
         if (value !== null && value !== undefined) {
-          payload.append(key, value.toString());
+          if (value instanceof File) {
+            payload.append(key, value);
+          } else if (key !== "image") {
+            payload.append(key, String(value));
+          } else {
+            payload.append(key, String(value));
+          }
         }
       });
+
       await api.patch(`/api/products/${id}/`, payload, {
+        withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       });
+
       await fetchProducts();
       return true;
     } catch (err) {
@@ -224,16 +289,6 @@ const AdminProductsPage = () => {
       product.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [products, searchTerm]);
-
-  if (userInfo?.role !== "admin") {
-    return (
-      <AdminLayout>
-        <div className="flex items-center justify-center h-full">
-          <p className="text-red-500">Unauthorized access</p>
-        </div>
-      </AdminLayout>
-    );
-  }
 
   return (
     <AdminLayout>

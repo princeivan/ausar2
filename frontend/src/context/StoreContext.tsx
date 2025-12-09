@@ -40,6 +40,7 @@ export type Product = {
   category: Category;
   rating: number;
   numReviews: number;
+  is_active: boolean;
   countInStock: number;
   new_price: string;
   old_price: string | null;
@@ -50,6 +51,7 @@ export type Product = {
   flash_sale_end: string | null;
   Date_added: string;
 };
+export type FormDataType = Product;
 
 type CartItem = {
   product: Product;
@@ -98,14 +100,6 @@ type UserInfo = {
 };
 
 export type UserProfile = UserInfo;
-// type PaginatedResponse = {
-//   total_items: number;
-//   total_pages: number;
-//   current_page: number;
-//   next: string | null;
-//   previous: string | null;
-//   data: Product[];
-// };
 
 type StoreContextType = {
   products: Product[];
@@ -180,7 +174,23 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
     if (isLoggedIn) {
       fetchOrders();
     }
-  }, [isLoggedIn, orders]);
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const res = await api.get("/api/profile/", {
+          withCredentials: true,
+        });
+        setUserInfo(res.data);
+        setIsLoggedIn(true);
+      } catch {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkSession();
+  }, []);
 
   // Error handling utility
   const handleError = (err: any, defaultMessage: string) => {
@@ -195,7 +205,19 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
 
   // Clear error
   const clearError = () => setError(null);
+  const checkSession = async () => {
+    try {
+      const res = await api.get("/api/profile/", { withCredentials: true });
+      setUserInfo(res.data);
+      setIsLoggedIn(true);
+    } catch {
+      setIsLoggedIn(false);
+    }
+  };
 
+  useEffect(() => {
+    checkSession();
+  }, []);
   const login = async (email: string, password: string) => {
     try {
       await api.post(
@@ -208,13 +230,9 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
 
       await new Promise((resolve) => setTimeout(resolve, 100));
 
-      const profile = await api.get("/api/profile/", {
-        withCredentials: true,
-      });
-      console.log("profile data", profile);
+      await checkSession();
 
       setIsLoggedIn(true);
-      setUserInfo(profile?.data);
     } catch (error: any) {
       console.error("Login failed:", error?.response?.data || error.message);
       throw error;

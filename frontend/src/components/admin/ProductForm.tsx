@@ -24,7 +24,18 @@ const productSchema = z.object({
   new_price: z.string().min(1, "New price is required"),
   countInStock: z.string().min(1, "Stock count is required"),
   category: z.string().min(1, "Category is required"),
-  image: z.string().min(1, "Image URL is required"),
+  image: z.any().refine((file) => file instanceof FileList && file.length > 0, {
+    message: "Image is required",
+  }),
+  brand: z.string(),
+  is_active: z.boolean(),
+  rating: z.number(),
+  numReviews: z.number(),
+  specs: z.string(),
+  best_seller: z.boolean(),
+  flash_sale: z.boolean(),
+  flash_sale_price: z.string(),
+  flash_sale_end: z.string(),
 });
 
 type ProductFormValues = z.infer<typeof productSchema>;
@@ -37,7 +48,9 @@ interface ProductFormProps {
 
 const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
   const [loading, setLoading] = useState(false);
-  const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
+  const [categories, setCategories] = useState<{ id: string; name: string }[]>(
+    []
+  );
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
@@ -47,8 +60,17 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
       price: product?.old_price?.toString() || "",
       new_price: product?.new_price?.toString() || "",
       countInStock: product?.countInStock?.toString() || "",
-      category: product?.category?.id?.toString() || "",
-      image: product?.image || "",
+      category: product?.category?.id.toString() || "",
+      image: null,
+      brand: product?.brand || "",
+      is_active: product?.is_active ?? true,
+      rating: product?.rating ?? 0,
+      numReviews: product?.numReviews ?? 0,
+      specs: product?.specs.toString() || "",
+      best_seller: product?.best_seller ?? false,
+      flash_sale: product?.flash_sale ?? false,
+      flash_sale_price: product?.flash_sale_price ?? "",
+      flash_sale_end: product?.flash_sale_end || "",
     },
   });
 
@@ -77,15 +99,21 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
       };
 
       if (product) {
-        await api.put(`/api/admin/products/${product.id}/`, productData);
+        await api.put(`/api/admin/products/${product.id}/`, productData, {
+          withCredentials: true,
+        });
         toast.success("Product updated successfully");
       } else {
-        await api.post("/api/admin/products/", productData);
+        await api.post("/api/admin/products/", productData, {
+          withCredentials: true,
+        });
         toast.success("Product created successfully");
       }
       onSuccess();
     } catch (error) {
-      toast.error(product ? "Failed to update product" : "Failed to create product");
+      toast.error(
+        product ? "Failed to update product" : "Failed to create product"
+      );
       console.error("Error saving product:", error);
     } finally {
       setLoading(false);
@@ -216,9 +244,137 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
           name="image"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Image URL</FormLabel>
+              <FormLabel>Product Image</FormLabel>
               <FormControl>
-                <Input placeholder="Enter image URL" {...field} />
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    field.onChange(e.target.files);
+                  }}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="is_active"
+          render={({ field }) => (
+            <FormItem className="flex items-center space-x-2">
+              <FormControl>
+                <input
+                  type="checkbox"
+                  checked={field.value}
+                  onChange={field.onChange}
+                />
+              </FormControl>
+              <FormLabel>Is Active</FormLabel>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="best_seller"
+          render={({ field }) => (
+            <FormItem className="flex items-center space-x-2">
+              <FormControl>
+                <input
+                  type="checkbox"
+                  checked={field.value}
+                  onChange={field.onChange}
+                />
+              </FormControl>
+              <FormLabel>Best Seller</FormLabel>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="flash_sale"
+          render={({ field }) => (
+            <FormItem className="flex items-center space-x-2">
+              <FormControl>
+                <input
+                  type="checkbox"
+                  checked={field.value}
+                  onChange={field.onChange}
+                />
+              </FormControl>
+              <FormLabel>Flash Sale</FormLabel>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {form.watch("flash_sale") && (
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="flash_sale_price"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Flash Sale Price</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="Enter flash sale price"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="flash_sale_end"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Flash Sale End Date</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="datetime-local"
+                      placeholder="Enter flash sale end date"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        )}
+        <FormField
+          control={form.control}
+          name="specs"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Specs (JSON)</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder='e.g. {"color": "red", "size": "M"}'
+                  className="min-h-[100px]"
+                  {...field}
+                  onChange={(e) => {
+                    try {
+                      const parsed = JSON.parse(e.target.value);
+                      field.onChange(parsed);
+                    } catch {
+                      // allow temporary invalid input
+                      field.onChange(e.target.value);
+                    }
+                  }}
+                  value={
+                    typeof field.value === "string"
+                      ? field.value
+                      : JSON.stringify(field.value, null, 2)
+                  }
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -235,7 +391,11 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
             Cancel
           </Button>
           <Button type="submit" disabled={loading}>
-            {loading ? "Saving..." : product ? "Update Product" : "Create Product"}
+            {loading
+              ? "Saving..."
+              : product
+              ? "Update Product"
+              : "Create Product"}
           </Button>
         </div>
       </form>
@@ -243,4 +403,4 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
   );
 };
 
-export default ProductForm; 
+export default ProductForm;

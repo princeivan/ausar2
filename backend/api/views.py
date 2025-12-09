@@ -139,7 +139,7 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
     serializer_class = UserProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [CustomJWTAuthentication]
-    throttle_classes = [CustomRateThrottle]
+    # throttle_classes = [CustomRateThrottle]
     
     def get_object(self):
         print("User in request:", self.request.user)
