@@ -198,7 +198,8 @@ CORS_ALLOWED_ORIGINS=[
     'http://localhost:5173',
     'https://ausar2-git-main-ivan-ronos-projects.vercel.app',
     'https://ausar2-no08urpln-ivan-ronos-projects.vercel.app',
-    "https://www.ausacreative.co.ke"
+    "https://www.ausacreative.co.ke",
+    'http://109.199.127.160'
 ]
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
@@ -206,7 +207,8 @@ CSRF_TRUSTED_ORIGINS = [
     "https://ausacreative.co.ke",
     "https://ausar2-git-main-ivan-ronos-projects.vercel.app",
     "https://ausar2-no08urpln-ivan-ronos-projects.vercel.app",
-    "https://www.ausacreative.co.ke"
+    "https://www.ausacreative.co.ke",
+    'http://109.199.127.160'
 ]
 SESSION_COOKIE_SAMESITE = "None"
 CSRF_COOKIE_SAMESITE = "None"
