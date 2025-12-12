@@ -147,30 +147,44 @@ class UserProfileSerializer(serializers.ModelSerializer):
         return instance
 
 class CategorySerializer(ModelSerializer):
-    image_url = serializers.SerializerMethodField()
-    image_url = serializers.URLField(write_only=True, required=False)
-    
+    total_products = serializers.SerializerMethodField() 
     class Meta:
-        model = Categories 
-        fields = '__all__'
+        model = Categories
+        fields = ['id', 'name', 'description', 'slug', 'is_active', 'total_products']
+
+    def get_total_products(self, obj):
+        return obj.products.count()  
         
-    def get_image_url(self, obj):
-        request = self.context.get('request')
-        if obj.image and hasattr(obj.image, 'url'):
-            return request.build_absolute_uri(obj.image_url)
         
-        return None
     
 class ProductSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(required=True)
+    category = CategorySerializer(read_only=True)
+    category_id = serializers.PrimaryKeyRelatedField(
+        queryset=Categories.objects.all(), 
+        source='category',
+        write_only=True,
+        required=False
+    )
     image_url = serializers.SerializerMethodField()
     upload_image_url = serializers.URLField(write_only=True, required=False) 
-    category = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.all())
     image = serializers.ImageField(required=False)
     
     class Meta:
-        model =Product 
-        fields = '__all__'
-        
+        model = Product 
+        fields = [
+            'id', 'user', 'title', 'image', 'image_url', 'upload_image_url',
+            'brand', 'category', 'category_id', 'description', 'is_active',
+            'rating', 'numReviews', 'countInStock', 'Date_added', 'new_price',
+            'old_price', 'specs', 'best_seller', 'flash_sale', 
+            'flash_sale_price', 'flash_sale_end'
+        ]
+    
+    def validate(self, attrs):
+        if attrs.get("image") in ["", None]:
+            attrs.pop("image", None)
+        return attrs
+    
     def create(self, validated_data):
         upload_image_url = validated_data.pop("upload_image_url", None)
         instance = super().create(validated_data)
@@ -185,8 +199,10 @@ class ProductSerializer(serializers.ModelSerializer):
     def get_image_url(self, obj):
         request = self.context.get('request')
         if obj.image and hasattr(obj.image, 'url'):
-            return request.build_absolute_uri(obj.image.url)
-        return None 
+            if request:
+                return request.build_absolute_uri(obj.image.url)
+            return obj.image.url
+        return None
     
 class OrderItemSerializer(serializers.ModelSerializer):
     product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())

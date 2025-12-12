@@ -8,8 +8,12 @@ import React, {
 import api from "../../api";
 // Define types
 export type Category = {
-  id: number;
+  id: string;
   name: string;
+  description: string;
+  slug: string;
+  is_active: boolean;
+  total_products: number;
 };
 
 export type User = {
@@ -51,7 +55,7 @@ export type Product = {
   flash_sale_end: string | null;
   Date_added: string;
 };
-export type FormDataType = Product;
+// export type FormDataType = Product;
 
 type CartItem = {
   product: Product;
@@ -87,6 +91,14 @@ type ShippingAddress = {
   country: string;
   shippingPrice: number;
 };
+type Permissions = {
+  can_create_users: boolean;
+  can_delete_users: boolean;
+  can_edit_all_users: boolean;
+  can_view_all_users: boolean;
+  can_manage_system: boolean;
+  can_access_admin_panel: boolean;
+};
 type UserInfo = {
   id: string;
   username: string;
@@ -97,6 +109,7 @@ type UserInfo = {
   phone_number?: string;
   role: string;
   shipping_address_data: ShippingAddress;
+  permissions: Permissions;
 };
 
 export type UserProfile = UserInfo;
@@ -118,6 +131,7 @@ type StoreContextType = {
   orders: Order[];
   category: Category[];
   fetchProducts: (query?: string, page?: number) => Promise<void>;
+  fetchCategories: (query?: string, page?: number) => Promise<void>;
   addToCart: (
     product: Product,
     quantity: number,
@@ -136,6 +150,7 @@ type StoreContextType = {
   logout: () => void;
   userInfo: UserInfo | null;
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo | null>>;
+  setCategory: React.Dispatch<React.SetStateAction<Category[]>>;
 };
 
 // Create context
@@ -209,6 +224,9 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
     try {
       const res = await api.get("/api/profile/", { withCredentials: true });
       setUserInfo(res.data);
+      console.log("User data", res.data);
+      console.log("Userinfo", userInfo);
+
       setIsLoggedIn(true);
     } catch {
       setIsLoggedIn(false);
@@ -240,9 +258,13 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   const logout = async () => {
-    await api.post("/api/logout/");
-    setIsLoggedIn(false);
-    setUserInfo(null);
+    try {
+      await api.post("/api/logout/");
+      setIsLoggedIn(false);
+      setUserInfo(null);
+    } catch (error) {
+      console.log("Logout failed");
+    }
   };
 
   const fetchProducts = async (query: string = "", page: number = 1) => {
@@ -277,7 +299,8 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
       .get("/api/categories/")
       .then((res) => res.data)
       .then((data) => {
-        setCategory(data);
+        setCategory(data.results || []);
+        console.log("categories", data);
       });
   };
 
@@ -379,6 +402,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
     pagination,
     category,
     fetchProducts,
+    fetchCategories,
     addToCart,
     removeFromCart,
     updateCartItemQuantity,
@@ -397,6 +421,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
     setSelectedOrder,
     userInfo,
     setUserInfo,
+    setCategory,
   };
 
   return (

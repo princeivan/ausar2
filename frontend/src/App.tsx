@@ -74,16 +74,73 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
-                <Route path="/admin/users" element={<AdminUsersPage />} />
-                <Route path="/admin/products" element={<AdminProductsPage />} />
+
+                <Route
+                  path="/admin/users"
+                  element={
+                    <ProtectedRoute>
+                      <AdminUsersPage />{" "}
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/products"
+                  element={
+                    <ProtectedRoute>
+                      <AdminProductsPage />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route path="/admin/orders" element={<AdminOrdersPage />} />
                 <Route path="/admin/category" element={<AdminCategoryPage />} />
-                <Route path="/admin/elements" element={<AdminElements />} />
-                <Route path="/admin/forms" element={<AdminForms />} />
-                <Route path="/admin/calendar" element={<AdminCalendar />} />
-                <Route path="/admin/settings" element={<AdminSettings />} />
-                <Route path="/admin/backups" element={<AdminBackups />} />
-                <Route path="/admin/logs" element={<AdminLogs />} />
+                <Route
+                  path="/admin/elements"
+                  element={
+                    <ProtectedRoute>
+                      <AdminElements />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/forms"
+                  element={
+                    <ProtectedRoute>
+                      <AdminForms />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/calendar"
+                  element={
+                    <ProtectedRoute>
+                      <AdminCalendar />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/settings"
+                  element={
+                    <ProtectedRoute>
+                      <AdminSettings />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/backups"
+                  element={
+                    <ProtectedRoute>
+                      <AdminBackups />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/logs"
+                  element={
+                    <ProtectedRoute>
+                      <AdminLogs />
+                    </ProtectedRoute>
+                  }
+                />
 
                 {/* Public Routes */}
                 <Route

@@ -1,34 +1,33 @@
+// components/admin/ProductModal.tsx
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import ProductForm from "./ProductForm";
 import { Product } from "../../context/StoreContext";
-import { FormDataType } from "../../pages/admin/AdminProductsPage";
 
 interface ProductModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  product?: Product;
-  formData: FormDataType;
-  setFormData: React.Dispatch<React.SetStateAction<FormDataType>>;
-  onSubmit: (e: React.FormEvent) => void;
-  isLoading: boolean;
+  product?: Product | undefined;
+  onSuccess: () => void;
 }
 
-const ProductModal = ({ open, onOpenChange, product }: ProductModalProps) => {
-  const handleSuccess = () => {
-    onOpenChange(false);
-  };
-
+const ProductModal = ({
+  open,
+  onOpenChange,
+  product,
+  onSuccess,
+}: ProductModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl p-4 overflow-y-auto max-h-[90vh]">
+      <DialogContent className="w-full max-w-2xl p-4 overflow-y-auto max-h-[90vh]">
         <DialogHeader>
           <DialogTitle>
             {product ? "Edit Product" : "Add New Product"}
           </DialogTitle>
         </DialogHeader>
+
         <ProductForm
           product={product}
-          onSuccess={handleSuccess}
+          onSuccess={onSuccess}
           onCancel={() => onOpenChange(false)}
         />
       </DialogContent>

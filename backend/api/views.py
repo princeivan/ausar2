@@ -14,7 +14,8 @@ from django.utils.timezone import now
 from rest_framework.decorators import api_view, permission_classes, parser_classes
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from rest_framework import status
+from rest_framework import status, viewsets, filters
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.exceptions import NotFound, ValidationError
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -59,8 +60,6 @@ from .services import (
 class CustomRateThrottle(UserRateThrottle):
     rate = '5/minute'  # 5 requests per minute
     
-
-
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer 
@@ -128,13 +127,32 @@ class CustomTokenObtainPair(TokenObtainPairView):
         )
         cache.delete(cache_key)
         return response
+    
+class ReadOnlyOrAdmin(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return request.user and request.user.is_staff
+    
 class LogoutView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
     def post(Self, request):
         response = Response({'detail': 'Logout successful'}, status=200)
-        response.delete_cookie(settings.SIMPLE_JWT["AUTH_COOKIE"])
-        response.delete_cookie(settings.SIMPLE_JWT["AUTH_COOKIE_REFRESH"])
+        
+        try:
+            refresh_token = request.COOKIES.get(
+                settings.SIMPLE_JWT.get("AUTH_COOKIE_REFRESH", "refresh")
+            )
+            if refresh_token:
+                token = RefreshToken(refresh_token)
+                token.blacklist()  # requires SIMPLE_JWT['BLACKLIST_AFTER_ROTATION'] = True
+        except Exception:
+            pass
+
+        # Delete cookies
+        response.delete_cookie(settings.SIMPLE_JWT.get("AUTH_COOKIE", "access"), path='/')
+        response.delete_cookie(settings.SIMPLE_JWT.get("AUTH_COOKIE_REFRESH", "refresh"), path='/')
         return response
-            
 class UserProfileView(generics.RetrieveUpdateAPIView):
     serializer_class = UserProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -191,26 +209,54 @@ def login_view(request):
         return Response({'error': 'Invalid email or password'}, status=status.HTTP_401_UNAUTHORIZED)
     
     
-@api_view(['GET', 'POST'])
-@permission_classes([AllowAny])
+# @api_view(['GET', 'POST'])
+# @permission_classes([AllowAny])
 
-def getProducts(request):
+# def getProducts(request):
     
-    if request.method == 'GET':
-        query = request.GET.get('query', '')
-        # Sanitize query input
-        query = query.strip()[:100]  # Limit query length
+#     if request.method == 'GET':
+#         query = request.GET.get('query', '')
+#         # Sanitize query input
+#         query = query.strip()[:100]  # Limit query length
         
+#         products = Product.objects.filter(
+#             Q(title__icontains=query) | 
+#             Q(category__name__icontains=query)
+#         )
+        
+#         paginator = CustomPagination()
+#         paginated_products = paginator.paginate_queryset(products, request)
+#         serializer = ProductSerializer(paginated_products, many=True, context={'request': request})
+        
+#         return paginator.get_paginated_response(serializer.data)
+
+
+class ProductAPIView(APIView):
+    permission_classes = [AllowAny]
+    
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get('query', '').strip()[:100]
         products = Product.objects.filter(
             Q(title__icontains=query) | 
             Q(category__name__icontains=query)
-        )
-        
+        ).order_by('title')
         paginator = CustomPagination()
+        
         paginated_products = paginator.paginate_queryset(products, request)
         serializer = ProductSerializer(paginated_products, many=True, context={'request': request})
-        
         return paginator.get_paginated_response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        print("Request data:", request.data)
+        print("Request POST:", request.POST)
+        print("Content type:", request.content_type)
+        serializer = ProductSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print("Validation errors:", serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -241,12 +287,20 @@ def getBestSellers(request):
     serializer = ProductSerializer(paginated_products, many=True, context={'request': request})
     return paginator.get_paginated_response(serializer.data)
 
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def getCategories(request):
-    cats = Categories.objects.all()
-    serializer = CategorySerializer(cats, many=True)
-    return Response(serializer.data)
+# @api_view(['GET'])
+# @permission_classes([AllowAny])
+# def getCategories(request):
+#     cats = Categories.objects.all()
+#     serializer = CategorySerializer(cats, many=True)
+#     return Response(serializer.data)
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Categories.objects.all()
+    serializer_class = CategorySerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', 'description', 'slug']
+    permission_classes = [ReadOnlyOrAdmin]
+    
 
 @api_view(["GET"])
 @permission_classes([AllowAny])
@@ -438,7 +492,7 @@ class AdvancedAnalyticsView(APIView):
             }
         })
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated, IsAdminUser])
+# @permission_classes([IsAuthenticated, IsAdminUser])
 def adminProducts(request):
     if request.method == 'GET':
         try:
@@ -464,7 +518,7 @@ def adminProducts(request):
                 products = products.filter(countInStock__gt=100)
 
             products = products.order_by('-Date_added')
-            serializer = ProductSerializer(products, many=True)
+            serializer = ProductSerializer(products, many=True, context={'request': request})
 
             total_products = products.count()
             total_stock = products.aggregate(Sum('countInStock'))['countInStock__sum'] or 0
@@ -491,8 +545,11 @@ def adminProducts(request):
             )
 
     elif request.method == 'POST':
+        print("Admin REquest data:", request.data)
+        print("Admin Request POST:", request.POST)
+        print("Admin Content type:", request.content_type)
         try:
-            serializer = ProductSerializer(data=request.data)
+            serializer = ProductSerializer(data=request.data, context={'request': request})
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)

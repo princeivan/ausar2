@@ -59,7 +59,9 @@ class Categories(models.Model):
     name = models.CharField(max_length=250)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
-    
+    description = models.TextField(null=True, blank=True)
+    slug = models.CharField(max_length=250, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
     
     class Meta:
         verbose_name_plural = 'Categories'

@@ -79,7 +79,7 @@ const Navbar = () => {
 
           {isLoggedIn ? (
             <>
-              {userInfo?.role === "admin" && (
+              {userInfo?.permissions?.can_access_admin_panel == true && (
                 <Link to="/admin/dashboard">
                   <Button variant="outline">Admin</Button>
                 </Link>
@@ -170,7 +170,7 @@ const Navbar = () => {
 
             {isLoggedIn ? (
               <>
-                {userInfo?.role === "admin" && (
+                {userInfo?.permissions?.can_access_admin_panel == true && (
                   <Link
                     to="/admin/dashboard"
                     className="text-gray-600 hover:text-brand-blue transition-colors py-2"

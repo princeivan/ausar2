@@ -116,7 +116,7 @@ const Products = () => {
 
   const clearFilters = () => {
     setSearchTerm("");
-    setPriceRange([0, 2000]);
+    setPriceRange([0, 10000]);
     setSelectedCategories([]);
     setSelectedBrands([]);
   };
@@ -186,8 +186,8 @@ const Products = () => {
                 <h3 className="font-medium mb-3">Price Range</h3>
                 <div className="px-2">
                   <Slider
-                    defaultValue={[0, 2000]}
-                    max={2000}
+                    defaultValue={[0, 10000]}
+                    max={10000}
                     step={10}
                     value={priceRange}
                     onValueChange={(value) =>
@@ -267,8 +267,8 @@ const Products = () => {
                 <h3 className="font-medium mb-3">Price Range</h3>
                 <div className="px-2">
                   <Slider
-                    defaultValue={[0, 2000]}
-                    max={2000}
+                    defaultValue={[0, 10000]}
+                    max={10000}
                     step={10}
                     value={priceRange}
                     onValueChange={(value) =>
@@ -277,8 +277,8 @@ const Products = () => {
                   />
                 </div>
                 <div className="flex justify-between mt-2 text-sm text-gray-500">
-                  <span>${priceRange[0]}</span>
-                  <span>${priceRange[1]}</span>
+                  <span>Ksh {priceRange[0]}</span>
+                  <span>Ksh {priceRange[1]}</span>
                 </div>
               </div>
 

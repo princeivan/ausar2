@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useMemo } from "react";
+// pages/admin/AdminProductsPage.tsx
+import { useEffect, useState, useMemo } from "react";
 import AdminLayout from "../../components/admin/AdminLayout";
 import AdminPageHeader from "../../components/admin/AdminPageHeader";
 import {
@@ -39,25 +40,6 @@ import {
   SelectValue,
 } from "../../components/ui/select";
 
-export interface FormDataType {
-  title: string;
-  description: string;
-  image: File | null;
-  brand: string;
-  category: string;
-  new_price: string;
-  old_price: string;
-  countInStock: string;
-  is_active: boolean;
-  rating: number;
-  numReviews: number;
-  specs: string;
-  best_seller: boolean;
-  flash_sale: boolean;
-  flash_sale_price: string;
-  flash_sale_end: string;
-}
-
 const AdminProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [analytics, setAnalytics] = useState<any>(null);
@@ -67,32 +49,15 @@ const AdminProductsPage = () => {
   const [stockFilter, setStockFilter] = useState<string>("all");
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | undefined>();
-  const { userInfo, category, handleError, clearError } = useStore();
-  const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState<FormDataType>({
-    title: "",
-    description: "",
-    image: null,
-    brand: "",
-    category: "",
-    new_price: "",
-    old_price: "",
-    countInStock: "",
-    is_active: false,
-    rating: 0,
-    numReviews: 0,
-    specs: "",
-    best_seller: false,
-    flash_sale: false,
-    flash_sale_price: "",
-    flash_sale_end: "",
-  });
+  const { userInfo, category } = useStore();
+
   useEffect(() => {
-    if (userInfo?.role !== "admin") {
+    if (userInfo?.permissions?.can_access_admin_panel === false) {
       toast.error("Unauthorized access");
       return;
     }
     fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo, searchTerm, categoryFilter, stockFilter]);
 
   const fetchProducts = async () => {
@@ -106,8 +71,8 @@ const AdminProductsPage = () => {
         },
         withCredentials: true,
       });
-      setProducts(response.data.products);
-      setAnalytics(response.data.analytics);
+      setProducts(response.data.products || []);
+      setAnalytics(response.data.analytics || null);
     } catch (error) {
       toast.error("Failed to fetch products");
       console.error("Error fetching products:", error);
@@ -115,33 +80,6 @@ const AdminProductsPage = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (selectedProduct) {
-      setFormData({
-        title: selectedProduct.title || "",
-        description: selectedProduct.description || "",
-        image: null,
-        brand: selectedProduct.brand || "",
-        category: selectedProduct.category?.name || "",
-        new_price: selectedProduct.new_price || "",
-        old_price: selectedProduct.old_price || "",
-        countInStock: selectedProduct.countInStock?.toString() || ")",
-        is_active: selectedProduct.is_active ?? true,
-        rating: selectedProduct.rating ?? 0,
-        numReviews: selectedProduct.numReviews ?? 0,
-        specs: selectedProduct.specs
-          ? JSON.stringify(selectedProduct.specs)
-          : "",
-        best_seller: selectedProduct.best_seller ?? false,
-        flash_sale: selectedProduct.flash_sale ?? false,
-        flash_sale_price: selectedProduct.flash_sale_price ?? "",
-        flash_sale_end: selectedProduct.flash_sale_end || "",
-      });
-    } else {
-      resetFormData();
-    }
-  }, [selectedProduct]);
 
   const handleEdit = (product: Product) => {
     setSelectedProduct(product);
@@ -151,122 +89,6 @@ const AdminProductsPage = () => {
   const handleAdd = () => {
     setSelectedProduct(undefined);
     setModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setModalOpen(false);
-    setSelectedProduct(undefined);
-  };
-
-  const resetFormData = () => {
-    setFormData({
-      title: "",
-      description: "",
-      image: null,
-      brand: "",
-      category: "",
-      new_price: "",
-      old_price: "",
-      countInStock: "",
-      is_active: false,
-      rating: 0,
-      numReviews: 0,
-      specs: "",
-      best_seller: false,
-      flash_sale: false,
-      flash_sale_price: "",
-      flash_sale_end: "",
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!formData.title || !formData.category || !formData.new_price) {
-      toast.error("Please fill in all required fields");
-      return;
-    }
-
-    const success = selectedProduct
-      ? await updateProduct(selectedProduct.id, formData)
-      : await createProduct(formData);
-
-    if (success) {
-      toast.success(
-        `Product ${selectedProduct ? "updated" : "created"} successfully`
-      );
-      resetFormData();
-      handleModalClose();
-    } else {
-      toast.error(`Failed to ${selectedProduct ? "update" : "create"} product`);
-    }
-  };
-
-  const createProduct = async (formData: FormDataType): Promise<boolean> => {
-    setIsLoading(true);
-    clearError();
-    try {
-      const payload = new FormData();
-      Object.entries(formData).forEach(([key, value]) => {
-        if (value !== null && value !== undefined) {
-          if (value instanceof File) {
-            payload.append(key, value);
-          } else if (key !== "image") {
-            payload.append(key, String(value));
-          } else {
-            payload.append(key, String(value));
-          }
-        }
-      });
-
-      await api.post("/api/products/", payload, {
-        withCredentials: true,
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      await fetchProducts();
-      return true;
-    } catch (err) {
-      handleError(err, "Failed to create product");
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const updateProduct = async (
-    id: string,
-    formData: FormDataType
-  ): Promise<boolean> => {
-    setIsLoading(true);
-    clearError();
-    try {
-      const payload = new FormData();
-      Object.entries(formData).forEach(([key, value]) => {
-        if (value !== null && value !== undefined) {
-          if (value instanceof File) {
-            payload.append(key, value);
-          } else if (key !== "image") {
-            payload.append(key, String(value));
-          } else {
-            payload.append(key, String(value));
-          }
-        }
-      });
-
-      await api.patch(`/api/products/${id}/`, payload, {
-        withCredentials: true,
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      await fetchProducts();
-      return true;
-    } catch (err) {
-      handleError(err, "Failed to update product");
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const handleDelete = async (productId: string) => {
@@ -309,11 +131,12 @@ const AdminProductsPage = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {analytics?.total_products}
+              {analytics?.total_products ?? 0}
             </div>
             <p className="text-xs text-muted-foreground">Available products</p>
           </CardContent>
         </Card>
+
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Stock</CardTitle>
@@ -321,11 +144,12 @@ const AdminProductsPage = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-blue-600">
-              {analytics?.total_stock}
+              {analytics?.total_stock ?? 0}
             </div>
             <p className="text-xs text-muted-foreground">Units available</p>
           </CardContent>
         </Card>
+
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Low Stock</CardTitle>
@@ -333,11 +157,12 @@ const AdminProductsPage = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-yellow-600">
-              {analytics?.low_stock}
+              {analytics?.low_stock ?? 0}
             </div>
             <p className="text-xs text-muted-foreground">≤20 units left</p>
           </CardContent>
         </Card>
+
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Out of Stock</CardTitle>
@@ -345,11 +170,12 @@ const AdminProductsPage = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-red-600">
-              {analytics?.out_of_stock}
+              {analytics?.out_of_stock ?? 0}
             </div>
             <p className="text-xs text-muted-foreground">Need restocking</p>
           </CardContent>
         </Card>
+
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Avg Stock</CardTitle>
@@ -357,14 +183,14 @@ const AdminProductsPage = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
-              {analytics?.avg_stock}
+              {analytics?.avg_stock ?? 0}
             </div>
             <p className="text-xs text-muted-foreground">Per product</p>
           </CardContent>
         </Card>
       </div>
 
-      <Card>
+      <Card className="mt-4">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Filter className="h-4 w-4" /> Filters
@@ -386,7 +212,7 @@ const AdminProductsPage = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Categories</SelectItem>
-                  {category.map((cat) => (
+                  {category?.map((cat) => (
                     <SelectItem key={cat.id} value={cat.name}>
                       {cat.name}
                     </SelectItem>
@@ -411,7 +237,7 @@ const AdminProductsPage = () => {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="mt-4">
         {loading ? (
           <div className="p-4 text-center">Loading...</div>
         ) : (
@@ -478,12 +304,16 @@ const AdminProductsPage = () => {
 
       <ProductModal
         open={modalOpen}
-        onOpenChange={handleModalClose}
+        onOpenChange={(open) => {
+          setModalOpen(open);
+          if (!open) setSelectedProduct(undefined);
+        }}
         product={selectedProduct}
-        formData={formData}
-        setFormData={setFormData}
-        onSubmit={handleSubmit}
-        isLoading={isLoading}
+        onSuccess={() => {
+          fetchProducts();
+          setModalOpen(false);
+          setSelectedProduct(undefined);
+        }}
       />
     </AdminLayout>
   );

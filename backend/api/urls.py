@@ -1,10 +1,13 @@
-from django.urls import path
+from django.urls import path, include
 from .import views
-from api.views import UserProfileView , LogoutView
+from api.views import UserProfileView , LogoutView, CategoryViewSet
+from rest_framework.routers import DefaultRouter
 
+router = DefaultRouter()
+router.register(r'categories', CategoryViewSet, basename='category')
 urlpatterns = [
     path('profile/', UserProfileView.as_view(), name='user-profile'),
-    path('products/', views.getProducts, name='products'),
+    path('products/', views.ProductAPIView.as_view(), name='products'),
     path('products/<str:pk>/', views.getProduct, name='product'),
     path('admin/products/', views.adminProducts, name='admin-products'),
     path('admin/products/<str:pk>/', views.adminProductDetail, name='admin-product-detail'),
@@ -12,7 +15,6 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('best-sellers/', views.getBestSellers, name='best-sellers'),
-    path('categories/', views.getCategories, name='categories'),
     path('testimonials/', views.getTestimonials, name="testimonials"),
     path("submit-branding/", views.getBrandingRequest, name="submit-branding"),
     path('orders/', views.create_order, name='create_order'),
@@ -47,4 +49,6 @@ urlpatterns = [
     # Webhook endpoints
     path('mpesa-callback/', views.mpesa_callback, name='mpesa_callback'),
     path('stripe-webhook/', views.StripeWebhookView.as_view(), name='stripe_webhook'),
+    path('', include(router.urls)),
 ]
+

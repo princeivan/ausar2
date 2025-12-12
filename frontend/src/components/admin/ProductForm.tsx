@@ -1,3 +1,4 @@
+// components/admin/ProductForm.tsx
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,28 +21,27 @@ import { Product } from "../../context/StoreContext";
 const productSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
-  price: z.string().min(1, "Price is required"),
+  old_price: z.string().optional().nullable(),
   new_price: z.string().min(1, "New price is required"),
   countInStock: z.string().min(1, "Stock count is required"),
   category: z.string().min(1, "Category is required"),
-  image: z.any().refine((file) => file instanceof FileList && file.length > 0, {
-    message: "Image is required",
-  }),
-  brand: z.string(),
-  is_active: z.boolean(),
-  rating: z.number(),
-  numReviews: z.number(),
-  specs: z.string(),
-  best_seller: z.boolean(),
-  flash_sale: z.boolean(),
-  flash_sale_price: z.string(),
-  flash_sale_end: z.string(),
+  // image optional for edit; required for create — enforce in code below
+  image: z.any().optional(),
+  brand: z.string().optional(),
+  is_active: z.boolean().optional(),
+  rating: z.number().optional(),
+  numReviews: z.number().optional(),
+  specs: z.any().optional(),
+  best_seller: z.boolean().optional(),
+  flash_sale: z.boolean().optional(),
+  flash_sale_price: z.string().optional(),
+  flash_sale_end: z.string().optional(),
 });
 
 type ProductFormValues = z.infer<typeof productSchema>;
 
 interface ProductFormProps {
-  product?: Product;
+  product?: Product | undefined;
   onSuccess: () => void;
   onCancel: () => void;
 }
@@ -51,22 +51,23 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
   const [categories, setCategories] = useState<{ id: string; name: string }[]>(
     []
   );
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
     defaultValues: {
       title: product?.title || "",
       description: product?.description || "",
-      price: product?.old_price?.toString() || "",
+      old_price: product?.old_price?.toString() || "",
       new_price: product?.new_price?.toString() || "",
-      countInStock: product?.countInStock?.toString() || "",
-      category: product?.category?.id.toString() || "",
-      image: null,
+      countInStock: product?.countInStock?.toString() || "0",
+      category: product?.category?.id?.toString() || "",
+      image: undefined,
       brand: product?.brand || "",
       is_active: product?.is_active ?? true,
       rating: product?.rating ?? 0,
       numReviews: product?.numReviews ?? 0,
-      specs: product?.specs.toString() || "",
+      specs: product?.specs ?? "",
       best_seller: product?.best_seller ?? false,
       flash_sale: product?.flash_sale ?? false,
       flash_sale_price: product?.flash_sale_price ?? "",
@@ -76,6 +77,9 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
 
   useEffect(() => {
     fetchCategories();
+    // show existing image on edit
+    if (product?.image) setImagePreview(product.image);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchCategories = async () => {
@@ -88,27 +92,89 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
     }
   };
 
-  const onSubmit = async (data: ProductFormValues) => {
+  const handleImageChange = (files?: FileList | null) => {
+    if (!files || files.length === 0) {
+      form.setValue("image", undefined);
+      setImagePreview(product?.image || null);
+      return;
+    }
+    const file = files[0];
+    form.setValue("image", files); // keep FileList to match previous patterns
+    const reader = new FileReader();
+    reader.onload = (e) => setImagePreview(e.target?.result as string);
+    reader.readAsDataURL(file);
+  };
+
+  const submit = async (values: ProductFormValues) => {
+    // Validate image presence for create
+    if (!product) {
+      const hasImage =
+        values.image instanceof FileList &&
+        (values.image as FileList).length > 0;
+      if (!hasImage) {
+        toast.error("Image is required for new product");
+        return;
+      }
+    }
+
     try {
       setLoading(true);
-      const productData = {
-        ...data,
-        price: parseFloat(data.price),
-        new_price: parseFloat(data.new_price),
-        countInStock: parseInt(data.countInStock),
-      };
+
+      const fd = new FormData();
+
+      fd.append("title", values.title);
+      fd.append("description", values.description);
+      if (values.old_price) fd.append("old_price", String(values.old_price));
+      fd.append("new_price", String(values.new_price));
+      fd.append("countInStock", String(values.countInStock));
+      fd.append("category_id", values.category);
+
+      // image (FileList) -> append first file
+      if (
+        values.image &&
+        values.image instanceof FileList &&
+        values.image.length > 0
+      ) {
+        fd.append("image", (values.image as FileList)[0]);
+      }
+
+      if (values.brand) fd.append("brand", values.brand);
+      fd.append("is_active", String(values.is_active ?? true));
+      fd.append("rating", String(values.rating ?? 0));
+      fd.append("numReviews", String(values.numReviews ?? 0));
+
+      // specs: if object -> stringify, else append string
+      if (values.specs && typeof values.specs === "object") {
+        fd.append("specs", JSON.stringify(values.specs));
+      } else if (values.specs) {
+        fd.append("specs", String(values.specs));
+      }
+
+      fd.append("best_seller", String(values.best_seller ?? false));
+      fd.append("flash_sale", String(values.flash_sale ?? false));
+      if (values.flash_sale_price)
+        fd.append("flash_sale_price", values.flash_sale_price);
+
+      if (values.flash_sale_end) {
+        // if datetime-local provided, convert to ISO
+        const iso = new Date(values.flash_sale_end).toISOString();
+        fd.append("flash_sale_end", iso);
+      }
 
       if (product) {
-        await api.put(`/api/admin/products/${product.id}/`, productData, {
+        await api.put(`/api/admin/products/${product.id}/`, fd, {
           withCredentials: true,
+          headers: { "Content-Type": "multipart/form-data" },
         });
         toast.success("Product updated successfully");
       } else {
-        await api.post("/api/admin/products/", productData, {
+        await api.post("/api/admin/products/", fd, {
           withCredentials: true,
+          headers: { "Content-Type": "multipart/form-data" },
         });
         toast.success("Product created successfully");
       }
+
       onSuccess();
     } catch (error) {
       toast.error(
@@ -122,7 +188,11 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(submit)}
+        className="space-y-6"
+        encType="multipart/form-data"
+      >
         <FormField
           control={form.control}
           name="title"
@@ -158,7 +228,7 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
-            name="price"
+            name="old_price"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Original Price</FormLabel>
@@ -166,15 +236,15 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
                   <Input
                     type="number"
                     step="0.01"
-                    placeholder="Enter original price"
+                    placeholder="0.00"
                     {...field}
+                    value={field.value ?? ""}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="new_price"
@@ -185,7 +255,7 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
                   <Input
                     type="number"
                     step="0.01"
-                    placeholder="Enter new price"
+                    placeholder="0.00"
                     {...field}
                   />
                 </FormControl>
@@ -203,11 +273,7 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
               <FormItem>
                 <FormLabel>Stock Count</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    placeholder="Enter stock count"
-                    {...field}
-                  />
+                  <Input type="number" placeholder="0" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -226,9 +292,9 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
                     {...field}
                   >
                     <option value="">Select a category</option>
-                    {categories.map((category) => (
-                      <option key={category.id} value={category.id}>
-                        {category.name}
+                    {categories?.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.name}
                       </option>
                     ))}
                   </select>
@@ -242,113 +308,32 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
         <FormField
           control={form.control}
           name="image"
-          render={({ field }) => (
+          render={() => (
             <FormItem>
-              <FormLabel>Product Image</FormLabel>
+              <FormLabel>
+                Product Image {product ? "(leave empty to keep current)" : "*"}
+              </FormLabel>
               <FormControl>
                 <Input
                   type="file"
                   accept="image/*"
-                  onChange={(e) => {
-                    field.onChange(e.target.files);
-                  }}
+                  onChange={(e) => handleImageChange(e.target.files)}
                 />
               </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="is_active"
-          render={({ field }) => (
-            <FormItem className="flex items-center space-x-2">
-              <FormControl>
-                <input
-                  type="checkbox"
-                  checked={field.value}
-                  onChange={field.onChange}
-                />
-              </FormControl>
-              <FormLabel>Is Active</FormLabel>
+              {imagePreview && (
+                <div className="mt-2">
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="w-32 h-32 object-cover rounded"
+                  />
+                </div>
+              )}
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="best_seller"
-          render={({ field }) => (
-            <FormItem className="flex items-center space-x-2">
-              <FormControl>
-                <input
-                  type="checkbox"
-                  checked={field.value}
-                  onChange={field.onChange}
-                />
-              </FormControl>
-              <FormLabel>Best Seller</FormLabel>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="flash_sale"
-          render={({ field }) => (
-            <FormItem className="flex items-center space-x-2">
-              <FormControl>
-                <input
-                  type="checkbox"
-                  checked={field.value}
-                  onChange={field.onChange}
-                />
-              </FormControl>
-              <FormLabel>Flash Sale</FormLabel>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {form.watch("flash_sale") && (
-          <div className="grid grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="flash_sale_price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Flash Sale Price</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      placeholder="Enter flash sale price"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="flash_sale_end"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Flash Sale End Date</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="datetime-local"
-                      placeholder="Enter flash sale end date"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-        )}
         <FormField
           control={form.control}
           name="specs"
@@ -365,14 +350,13 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
                       const parsed = JSON.parse(e.target.value);
                       field.onChange(parsed);
                     } catch {
-                      // allow temporary invalid input
                       field.onChange(e.target.value);
                     }
                   }}
                   value={
                     typeof field.value === "string"
                       ? field.value
-                      : JSON.stringify(field.value, null, 2)
+                      : JSON.stringify(field.value ?? "", null, 2)
                   }
                 />
               </FormControl>
