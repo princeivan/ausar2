@@ -99,7 +99,7 @@ type Permissions = {
   can_manage_system: boolean;
   can_access_admin_panel: boolean;
 };
-type UserInfo = {
+export type UserInfo = {
   id: string;
   username: string;
   avatar: string;

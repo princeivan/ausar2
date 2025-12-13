@@ -4,28 +4,11 @@ import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { useToast } from "../../hooks/use-toast";
 import api from "../../../api";
+import { UserInfo } from "../../context/StoreContext";
 
-interface ShippingAddress {
-  town: string;
-  address: string;
-  postalCode: number;
-  country: string;
-  shippingPrice: number;
-}
-interface UserProfile {
-  id: string;
-  username: string;
-  avatar: string;
-  email: string;
-  first_name: string;
-  last_name: string;
-  role: string;
-  phone_number?: string;
-  shipping_address_data: ShippingAddress;
-}
 interface ProfileSettingsProps {
-  profile: UserProfile | null;
-  setProfile: React.Dispatch<React.SetStateAction<UserProfile | null>>;
+  profile: UserInfo | null;
+  setProfile: React.Dispatch<React.SetStateAction<UserInfo | null>>;
 }
 const ProfileSettings: React.FC<ProfileSettingsProps> = ({
   profile,
