@@ -292,11 +292,12 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
                     {...field}
                   >
                     <option value="">Select a category</option>
-                    {categories?.map((c) => (
-                      <option key={c.id} value={c.id}>
-                        {c.name}
-                      </option>
-                    ))}
+                    {Array.isArray(categories) &&
+                      categories.map((c) => (
+                        <option key={c.id} value={c.id}>
+                          {c.name}
+                        </option>
+                      ))}
                   </select>
                 </FormControl>
                 <FormMessage />

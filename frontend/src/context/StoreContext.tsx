@@ -299,8 +299,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({
       .get("/api/categories/")
       .then((res) => res.data)
       .then((data) => {
-        setCategory(data.results || []);
-        console.log("categories", data);
+        setCategory(Array.isArray(data) ? data : data.results ?? []);
       });
   };
 
